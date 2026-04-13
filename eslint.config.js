@@ -20,6 +20,8 @@ export default [
         setInterval: "readonly",
         clearInterval: "readonly",
         HTMLElement: "readonly",
+        HTMLImageElement: "readonly",
+        getComputedStyle: "readonly",
         __dirname: "readonly",
         __filename: "readonly",
       },

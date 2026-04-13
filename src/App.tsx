@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { FontCalibration } from "@/routes/FontCalibration";
 import { HeaderPreview } from "@/routes/HeaderPreview";
+import { RootLayout } from "@/components/layout/RootLayout";
 
 function PhaseOnePlaceholder() {
   return (
@@ -13,9 +14,14 @@ function PhaseOnePlaceholder() {
 export function App() {
   return (
     <Routes>
-      <Route path="/" element={<PhaseOnePlaceholder />} />
+      {/* 격리 라우트 — 시각 회귀 캡처용, Header 장착 안 함 */}
       <Route path="/__calibration" element={<FontCalibration />} />
       <Route path="/__preview/header" element={<HeaderPreview />} />
+
+      {/* 사용자 라우트 — RootLayout으로 Header 전역 장착 */}
+      <Route element={<RootLayout />}>
+        <Route path="/" element={<PhaseOnePlaceholder />} />
+      </Route>
     </Routes>
   );
 }
