@@ -10,7 +10,7 @@
 
 ## 공통 컴포넌트
 - [x] Header (GNB) (G2 16/16, G3 3/3, G4 4/4 PASS 1회차 / G1 baseline 부재·박스 좌표 0.0% 편차)
-- [ ] Footer
+- [x] Footer (diff 0.41% / G2 22/22, G3 7/7, G4 4/4 PASS 1회차)
 
 ## 메인페이지 (/)
 > 섹션 목록은 Phase 2 페이지 분해 후 추가됨
