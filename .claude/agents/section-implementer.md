@@ -44,7 +44,7 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 ## 작업 순서 (7단계, 점프 금지)
 
 ### 단계 1: 리서치 → `research/{섹션명}.md`
-- **baseline PNG 저장**: `mcp__figma-framelink__download_figma_images`로 섹션 노드 → `figma-screenshots/{섹션명}.png` (flat 경로, pngScale 1). Framelink 미등록이면 `docs/figma-workflow.md` Phase 0 수행 안내 후 멈춤
+- **baseline PNG 저장**: `mcp__figma-framelink__download_figma_images`로 섹션 노드 저장. 경로 규약 — 공통 컴포넌트는 `figma-screenshots/{section}.png`, 페이지 섹션은 `figma-screenshots/{page}-{section}.png` (flat, pngScale 1). Framelink 미등록이면 `docs/figma-workflow.md` Phase 0 수행 안내 후 멈춤
 - 공식 Figma MCP `get_design_context` (12K 이하), `get_variable_defs`(신규 토큰 있을 때), Framelink `get_figma_data`(레이아웃 YAML 보조)
 - 공식 `get_screenshot`은 사용 금지 (inline 전용, 파일 저장 불가)
 - **에셋 목록 작성 시 "동적 여부" 칸 필수** — GIF/MP4/WebM/MOV/APNG 또는 노드 타입 `VIDEO`면 동적

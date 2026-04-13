@@ -40,7 +40,11 @@
 
 1. **`mcp__figma-framelink__download_figma_images`** (Framelink) — 해당 섹션 노드를 baseline PNG로 **파일 저장**
    - 파라미터: `fileKey`, `nodes: [{ nodeId, fileName: "{섹션명}.png" }]`, `localPath: "figma-screenshots"`, `pngScale: 1`
-   - 결과 경로 규약: **`figma-screenshots/{섹션명}.png`** (flat. `compare-section.sh`가 이 경로를 baseline으로 참조)
+   - 결과 경로 규약:
+     - **공통 컴포넌트**: `figma-screenshots/{section}.png` (예: `header.png`, `footer.png` — 페이지 종속 없음, top-level)
+     - **페이지 섹션**: `figma-screenshots/{page}-{section}.png` (예: `main-hero.png`, `about-organization.png` — 다른 페이지와 섹션명 충돌 회피)
+     - **페이지 전체**: `figma-screenshots/{page}-full.png`
+   - 섹션명(orchestrator가 워커에 전달하는 `{섹션명}`)도 baseline 파일명과 일치시킨다: 공통은 `header`, 페이지는 `main-hero` 같은 페이지 접두사 포함
    - 이미 Phase 2에서 저장됐다면 스킵
    - Framelink 미등록 상태면 Phase 0 먼저 수행
 2. **`get_design_context`** (공식 MCP) — 해당 섹션 노드

@@ -24,8 +24,8 @@ model: opus
 1. 공식 Figma MCP `get_metadata`로 페이지의 자식 노드 트리 추출 (페이지 전체 `get_design_context` 금지)
 2. 각 섹션 후보의 예상 토큰 크기 판단, 12K 초과 시 더 작게 분할
 3. 사전 추정 표와 대조 — 차이점 기록
-4. 각 섹션에 대해 **Framelink `mcp__figma-framelink__download_figma_images`** 호출 → **`figma-screenshots/{섹션명}.png`** 저장 (flat 경로, pngScale 1, fileName `{섹션명}.png`)
-5. 페이지 전체 → Framelink `download_figma_images`로 `figma-screenshots/{페이지명}-full.png` 저장
+4. 각 섹션에 대해 **Framelink `mcp__figma-framelink__download_figma_images`** 호출 → **`figma-screenshots/{page}-{section}.png`** 저장 (flat, pngScale 1). 공통 컴포넌트는 예외로 `figma-screenshots/{section}.png` (page prefix 없음)
+5. 페이지 전체 → Framelink `download_figma_images`로 `figma-screenshots/{page}-full.png` 저장
 6. 페이지 내 반복 컴포넌트 식별 (`figma-project-context.md` §5 공통 카탈로그와 대조)
 7. floating/중앙정렬 섹션은 research에 **캔버스 좌표(x, y, width, height)** 도 기록 (단계 5 clip 파라미터용)
 8. 결과를 `research/{페이지명}.md`에 기록 후 **멈춤**

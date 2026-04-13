@@ -9,11 +9,20 @@
 - [x] 시각 회귀 인프라
 
 ## 공통 컴포넌트
-- [x] Header (GNB) (G2 16/16, G3 3/3, G4 4/4 PASS 1회차 / G1 baseline 부재·박스 좌표 0.0% 편차)
+- [x] Header (GNB) (diff 3.36% / G2 16/16, G3 3/3, G4 4/4 PASS 1회차)
 - [x] Footer (diff 0.41% / G2 22/22, G3 7/7, G4 4/4 PASS 1회차)
 
 ## 메인페이지 (/)
-> 섹션 목록은 Phase 2 페이지 분해 후 추가됨
+Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지 전체 baseline.
+- [ ] main-hero
+- [ ] main-intro
+- [ ] main-stats
+- [ ] main-programs-header
+- [ ] main-programs-card1
+- [ ] main-programs-card2
+- [ ] main-programs-card3
+- [ ] main-news
+- [ ] main-gallery
 
 ## About - 개요 (/about)
 ## About - 조직도 (/about/organization)
