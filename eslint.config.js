@@ -50,6 +50,7 @@ export default [
       "figma-screenshots/**",
       "public/**",
       "vite.config.js",
+      "scripts/**",
     ],
   },
 ];

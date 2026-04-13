@@ -14,7 +14,7 @@
 
 ## 메인페이지 (/)
 Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지 전체 baseline.
-- [ ] main-hero
+- [x] main-hero (diff 4.49% / G2 PASS, G3 4/4 PASS, G4 PASS / 회차 5 접근 전환: 카드 raster)
 - [ ] main-intro
 - [ ] main-stats
 - [ ] main-programs-header

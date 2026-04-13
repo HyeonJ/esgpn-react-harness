@@ -14,6 +14,20 @@
 }
 
 /*
+ * Yeseva One — 메인 Hero 워드마크 "Environmental" 전용 (Display 100px).
+ * 배치: public/fonts/YesevaOne.woff2 (17.5 KB, fontsource v5.1.0 latin subset)
+ * 출처: jsDelivr @fontsource/yeseva-one (Google Fonts 미러)
+ * FOIT 방지: font-display: swap
+ */
+@font-face {
+  font-family: "Yeseva One";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/YesevaOne.woff2") format("woff2");
+}
+
+/*
  * 한글 렌더링 보정 변수.
  * Figma는 line-height를 배수(1.5) 또는 px(32)로 혼용. 브라우저 렌더 시
  * 한글 글리프의 vertical metrics 차이로 ±1px 변동이 흔하다.
