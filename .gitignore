@@ -1,0 +1,27 @@
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+dist/
+build/
+.next/
+*.log
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Harness runtime artifacts (생성될 때 포함 여부는 프로젝트 정책에 따라 조정)
+# _workspace/
+# research/
+# plan/
+# figma-screenshots/
+# tests/visual/diff/
