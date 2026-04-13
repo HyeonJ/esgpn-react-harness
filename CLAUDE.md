@@ -35,6 +35,7 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 - **에셋 URL 무조건 다운로드.** CSS/유니코드 대체 금지
 - **동적 에셋(GIF/비디오) 원본 사용 금지** — 부모 노드를 Framelink `download_figma_images`로 정적 PNG 추출
 - **baseline PNG는 Framelink MCP로만 저장** — 공식 `get_screenshot`은 inline 전용이라 파일 저장 불가. 경로 규약: 공통은 `figma-screenshots/{section}.png` (예: `header.png`), 페이지는 `figma-screenshots/{page}-{section}.png` (예: `main-hero.png`), 페이지 전체는 `{page}-full.png`
+- **Figma 수치는 반올림하지 않는다** — rotation·position·letter-spacing·line-height·border-radius 등 소수점 포함 원본 값을 그대로 Tailwind arbitrary(`rotate-[4.237deg]`, `left-[123.7px]`)로 사용. 정수 근사는 회전·변형 요소에서 서브픽셀 누적 오차로 반영돼 G1 게이트를 악화시킨다
 - **캔버스-에셋 개수 불일치 시 사용자 보고 후 멈춤**
 - **한 브랜치에 여러 섹션 섞기 금지**
 

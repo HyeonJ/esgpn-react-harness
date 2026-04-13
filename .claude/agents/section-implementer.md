@@ -51,6 +51,7 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 - 캔버스-에셋 개수 일치 검증 수행
 - 동적 에셋 발견 시 "정적 프레임 추출 (Framelink, 부모 노드 {ID})"로 처리 방식 명시
 - floating/중앙정렬 요소인 경우 research에 **캔버스 좌표(x, y, width, height)** 를 명시 (단계 5의 clip 파라미터로 사용)
+- **transform 가진 요소(rotation/translate/scale)**: rotation·transform-origin·position을 **소수점 포함 원본값** 그대로 research에 기록. 반올림 금지 (`docs/section-implementation.md §2.4`). CSS 적용 시 Tailwind arbitrary(`rotate-[4.237deg]`)로 소수점 유지
 - 단계 1 통과 조건 충족 후 **멈춤** → 오케스트레이터에 리서치 완료 보고
 
 ### 단계 2: 계획 → `plan/{섹션명}.md`
