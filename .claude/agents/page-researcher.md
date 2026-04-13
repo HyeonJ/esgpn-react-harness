@@ -32,6 +32,15 @@ model: opus
 
 주의: 공식 `get_screenshot`은 inline 전용이라 파일 저장 불가. 반드시 Framelink 사용. Framelink 미등록 상태면 `docs/figma-workflow.md` Phase 0 수행 안내 후 멈춤.
 
+### Framelink 스키마 선로드 (필수 첫 단계)
+서브에이전트 컨텍스트에서 Framelink 도구 스키마가 deferred 상태일 수 있다. 첫 작업으로 `ToolSearch` 호출:
+
+```
+ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma-framelink__get_figma_data", max_results: 2)
+```
+
+`No matching deferred tools found`면 MCP 미등록 → 멈추고 오케스트레이터에 Phase 0 안내 요청. **REST API 폴백 금지.**
+
 ## research/{페이지명}.md 필수 항목
 ```markdown
 ## 섹션 분할 결과

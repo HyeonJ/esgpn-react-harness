@@ -21,6 +21,17 @@ model: opus
 - **Framelink MCP (`figma-framelink`)**: `download_figma_images` (baseline/동적 에셋 정적화), `get_figma_data` (레이아웃 YAML 보조)
 - 공식 `get_screenshot`은 **사용 금지** (inline 전용, 파일 저장 불가). baseline은 반드시 Framelink 사용
 
+### 서브에이전트 컨텍스트 Framelink 스키마 선로드 (필수 첫 단계)
+워커 세션에서 Framelink 도구 스키마가 deferred 상태일 수 있다. 호출 전에 반드시 `ToolSearch`로 선로드:
+
+```
+ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma-framelink__get_figma_data", max_results: 2)
+```
+
+- `No matching deferred tools found` 반환 시 MCP 미등록 상태 → 멈추고 오케스트레이터에 `docs/figma-workflow.md` Phase 0 안내 요청
+- 로드 성공 시에만 `mcp__figma-framelink__*` 호출 가능
+- **REST API 폴백 금지** — Framelink 미작동 시 근본 원인 해결이 우선 (일관된 산출물 보장)
+
 ## 입력 (오케스트레이터가 전달)
 - 페이지명 + 섹션명
 - Figma Node ID
