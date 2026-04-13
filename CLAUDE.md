@@ -35,6 +35,7 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 - **에셋 URL 무조건 다운로드.** CSS/유니코드 대체 금지
 - **동적 에셋(GIF/비디오) 원본 사용 금지** — 부모 노드를 Framelink `download_figma_images`로 정적 PNG 추출
 - **baseline PNG는 Framelink MCP로만 저장** — 공식 `get_screenshot`은 inline 전용이라 파일 저장 불가. 경로 규약: 공통은 `figma-screenshots/{section}.png` (예: `header.png`), 페이지는 `figma-screenshots/{page}-{section}.png` (예: `main-hero.png`), 페이지 전체는 `{page}-full.png`
+- **Framelink PNG는 완성된 합성 사진** — 회전·블렌드·배경·그림자가 모두 baked-in. CSS rotate/blend/bg 추가 금지 (이중 적용). PNG native 크기 ≠ metadata AABB. 배치는 `wrapper=AABB + inner=native` 패턴 (docs §2.5). baseline PNG 크기는 spec과 다를 수 있으니 `file` 명령으로 실측 (§2.6)
 - **Figma 수치는 반올림하지 않는다** — rotation·position·letter-spacing·line-height·border-radius 등 소수점 포함 원본 값을 그대로 Tailwind arbitrary(`rotate-[4.237deg]`, `left-[123.7px]`)로 사용. 정수 근사는 회전·변형 요소에서 서브픽셀 누적 오차로 반영돼 G1 게이트를 악화시킨다
 - **G1 수치 PASS만으로 섹션 완료 금지** — baseline/capture/diff 3종 이미지를 반드시 육안 스캔. pixelmatch는 픽셀 밀도만 보므로 방향 반전(SVG flip), 요소 위치 swap, 색상 반전, 텍스트 줄바꿈 위치 같은 **semantic 오류는 수치로 못 잡는다**. 발견 시 수치와 무관하게 단계 6 재진입 후 수정
 - **캔버스-에셋 개수 불일치 시 사용자 보고 후 멈춤**

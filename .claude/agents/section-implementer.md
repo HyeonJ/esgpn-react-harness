@@ -52,6 +52,8 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 - 동적 에셋 발견 시 "정적 프레임 추출 (Framelink, 부모 노드 {ID})"로 처리 방식 명시
 - floating/중앙정렬 요소인 경우 research에 **캔버스 좌표(x, y, width, height)** 를 명시 (단계 5의 clip 파라미터로 사용)
 - **transform 가진 요소(rotation/translate/scale)**: rotation·transform-origin·position을 **소수점 포함 원본값** 그대로 research에 기록. 반올림 금지 (`docs/section-implementation.md §2.4`). CSS 적용 시 Tailwind arbitrary(`rotate-[4.237deg]`)로 소수점 유지
+- **Framelink PNG는 완성된 합성 사진**: 회전·블렌드·배경이 모두 baked-in. design_context가 `rotate()` / `mix-blend-*` / bg를 명시해도 Framelink PNG에는 **재적용 금지**. native 크기 ≠ AABB이므로 `wrapper=AABB + inner=native` 패턴 (docs §2.5). 에셋 다운로드 후 `file {png}`로 native 크기 기록, Read로 열어 합성 상태 육안 확인
+- **baseline PNG 실측**: `file figma-screenshots/{section}.png`으로 실제 크기 확인. Figma spec과 다를 수 있음 (docs §2.6). clip 파라미터는 실제 크기 기준
 - 단계 1 통과 조건 충족 후 **멈춤** → 오케스트레이터에 리서치 완료 보고
 
 ### 단계 2: 계획 → `plan/{섹션명}.md`
