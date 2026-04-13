@@ -69,6 +69,7 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 | `docs/frontend.md`, `docs/react.md` | 코드 컨벤션 |
 | `docs/backend.md`, `docs/spring.md` | 백엔드 작업 시 |
 | `docs/_SESSION_PROMPTS_REFERENCE.md` | (참고) 이전 수동 세션 프롬프트 — 하네스가 대체함 |
+| `docs/setup.md` | 새 PC에서 환경 세팅 절차 (Playwright, Framelink, Figma PAT 등) |
 | `PROGRESS.md` (프로젝트 루트) | 진행 상황 진실의 원천 |
 
 ---
