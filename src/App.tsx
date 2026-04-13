@@ -5,10 +5,12 @@ import { FooterPreview } from "@/routes/FooterPreview";
 import { MainHeroPreview } from "@/routes/MainHeroPreview";
 import { MainIntroPreview } from "@/routes/MainIntroPreview";
 import { MainStatsPreview } from "@/routes/MainStatsPreview";
+import { MainProgramsHeaderPreview } from "@/routes/MainProgramsHeaderPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
 import { MainStats } from "@/components/sections/MainStats";
+import { MainProgramsHeader } from "@/components/sections/MainProgramsHeader";
 
 export function App() {
   return (
@@ -20,6 +22,7 @@ export function App() {
       <Route path="/__preview/main-hero" element={<MainHeroPreview />} />
       <Route path="/__preview/main-intro" element={<MainIntroPreview />} />
       <Route path="/__preview/main-stats" element={<MainStatsPreview />} />
+      <Route path="/__preview/main-programs-header" element={<MainProgramsHeaderPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -30,6 +33,7 @@ export function App() {
               <MainHero />
               <MainIntro />
               <MainStats />
+              <MainProgramsHeader />
             </>
           }
         />
