@@ -30,5 +30,8 @@ test-results/
 tests/visual/captures/
 tests/visual/diffs/
 
+# 섹션 육안 검증용 임시 캡처 (디버깅 전용, 커밋 제외)
+dev-captures/
+
 # Harness runtime artifacts — 산출물은 커밋 (research/font-calibration 스크린샷 포함)
 # figma-screenshots/ 는 Phase 2/3 베이스라인, 커밋함

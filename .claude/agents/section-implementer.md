@@ -80,6 +80,8 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
   - G2 치수 정확도 (font ±1px, margin/padding ±2px)
   - G3 에셋 무결성 (모든 img naturalWidth > 0)
   - G4 색상 정확도 (Figma hex와 동일)
+- **육안 semantic 검증 필수** (`docs/section-implementation.md §6.4`): baseline/capture/diff 3종을 Read 도구로 직접 읽어 시각 비교. 방향 반전(SVG flip)·위치 swap·색 반전·텍스트 줄바꿈 오류 등 수치로 못 잡는 semantic 오류 점검. 발견 시 G1 PASS여도 단계 6 재진입
+- "4 게이트 PASS + 육안 검증 OK" 둘 다 충족해야 단계 7 진입
 
 ### 단계 6: 수정 루프 (최대 3회)
 - 미통과 시 diff 이미지 확인 → 원인 분류 → 해당 부분만 수정 → 재측정

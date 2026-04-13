@@ -47,6 +47,23 @@ clip 값은 Figma 캔버스에서의 좌표(research에 기록). 예: Header는 
 4. diff % 출력
 5. Playwright로 computed style 측정 → JSON 출력
 
+## 육안 semantic 검증 (필수, G1 수치와 별개)
+
+pixelmatch는 픽셀 밀도만 본다. 다음 류는 **수치로 못 잡는다** — 반드시 3종 이미지 육안 비교:
+
+- `figma-screenshots/{section}.png` (baseline)
+- `tests/visual/captures/{section}.png` (우리 구현)
+- `tests/visual/diffs/{section}.diff.png` (차이)
+
+semantic 오류 체크 리스트:
+- 화살표/커넥터 방향 반전 (`-scale-y`/`-scale-x` 오적용 포함)
+- 요소 좌우/상하 swap
+- 배경 색 반전 (다크 ↔ 라이트)
+- 아이콘 모양 불일치
+- 텍스트 줄바꿈 위치 (`<br>` 누락)
+
+**G1 PASS + 육안 OK** 둘 다 만족해야 커밋. 육안에서 오류 발견 시 수치 PASS여도 수정 후 재측정.
+
 ## plan 측정 섹션 포맷
 
 `plan/{섹션명}.md` 하단에 추가:

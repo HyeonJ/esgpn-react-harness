@@ -15,7 +15,7 @@
 ## 메인페이지 (/)
 Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지 전체 baseline.
 - [x] main-hero (diff 2.24% / G2 PASS, G3 4/4 PASS, G4 PASS / 회차 6: 이중 회전 제거 + 정밀 수치 규칙)
-- [ ] main-intro
+- [x] main-intro (diff 2.36% / G2 PASS, G3 12/12 PASS, G4 PASS / 회차 3: letter-spacing percent + SVG scaleY 반전 제거)
 - [ ] main-stats
 - [ ] main-programs-header
 - [ ] main-programs-card1
