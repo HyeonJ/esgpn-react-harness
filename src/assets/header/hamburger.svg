@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 21 8.75" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Vector" style="mix-blend-mode:luminosity">
+<path d="M0.875 8.75H20.125C20.6082 8.75 21 8.35825 21 7.875C21 7.39175 20.6082 7 20.125 7H0.875C0.391751 7 0 7.39175 0 7.875C0 8.35825 0.391751 8.75 0.875 8.75Z" fill="var(--fill-0, #1D2623)"/>
+<path d="M0.875 1.75H20.125C20.6082 1.75 21 1.35825 21 0.875C21 0.391751 20.6082 0 20.125 0H0.875C0.391751 0 0 0.391751 0 0.875C0 1.35825 0.391751 1.75 0.875 1.75Z" fill="var(--fill-0, #1D2623)"/>
+</g>
+</svg>

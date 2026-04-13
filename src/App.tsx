@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { FontCalibration } from "@/routes/FontCalibration";
+import { HeaderPreview } from "@/routes/HeaderPreview";
 
 function PhaseOnePlaceholder() {
   return (
@@ -14,6 +15,7 @@ export function App() {
     <Routes>
       <Route path="/" element={<PhaseOnePlaceholder />} />
       <Route path="/__calibration" element={<FontCalibration />} />
+      <Route path="/__preview/header" element={<HeaderPreview />} />
     </Routes>
   );
 }

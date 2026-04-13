@@ -111,8 +111,17 @@ async function runCompare(args: Record<string, string | boolean>): Promise<numbe
   const capturePath = resolve(`tests/visual/captures/${section}.png`);
   const diffPath = resolve(`tests/visual/diffs/${section}.diff.png`);
 
-  console.log(`[capture] ${url} -> ${capturePath}`);
-  await captureUrl({ url, outPath: capturePath, viewportWidth: 1920 });
+  const cx = args["clip-x"];
+  const cy = args["clip-y"];
+  const cw = args["clip-w"];
+  const ch = args["clip-h"];
+  const clip =
+    cx !== undefined && cy !== undefined && cw !== undefined && ch !== undefined
+      ? { x: Number(cx), y: Number(cy), width: Number(cw), height: Number(ch) }
+      : undefined;
+
+  console.log(`[capture] ${url} -> ${capturePath}${clip ? ` (clip ${clip.x},${clip.y} ${clip.width}x${clip.height})` : ""}`);
+  await captureUrl({ url, outPath: capturePath, viewportWidth: 1920, fullPage: clip ? false : true, clip });
 
   console.log(`[compare] ${baseline} vs ${capturePath}`);
   const res = comparePngs(baseline, capturePath, diffPath);

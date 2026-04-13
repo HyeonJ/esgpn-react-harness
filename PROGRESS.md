@@ -9,7 +9,7 @@
 - [x] 시각 회귀 인프라
 
 ## 공통 컴포넌트
-- [ ] Header (GNB)
+- [x] Header (GNB) (G2 16/16, G3 3/3, G4 4/4 PASS 1회차 / G1 baseline 부재·박스 좌표 0.0% 편차)
 - [ ] Footer
 
 ## 메인페이지 (/)
