@@ -1,0 +1,209 @@
+/*
+ * tokens.css — Figma 디자인 토큰 → CSS 변수 1:1 매핑
+ *
+ * 추출 출처 (Figma MCP get_variable_defs):
+ *   - 메인페이지 12:2324, Footer 299:2094, Header 52:1379,
+ *     About 52:622, 자격검정 91:1903 합집합
+ *   - 매핑 표: research/project-setup.md §토큰 매핑
+ * 원칙: 누락 0건. Figma 이름을 kebab-case로 직역.
+ */
+:root {
+  /* ===== Brand ===== */
+  --color-brand-500: #4fb654; /* Brand/Brand 500 */
+  --color-brand-700: #0c3b0e; /* Brand/Brand 700 */
+
+  /* ===== Gray Scale ===== */
+  --color-gray-000: #ffffff; /* Gray Scale/Gray 000 */
+  --color-gray-100: #eff0f0; /* Gray Scale/Gray 100 (Light BG) */
+  --color-gray-200: #dbe1e0; /* Gray Scale/Gray 200 */
+  --color-gray-300: #c6cdcc; /* Gray Scale/Gray 300 */
+  --color-gray-400: #afb8b5; /* Gray Scale/Gray 400 */
+  --color-gray-500: #97a29e; /* Gray Scale/Gray 500 */
+  --color-gray-600: #7c8985; /* Gray Scale/Gray 600 */
+  --color-gray-700: #5d6a66; /* Gray Scale/Gray 700 */
+  --color-gray-900: #1d2623; /* Gray Scale/Gray 900 (Dark BG, Text) */
+
+  /* ===== Status ===== */
+  --color-status-positive-default: #3f9fff; /* Status/Positive_Default */
+  --color-status-badge-positive-700: #005c33; /* Status/Badge/Positive_700 */
+
+  /* ===== Opacity (rgba) ===== */
+  --color-black-opacity-100: #0000000a; /* Opacity/Black Opacity 100 */
+  --color-black-opacity-200: #00000014; /* Opacity/Black Opacity 200 */
+  --color-white-opacity-100: #ffffff0a; /* Opacity/White Opacity 100 */
+  --color-white-opacity-200: #ffffff14; /* Opacity/White Opacity 200 */
+  --color-white-opacity-300: #ffffff24; /* Opacity/White Opacity 300 */
+  --color-white-opacity-400: #ffffff47; /* Opacity/White Opacity 400 */
+  --color-white-opacity-600: #ffffff99; /* Opacity/White Opacity 600 */
+
+  /* ===== Spacing (px) ===== */
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-14: 56px;
+
+  /* ===== Border Radius ===== */
+  --radius-none: 0px;
+  --radius-lg: 8px;
+  --radius-3xl: 20px;
+  --radius-full: 9999px;
+
+  /* ===== Typography — font family ===== */
+  --font-family-pretendard: "Pretendard Variable", "Pretendard", system-ui, sans-serif;
+
+  /* ===== Typography — Display ===== */
+  /* P/display/01 48 B */
+  --text-display-01-size: 48px;
+  --text-display-01-weight: 700;
+  --text-display-01-line-height: 56px;
+  --text-display-01-letter-spacing: 0px;
+
+  /* ===== Typography — Heading ===== */
+  /* P/Heading/01 24 B */
+  --text-heading-01-size: 24px;
+  --text-heading-01-weight: 700;
+  --text-heading-01-line-height: 32px;
+  --text-heading-01-letter-spacing: 0px;
+
+  /* ===== Typography — Text-4xl/40B ===== */
+  --text-4xl-40b-size: 40px;
+  --text-4xl-40b-weight: 700;
+  --text-4xl-40b-line-height: 1.3;
+  --text-4xl-40b-letter-spacing: -4px;
+
+  /* ===== Typography — Text-3xl/32B ===== */
+  --text-3xl-32b-size: 32px;
+  --text-3xl-32b-weight: 700;
+  --text-3xl-32b-line-height: 1.3;
+  --text-3xl-32b-letter-spacing: -3px;
+
+  /* ===== Typography — Text-2xl ===== */
+  /* 24B */
+  --text-2xl-24b-size: 24px;
+  --text-2xl-24b-weight: 700;
+  --text-2xl-24b-line-height: 1.4;
+  --text-2xl-24b-letter-spacing: -2.5px;
+  /* 24SB */
+  --text-2xl-24sb-size: 24px;
+  --text-2xl-24sb-weight: 600;
+  --text-2xl-24sb-line-height: 1.4;
+  --text-2xl-24sb-letter-spacing: 0px;
+
+  /* ===== Typography — Text-xl ===== */
+  /* 20B */
+  --text-xl-20b-size: 20px;
+  --text-xl-20b-weight: 700;
+  --text-xl-20b-line-height: 1.4;
+  --text-xl-20b-letter-spacing: -2px;
+  /* 20SB */
+  --text-xl-20sb-size: 20px;
+  --text-xl-20sb-weight: 600;
+  --text-xl-20sb-line-height: 1.4;
+  --text-xl-20sb-letter-spacing: -2px;
+
+  /* ===== Typography — Text-lg ===== */
+  /* 18B */
+  --text-lg-18b-size: 18px;
+  --text-lg-18b-weight: 700;
+  --text-lg-18b-line-height: 1.4;
+  --text-lg-18b-letter-spacing: -1.5px;
+  /* 18SB */
+  --text-lg-18sb-size: 18px;
+  --text-lg-18sb-weight: 600;
+  --text-lg-18sb-line-height: 1.4;
+  --text-lg-18sb-letter-spacing: -1.5px;
+  /* 18M */
+  --text-lg-18m-size: 18px;
+  --text-lg-18m-weight: 500;
+  --text-lg-18m-line-height: 1.4;
+  --text-lg-18m-letter-spacing: -1.5px;
+  /* 18R */
+  --text-lg-18r-size: 18px;
+  --text-lg-18r-weight: 400;
+  --text-lg-18r-line-height: 1.5;
+  --text-lg-18r-letter-spacing: -1.5px;
+
+  /* ===== Typography — Text-base (16) ===== */
+  --text-base-16b-size: 16px;
+  --text-base-16b-weight: 700;
+  --text-base-16b-line-height: 1.5;
+  --text-base-16b-letter-spacing: 2px;
+
+  --text-base-16sb-size: 16px;
+  --text-base-16sb-weight: 600;
+  --text-base-16sb-line-height: 1.5;
+  --text-base-16sb-letter-spacing: -1px;
+
+  --text-base-16m-size: 16px;
+  --text-base-16m-weight: 500;
+  --text-base-16m-line-height: 1.5;
+  --text-base-16m-letter-spacing: -1px;
+
+  --text-base-16r-size: 16px;
+  --text-base-16r-weight: 400;
+  --text-base-16r-line-height: 1.5;
+  --text-base-16r-letter-spacing: -1px;
+
+  /* ===== Typography — Text-md (15) ===== */
+  --text-md-15sb-size: 15px;
+  --text-md-15sb-weight: 600;
+  --text-md-15sb-line-height: 1.5;
+  --text-md-15sb-letter-spacing: -0.75px;
+
+  --text-md-15m-size: 15px;
+  --text-md-15m-weight: 500;
+  --text-md-15m-line-height: 1.5;
+  --text-md-15m-letter-spacing: -0.75px;
+
+  --text-md-15r-size: 15px;
+  --text-md-15r-weight: 400;
+  --text-md-15r-line-height: 1.5;
+  --text-md-15r-letter-spacing: -0.75px;
+
+  /* ===== Typography — Text-sm (14) ===== */
+  --text-sm-14sb-size: 14px;
+  --text-sm-14sb-weight: 600;
+  --text-sm-14sb-line-height: 1.5;
+  --text-sm-14sb-letter-spacing: -0.5px;
+
+  --text-sm-14m-size: 14px;
+  --text-sm-14m-weight: 500;
+  --text-sm-14m-line-height: 1.5;
+  --text-sm-14m-letter-spacing: -0.5px;
+
+  --text-sm-14r-size: 14px;
+  --text-sm-14r-weight: 400;
+  --text-sm-14r-line-height: 1.5;
+  --text-sm-14r-letter-spacing: 2px;
+
+  /* ===== Typography — Text-xs (13) ===== */
+  --text-xs-13r-size: 13px;
+  --text-xs-13r-weight: 400;
+  --text-xs-13r-line-height: 1.5;
+  --text-xs-13r-letter-spacing: 0px;
+
+  /* ===== Typography — Pretendard 14 (범용) ===== */
+  --text-pretendard-14r-size: 14px;
+  --text-pretendard-14r-weight: 400;
+  --text-pretendard-14r-line-height: 1.5;
+  --text-pretendard-14r-letter-spacing: 0px;
+
+  --text-pretendard-14b-size: 14px;
+  --text-pretendard-14b-weight: 700;
+  --text-pretendard-14b-line-height: 1.5;
+  --text-pretendard-14b-letter-spacing: 0px;
+
+  /* ===== Typography — text-3xs / text-sm/14M Medium ===== */
+  /* 주: Figma 변수명에 줄바꿈 포함 ("text-3xs/text-sm/14M\nMedium"). 14M(letterSpacing 0) 별칭. */
+  --text-3xs-14m-medium-size: 14px;
+  --text-3xs-14m-medium-weight: 500;
+  --text-3xs-14m-medium-line-height: 1.5;
+  --text-3xs-14m-medium-letter-spacing: 0px;
+}

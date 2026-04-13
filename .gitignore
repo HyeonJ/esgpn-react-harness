@@ -14,14 +14,21 @@ build/
 .next/
 *.log
 
+# TS build artifacts
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+
 # Env
 .env
 .env.local
 .env.*.local
 
-# Harness runtime artifacts (생성될 때 포함 여부는 프로젝트 정책에 따라 조정)
-# _workspace/
-# research/
-# plan/
-# figma-screenshots/
-# tests/visual/diff/
+# Playwright
+playwright-report/
+test-results/
+tests/visual/captures/
+tests/visual/diffs/
+
+# Harness runtime artifacts — 산출물은 커밋 (research/font-calibration 스크린샷 포함)
+# figma-screenshots/ 는 Phase 2/3 베이스라인, 커밋함

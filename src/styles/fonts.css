@@ -1,0 +1,32 @@
+/*
+ * fonts.css — Pretendard Variable 로컬 호스팅 + 한글 렌더링 보정.
+ *
+ * 배치: public/fonts/PretendardVariable.woff2 (2.05 MB, v1.3.9, jsDelivr npm 미러)
+ * 포맷: woff2-variations — 가변 폰트 단일 파일 (weight 45~920)
+ * FOIT 방지: font-display: swap
+ */
+@font-face {
+  font-family: "Pretendard Variable";
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/PretendardVariable.woff2") format("woff2-variations");
+}
+
+/*
+ * 한글 렌더링 보정 변수.
+ * Figma는 line-height를 배수(1.5) 또는 px(32)로 혼용. 브라우저 렌더 시
+ * 한글 글리프의 vertical metrics 차이로 ±1px 변동이 흔하다.
+ * 아래 값은 2.3 보정 샘플 측정 결과 기준. 섹션 구현 중 이상 발견 시만 조정.
+ */
+:root {
+  /* 한글 전용 미세 보정 (Figma 디자인이 Pretendard로 베이스라인 잡혔다고 가정) */
+  --korean-leading-trim: 0em;
+  --korean-letter-spacing-adjust: 0em;
+}
+
+/* 한글이 섞인 UI 텍스트의 공통 보정 */
+html:lang(ko) body {
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "palt" 1; /* 한글/라틴 혼용 시 공백 자연화 */
+}

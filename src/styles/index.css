@@ -1,0 +1,75 @@
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./fonts.css";
+
+/*
+ * Tailwind v4 @theme: tokens.css의 CSS 변수를 Tailwind 유틸리티로 노출.
+ * Phase 1 2.2 단계에서 Figma 변수 추출 후 이 블록을 채운다.
+ */
+/*
+ * Tailwind v4 @theme — tokens.css 변수를 Tailwind 유틸리티로 노출.
+ * 색상: bg-brand-500, text-gray-900 등 자동 생성.
+ * 간격: p-1, p-2, ... (Tailwind 기본값 대신 Figma 스케일).
+ */
+@theme {
+  --font-sans: "Pretendard Variable", "Pretendard", system-ui, sans-serif;
+
+  /* Brand */
+  --color-brand-500: var(--color-brand-500);
+  --color-brand-700: var(--color-brand-700);
+
+  /* Gray Scale */
+  --color-gray-000: var(--color-gray-000);
+  --color-gray-100: var(--color-gray-100);
+  --color-gray-200: var(--color-gray-200);
+  --color-gray-300: var(--color-gray-300);
+  --color-gray-400: var(--color-gray-400);
+  --color-gray-500: var(--color-gray-500);
+  --color-gray-600: var(--color-gray-600);
+  --color-gray-700: var(--color-gray-700);
+  --color-gray-900: var(--color-gray-900);
+
+  /* Status */
+  --color-status-positive: var(--color-status-positive-default);
+  --color-status-badge-positive-700: var(--color-status-badge-positive-700);
+
+  /* Opacity */
+  --color-black-a100: var(--color-black-opacity-100);
+  --color-black-a200: var(--color-black-opacity-200);
+  --color-white-a100: var(--color-white-opacity-100);
+  --color-white-a200: var(--color-white-opacity-200);
+  --color-white-a300: var(--color-white-opacity-300);
+  --color-white-a400: var(--color-white-opacity-400);
+  --color-white-a600: var(--color-white-opacity-600);
+
+  /* Spacing (Figma scale — overrides Tailwind default) */
+  --spacing-0: var(--spacing-0);
+  --spacing-1: var(--spacing-1);
+  --spacing-2: var(--spacing-2);
+  --spacing-3: var(--spacing-3);
+  --spacing-4: var(--spacing-4);
+  --spacing-5: var(--spacing-5);
+  --spacing-6: var(--spacing-6);
+  --spacing-8: var(--spacing-8);
+  --spacing-10: var(--spacing-10);
+  --spacing-12: var(--spacing-12);
+  --spacing-14: var(--spacing-14);
+
+  /* Border Radius */
+  --radius-none: var(--radius-none);
+  --radius-lg: var(--radius-lg);
+  --radius-3xl: var(--radius-3xl);
+  --radius-full: var(--radius-full);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
