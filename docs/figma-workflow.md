@@ -26,6 +26,8 @@
 ## 1. 4단계 작업 흐름
 
 ```
+[Phase 0] 도구 셋업           ← 하네스 1회만 (사용자 개입)
+    ↓
 [Phase 1] 프로젝트 셋업       ← 1회만
     ↓
 [Phase 2] 페이지 리서치       ← 페이지 시작 시
@@ -36,6 +38,40 @@
 ```
 
 각 Phase는 명확히 분리되며, **이전 Phase의 산출물 없이 다음 Phase로 진행하지 않는다.**
+
+---
+
+## Phase 0 — 도구 셋업 (사용자 개입, 1회)
+
+공식 Figma MCP(`plugin:figma:figma`)의 `get_screenshot`은 inline base64만 반환하여 `figma-screenshots/`에 자동 저장할 수 없다. G1(pixelmatch diff) baseline PNG를 자동 확보하려면 **Framelink MCP**(`figma-developer-mcp`)를 **추가로** 등록해야 한다. 공식 MCP는 `get_metadata`/`get_design_context`/`get_variable_defs` 용으로 유지하고, Framelink는 baseline PNG 저장 전용으로 병용한다.
+
+### 0.1 Figma Personal Access Token 발급 (사용자가 수행)
+1. figma.com → Settings → Security → Personal access tokens → "Generate new token"
+2. 파일 읽기 권한만 있으면 충분
+3. 발급 토큰(`figd_...`)은 재발급 시 즉시 revoke 가능하므로 본인 로컬 환경에서만 사용
+
+### 0.2 Framelink MCP 등록 (1회, user scope)
+```
+claude mcp add figma-framelink --scope user -- npx -y figma-developer-mcp --figma-api-key=figd_발급토큰 --stdio --image-dir=C:/Dev/Workspace/esgpn-react-harness
+```
+
+플래그 의미:
+- `--stdio` **필수** (MCP 클라이언트 모드)
+- `--image-dir=<프로젝트 루트>` — 다운로드 경로를 프로젝트 내부로 제한. **Windows 환경에서는 forward slash 사용** (backslash는 bash가 먹음)
+- `--scope user` — 전역 등록, 다른 프로젝트에서도 재사용 가능
+
+### 0.3 확인
+```
+claude mcp list
+```
+출력에 `figma-framelink: ... --stdio ... - ✓ Connected` 가 보여야 성공. **Claude Code 세션 재시작 필수** — `claude --continue`로 재시작하면 대화 컨텍스트 유지하면서 MCP 스키마 로드.
+
+### 0.4 사용 가능한 도구
+- `mcp__figma-framelink__get_figma_data` — 노드 메타데이터(YAML), 공식 `get_metadata`보다 레이아웃 상세
+- `mcp__figma-framelink__download_figma_images` — **baseline PNG 저장 (이 프로젝트에서 G1 게이트의 핵심 도구)**
+
+### 0.5 보안 주의
+토큰은 `C:\Users\<user>\.claude.json`에 평문 저장. 개발 PC 이외 환경에 파일 공유 시 반드시 `.claude.json`에서 토큰 제거 또는 별도 환경변수 치환.
 
 ---
 
@@ -139,8 +175,8 @@ scripts/
 ```
 
 ### 3.2 페이지 전체 베이스라인 확보
-- `get_screenshot`으로 페이지 전체 스크린샷 캡처 → `figma-screenshots/{페이지명}/full.png`
-- 각 섹션별 스크린샷 캡처 → `figma-screenshots/{페이지명}/{섹션명}.png`
+- Framelink `download_figma_images`로 페이지 전체 PNG 저장 → `figma-screenshots/{페이지명}-full.png`
+- 각 섹션별 → `figma-screenshots/{섹션명}.png` (flat 경로, `compare-section.sh` baseline 규약)
 - **모든 베이스라인이 저장되기 전에는 어떤 섹션도 구현 시작 금지**
 
 ### 3.3 공통 컴포넌트 식별
@@ -249,8 +285,9 @@ git push
 페이지당 권장 호출 분배:
 1. `get_metadata` 1회 — 전체 구조
 2. `get_variable_defs` 1회 — 토큰 (Phase 1에서 1회로 끝)
-3. `get_screenshot` 섹션 수만큼 — 베이스라인
+3. Framelink `download_figma_images` 섹션 수만큼 — 베이스라인 PNG 파일 저장
 4. `get_design_context` 섹션 수만큼 — 코드/에셋
+5. (선택) Framelink `get_figma_data` — 레이아웃 YAML 보조
 
 ### 6.4 금지사항
 - ❌ 페이지 전체를 한 번에 `get_design_context`로 가져오기

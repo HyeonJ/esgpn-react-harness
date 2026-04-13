@@ -180,7 +180,7 @@ Figma는 GIF/비디오 같은 동적 에셋도 캔버스에서는 정적인 한 
 
 | 컴포넌트 | 위치 | 설명 |
 |---------|------|------|
-| `Header` (GNB) | `src/components/layout/Header.tsx` | 로고 + 메뉴 7개 + 고객센터 버튼 + 햄버거 |
+| `Header` (GNB) | `src/components/layout/Header.tsx` | 로고 + 메뉴 6개(About/경진대회/자격검정/뉴스/갤러리/사회공헌사업) + 고객센터 버튼 + 햄버거. floating pill 1416×72, x=252 y=16 @ 1920 vw |
 | `Footer` | `src/components/layout/Footer.tsx` | 회사 정보 + 약관 링크 + 대형 ESGPN 워터마크 |
 | `HeroBanner` | `src/components/sections/HeroBanner.tsx` | 풀스크린 히어로 (페이지별 재사용) |
 | `StatCard` | `src/components/ui/StatCard.tsx` | 숫자 + 라벨 통계 카드 |

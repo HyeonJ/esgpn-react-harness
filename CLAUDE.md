@@ -33,7 +33,8 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 - **4 게이트 통과 필수:** G1 시각(diff<5%), G2 치수(font±1, 나머지±2), G3 에셋(naturalWidth>0), G4 색상(hex 일치)
 - **3회 수정 실패 시 사용자 보고 후 멈춤** — 임의 우회 금지
 - **에셋 URL 무조건 다운로드.** CSS/유니코드 대체 금지
-- **동적 에셋(GIF/비디오) 원본 사용 금지** — 부모 노드 `get_screenshot`으로 정적 PNG 추출
+- **동적 에셋(GIF/비디오) 원본 사용 금지** — 부모 노드를 Framelink `download_figma_images`로 정적 PNG 추출
+- **baseline PNG는 Framelink MCP로만 저장** — 공식 `get_screenshot`은 inline 전용이라 파일 저장 불가. 경로 규약 `figma-screenshots/{섹션명}.png` (flat)
 - **캔버스-에셋 개수 불일치 시 사용자 보고 후 멈춤**
 - **한 브랜치에 여러 섹션 섞기 금지**
 
@@ -91,3 +92,4 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 | 날짜 | 변경 내용 | 대상 | 사유 |
 |------|----------|------|------|
 | 2026-04-13 | 초기 구성 | 전체 (agents 3, skills 4) | docs v2 기반 Figma→React 오케스트레이터 구축 |
+| 2026-04-13 | Framelink MCP 도입 | docs/figma-workflow.md Phase 0, section-implementation.md §2.1 / §2.3 / §6.1, visual-regression-gates, section-implementer, page-researcher, figma-to-react, figma-project-context §5 | 공식 `get_screenshot` inline 제약으로 G1 baseline 수동 export 필요 → Framelink `download_figma_images`로 자동화. baseline 경로 `figma-screenshots/{섹션명}.png` flat 통일, floating 요소용 `--clip-*` 인자 추가 |
