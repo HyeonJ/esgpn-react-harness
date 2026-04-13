@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .ts,.tsx",
     "typecheck": "tsc --noEmit",
-    "test:visual": "tsx tests/visual/run.ts --self-test"
+    "test:visual": "tsx tests/visual/run.ts --self-test",
+    "doctor": "bash scripts/doctor.sh"
   },
   "dependencies": {
     "clsx": "^2.1.1",

@@ -22,10 +22,10 @@ npx playwright install chromium
 # 5) Framelink MCP 등록 (한 줄, 줄바꿈 금지)
 claude mcp add figma-framelink --scope user -- npx -y figma-developer-mcp --figma-api-key=figd_토큰 --stdio --image-dir=$(pwd)
 
-# 6) 동작 확인
-npm run dev &
-sleep 3
-bash scripts/compare-section.sh main-stats    # "DIFF: ~1.92%" 근처면 OK
+# 6) 환경 점검 (한 번에 전부 검증)
+npm run doctor
+
+# → "✓ 전체 통과" 나오면 끝. 나오지 않으면 실패 메시지 따라 해결.
 ```
 
 ---
@@ -176,6 +176,23 @@ python3 -m pip install Pillow
 
 ## 8. 동작 확인 (세팅 완료 후)
 
+### 8.1 빠른 환경 점검: `npm run doctor`
+
+```bash
+npm run doctor
+```
+
+`scripts/doctor.sh`가 다음 4가지를 자동 점검:
+1. 시스템 도구 (Node 20+, Git, Claude CLI, Git Bash)
+2. MCP 서버 연결 (공식 Figma + Framelink 둘 다 `✓ Connected`)
+3. Playwright 크로미움 바이너리 설치 여부
+4. `npm run typecheck` 통과 여부
+
+모두 통과하면 `✓ 전체 통과. 오케스트레이터 세션 시작 가능.` 출력.
+실패 시 해당 docs/setup.md 섹션 안내 + 구체 명령 제시.
+
+### 8.2 실측 검증 (선택, 더 확실)
+
 기존 섹션을 재측정해서 전체 인프라가 정상 작동하는지 검증.
 
 ```bash
@@ -184,16 +201,7 @@ npm run dev          # 백그라운드 권장
 bash scripts/compare-section.sh main-stats
 ```
 
-**기대 결과:** `DIFF: 1.92%` 근처 (원본 세션 값). 이 수치가 나오면:
-- Playwright 설치 정상
-- dev 서버 정상
-- baseline 파일 정상 전달
-- 프로젝트 코드 컴파일 정상
-
-만약 5% 이상이거나 에러 발생:
-- `npx playwright install chromium` 실행 확인
-- `npm run typecheck && npm run build` 통과 확인
-- `claude mcp list`에서 Framelink 연결 확인
+**기대 결과:** `DIFF: 1.92%` 근처 (원본 세션 값). 이 수치가 나오면 baseline 파일·dev 서버·Playwright·pixelmatch 전 체인이 정상 작동한다는 뜻.
 
 ---
 
