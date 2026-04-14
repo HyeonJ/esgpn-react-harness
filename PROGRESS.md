@@ -22,7 +22,7 @@ Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지
 - [x] main-programs-card2 (diff 2.69% / G2 PASS / G3 11/11 / G4 PASS / 육안 PASS — 1회차 완통과, clip-x=263. card1 교훈 선반영 성공. 공통화 리팩터 후 유지: 로컬 5파일 삭제, G1 악화 0.00%p)
 - [x] main-programs-card3 (diff 4.55% / G2 PASS / G3 11/11 / G4 PASS / 육안 PASS — Rule of Three 확정 지점. ProgramCard ui/ 승격 + card1/2 리팩터 + card3 구현 원자 커밋. clip-x=262, 4회차 통과)
 - [x] main-news (diff 4.60% / G2 PASS / G3 15/15 / G4 PASS / 육안 PASS — 풀폭 1920, 음수 width 배경 PNG는 `-scale-x-100` + 양수 width 폴백 사용, 2회차 통과)
-- [ ] main-gallery
+- [x] main-gallery (diff 4.05% / G2 PASS / G3 13/13 / G4 PASS / 육안 PASS — 3회차 통과. BG 파일 매핑이 research와 반대임을 시각으로 확정 후 import 스왑, cityscape PNG RGBA alpha 보존(JPG로 변환하면 black void 발생)이 핵심 해결점. **메인페이지 9/9 완성**)
 
 ## About - 개요 (/about)
 ## About - 조직도 (/about/organization)
