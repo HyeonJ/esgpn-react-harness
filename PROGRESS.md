@@ -30,6 +30,8 @@ Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지
 - [x] about-values (diff 4.28% / G2 PASS (section 1920×722, icons 144×141/138×141/131×150/151×150, centerX 714/1205, titles 22px/700, descs 16px/24px) / G3 4/4 (icon-1~4 naturalWidth 144/138/131/151) / G4 PASS (#1d2623 다크, divider #B1B9B6/#97A29E) / 육안 PASS — 2회차 통과. 전략 [A] 완전 HTML 재구성. HatchedDivider 공통 승격 (Rule of Three 4회 사용 충족 → ui/). ValueCard 로컬 첫 카운트. 4 아이콘 about-full.png baseline crop 10px 여유, top=85/385 보정으로 여유 offset 상쇄. clip 불필요 풀폭 1920)
 - [x] about-vision (diff 0.70% / G2 PASS (section 1920×783, body 16/24 400 centerX 960 top 65, 감사합니다 16/24 700 top 137, panorama 1920×631 top 152) / G3 1/1 (panorama naturalWidth 1920) / G4 PASS (#1d2623 gray-900) / 육안 PASS — 1회차 완통과. 전략 [A] 완전 HTML 재구성. 파노라마 1장 about-full.png crop(0,2169,1920,2800), RGBA PNG alpha 보존(JPG 전환 금지 §2.5), 1.78MB optimize. 감사합니다 Bold 유지 결정. HatchedDivider 미사용(상단 divider는 values bottom, 하단 Footer 직결). **About 4/4 완성**)
 ## About - 조직도 (/about/organization)
+- [x] about-organization-tabs (diff 0.71% / G2 PASS (section 1920×102, font 14/20, y=80, gap 52px) / G3 vacuous (텍스트 전용) / G4 PASS (active #1d2623, inactive #97a29e) / 육안 PASS — 1회차 완통과. SectionTabs 재사용, 파일 수정 0줄. about-header G1 3.40% 유지 확인)
+
 ## 경진대회 (/contest)
 ## 자격검정 (/certification)
 ## 뉴스 목록 (/news)
