@@ -331,3 +331,12 @@ card1+card2 구조 실증 완료. card3 워커 시작 시 `src/components/ui/Pro
 - `pointsItems: string[]` (6 | 3)
 - `progressBarSvg`, `dividerSvg`, `pointIconSvg`
 - decoration 레이아웃은 섹션 루트(MainProgramsCard*)에서 별도 관리 (Card*별 고유 부유 요소 상이).
+
+---
+
+## 공통화 리팩터 후 재측정 (2026-04-14, card3 워커 동시 커밋)
+
+- **G1: 2.69% (clip-x 263, 기존과 완전 동일)**
+- 리팩터 내용: 로컬 ProgramCard/CardHeader/CardPoints/CardTargets/CardCtaBar 5파일 삭제 → `src/components/ui/ProgramCard.tsx` 공통 컴포넌트 사용
+- 공통 API에 `pointIconSvg` 별도 prop 불필요 (points[].icon에 iconPoint 3회 주입).
+- G2/G3/G4 육안·수치 PASS 유지.
