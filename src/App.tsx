@@ -15,10 +15,7 @@ import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
 import { MainStats } from "@/components/sections/MainStats";
-import { MainProgramsHeader } from "@/components/sections/MainProgramsHeader";
-import { MainProgramsCard1 } from "@/components/sections/MainProgramsCard1";
-import { MainProgramsCard2 } from "@/components/sections/MainProgramsCard2";
-import { MainProgramsCard3 } from "@/components/sections/MainProgramsCard3";
+import { MainPrograms } from "@/components/sections/MainPrograms";
 import { MainNews } from "@/components/sections/MainNews";
 import { MainGallery } from "@/components/sections/MainGallery";
 
@@ -48,10 +45,7 @@ export function App() {
               <MainHero />
               <MainIntro />
               <MainStats />
-              <MainProgramsHeader />
-              <MainProgramsCard1 />
-              <MainProgramsCard2 />
-              <MainProgramsCard3 />
+              <MainPrograms />
               <MainNews />
               <MainGallery />
             </>
