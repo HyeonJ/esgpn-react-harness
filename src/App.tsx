@@ -12,6 +12,7 @@ import { MainProgramsCard3Preview } from "@/routes/MainProgramsCard3Preview";
 import { MainNewsPreview } from "@/routes/MainNewsPreview";
 import { MainGalleryPreview } from "@/routes/MainGalleryPreview";
 import { AboutHeaderPreview } from "@/routes/AboutHeaderPreview";
+import { AboutMissionPreview } from "@/routes/AboutMissionPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -20,6 +21,7 @@ import { MainPrograms } from "@/components/sections/MainPrograms";
 import { MainNews } from "@/components/sections/MainNews";
 import { MainGallery } from "@/components/sections/MainGallery";
 import { AboutHeader } from "@/components/sections/AboutHeader";
+import { AboutMission } from "@/components/sections/AboutMission";
 
 export function App() {
   return (
@@ -38,6 +40,7 @@ export function App() {
       <Route path="/__preview/main-news" element={<MainNewsPreview />} />
       <Route path="/__preview/main-gallery" element={<MainGalleryPreview />} />
       <Route path="/__preview/about-header" element={<AboutHeaderPreview />} />
+      <Route path="/__preview/about-mission" element={<AboutMissionPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -59,6 +62,7 @@ export function App() {
           element={
             <>
               <AboutHeader />
+              <AboutMission />
             </>
           }
         />
