@@ -19,7 +19,7 @@ Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지
 - [x] main-stats (diff 1.92% / G2 PASS, G3 6 svg paths, G4 PASS / 육안 PASS — 1회차 통과)
 - [x] main-programs-header (diff 2.57% / G2 exact / G3 vacuous PASS / G4 PASS / 육안 PASS — 1회차)
 - [x] main-programs-card1 (diff 2.67% / G2 PASS / G3 11/11 / G4 PASS / 육안 PASS, 3회차 완통과. R1 실증: leaf 2개 Framelink baked-in 회전, clip-x=265)
-- [ ] main-programs-card2
+- [x] main-programs-card2 (diff 2.69% / G2 PASS / G3 11/11 / G4 PASS / 육안 PASS — 1회차 완통과, clip-x=263. card1 교훈 선반영 성공)
 - [ ] main-programs-card3
 - [ ] main-news
 - [ ] main-gallery
