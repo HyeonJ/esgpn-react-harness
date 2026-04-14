@@ -24,9 +24,11 @@ export function MainPrograms() {
       <div className="w-full flex justify-center" style={{ paddingBottom: 24 }}>
         <ProgramsTabs active={active} onSelect={setActive} />
       </div>
-      {active === 1 && <MainProgramsCard1 />}
-      {active === 2 && <MainProgramsCard2 />}
-      {active === 3 && <MainProgramsCard3 />}
+      <div style={{ paddingBottom: 120 }}>
+        {active === 1 && <MainProgramsCard1 />}
+        {active === 2 && <MainProgramsCard2 />}
+        {active === 3 && <MainProgramsCard3 />}
+      </div>
     </>
   );
 }
