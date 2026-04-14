@@ -50,6 +50,12 @@ Phase 2 분해 완료 (research/certification.md). 총 6개 섹션 (1 Hero / 2 S
 - [x] certification-flatten-bottom (diff 0.00% / 단일 raster 1920×2148 / 노드 자식 0개 구조적 flatten / G6 우회 (alt 12자 < floor 80) / tech-debt T-008 ACCEPTED — Process/Schedule/CTA 3 sub-section 추후 OCR 또는 디자이너 원본 재요청 후 HTML 재구성. **자격검정 6/6 완성**)
 
 ## 뉴스 목록 (/news)
+Phase 2 분해 완료 (research/news.md). 4 섹션 + Footer/TopNav 재사용.
+- [ ] news-tabs (936×29, SectionTabs 재사용)
+- [ ] news-title (936×124)
+- [ ] news-featured (936×568, NewsCard 신설)
+- [ ] news-list (936×1416, NewsListItem 신설 + Pagination)
+
 ## 뉴스 상세 (/news/:id)
 ## 갤러리 (/gallery)
 - [x] gallery-title (diff 8.28% ⚠ 완화 / clip 492,0,936,124 / G2·G4 PASS / G3 N/A (에셋 0) / 육안 PASS — 2회차 수렴. 완화 사유: 사용자 승인 [A] "ESPGN → ESGPN" 교정으로 좌 2행 글리프 위치 shift + Pretendard Variable 48px Bold AA. contest-hero/benefits 완화 선례 연장)
