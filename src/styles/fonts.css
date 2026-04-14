@@ -28,6 +28,28 @@
 }
 
 /*
+ * Gong Gothic (이사만루체) — 경진대회 Hero H1/서브1 전용.
+ * 배치: public/fonts/GongGothic-{Bold,Medium}.woff (공게임즈 배포, 상업용 무료)
+ * 출처: jsDelivr CDN (projectnoonnu/noonfonts_20-10@1.0) 정적 호스팅본 사본
+ * 포맷: woff (woff2 배포본 미존재)
+ * FOIT 방지: font-display: swap
+ */
+@font-face {
+  font-family: "Gong Gothic";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/GongGothic-Bold.woff") format("woff");
+}
+@font-face {
+  font-family: "Gong Gothic";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/GongGothic-Medium.woff") format("woff");
+}
+
+/*
  * 한글 렌더링 보정 변수.
  * Figma는 line-height를 배수(1.5) 또는 px(32)로 혼용. 브라우저 렌더 시
  * 한글 글리프의 vertical metrics 차이로 ±1px 변동이 흔하다.

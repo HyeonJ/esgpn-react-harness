@@ -36,6 +36,8 @@ Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지
 - [x] about-organization-chart (diff 3.55% / G2 PASS (section 1920×390; Tier2 박스 302×50 x=491/810/1129 15px/700; Tier3 박스 302×57 x=809/1127 15px/500 y=164/240/316; connectors x=957/1275 y=100 w=6 h=67 중심축 +3 보정; divider "실행 구조" center=960 13px/500) / G3 N/A (raster 에셋 0개, 전략 γ 완전 CSS/SVG 재구성) / G4 PASS (pill #4FB654, primary #0C3B0E, ghost #EFF0F0 텍스트 #1D2623, divider label #a4aeaa) / 육안 PASS — 1회차 완통과. 전략 γ HTML/CSS/SVG 재구성. OrgChartBox 3-variant(pill/primary/ghost), OrgChartConnector SVG viewBox `-3 0 6 h+6` 중심축 보정 + line strokeWidth=2 + circle r=2.5. HatchedDivider 재사용(label prop, 수정 0줄). **baseline divider label = "실행 구조" (사용자 지시 "설립 구조"와 불일치) → baseline 우선 원칙으로 "실행 구조" 채택**)
 
 ## 경진대회 (/contest)
+- [x] contest-hero (diff 6.43% ⚠ 완화 / G2 PASS / G3 2/2 / G4 PASS / 육안 PASS — 3회차 5% 초과, [B][D] 재전략 모두 구조적 불가 확정 후 [A] 완화 수락. Gong Gothic woff2 신규 self-host(Bold/Medium). 전략: background-image + background-blend-mode: hard-light. 잔여 diff 근본 원인: Chromium vs Figma hard-light blend 엔진 색공간 차이 — 원 내부 픽셀 ±20~50 오차. Hero 노드 구조상 "배경+원만 있는 wrapper" 부재로 raster 분리 export 불가 확인. 다음 blend 모드 섹션에도 동일 수용 원칙 적용 예정 — docs §2.5 보강)
+
 ## 자격검정 (/certification)
 ## 뉴스 목록 (/news)
 ## 뉴스 상세 (/news/:id)
