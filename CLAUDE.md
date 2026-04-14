@@ -38,6 +38,8 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 - **Framelink PNG는 완성된 합성 사진** — 회전·블렌드·배경·그림자가 모두 baked-in. CSS rotate/blend/bg 추가 금지 (이중 적용). PNG native 크기 ≠ metadata AABB. 배치는 `wrapper=AABB + inner=native` 패턴 (docs §2.5). baseline PNG 크기는 spec과 다를 수 있으니 `file` 명령으로 실측 (§2.6)
 - **Figma 수치는 반올림하지 않는다** — rotation·position·letter-spacing·line-height·border-radius 등 소수점 포함 원본 값을 그대로 Tailwind arbitrary(`rotate-[4.237deg]`, `left-[123.7px]`)로 사용. 정수 근사는 회전·변형 요소에서 서브픽셀 누적 오차로 반영돼 G1 게이트를 악화시킨다
 - **G1 수치 PASS만으로 섹션 완료 금지** — baseline/capture/diff 3종 이미지를 반드시 육안 스캔. pixelmatch는 픽셀 밀도만 보므로 방향 반전(SVG flip), 요소 위치 swap, 색상 반전, 텍스트 줄바꿈 위치 같은 **semantic 오류는 수치로 못 잡는다**. 발견 시 수치와 무관하게 단계 6 재진입 후 수정
+- **섹션은 자기 정렬 책임을 진다 + 페이지 통합 게이트 필수** — 섹션 루트에 `mx-auto` 내장(1416/1920 모두). Preview 라우트 wrapper로 정렬 해결 금지 — Preview와 실제 라우트 DOM이 달라지면 격리 G1 PASS여도 실제 페이지에서 좌측 치우침·가로 스크롤·margin collapse 회귀 발생. **섹션 완료 전 페이지 통합 육안 게이트(docs §6.5) 통과 필수** — 실제 사용자 라우트(`/contest` 등) 1920 fullPage 캡처로 수평 정렬·섹션 간격·z-index 확인
+- **텍스트 baked-in raster 절대 금지** — 사용자가 읽는 텍스트(제목·본문·CTA 라벨·카드 내부 설명 등)는 **반드시 HTML로 렌더**. G1이 7~10% 나와도 HTML 유지가 정답. G1 단일 지표 최적화로 raster 선택 시 접근성·SEO·i18n·검색·유지보수성 모두 희생 — 안티패턴. **raster 허용 대상**: 배경 이미지·장식 사진·아이콘·SVG 장식 등 **텍스트 없는 시각 요소만**. text-bearing composite 만들면 안 됨
 - **캔버스-에셋 개수 불일치 시 사용자 보고 후 멈춤**
 - **한 브랜치에 여러 섹션 섞기 금지**
 

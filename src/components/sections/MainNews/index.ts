@@ -1,0 +1,1 @@
+export { MainNews } from "./MainNews";

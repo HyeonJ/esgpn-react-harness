@@ -7,12 +7,42 @@ import { MainIntroPreview } from "@/routes/MainIntroPreview";
 import { MainStatsPreview } from "@/routes/MainStatsPreview";
 import { MainProgramsHeaderPreview } from "@/routes/MainProgramsHeaderPreview";
 import { MainProgramsCard1Preview } from "@/routes/MainProgramsCard1Preview";
+import { MainProgramsCard2Preview } from "@/routes/MainProgramsCard2Preview";
+import { MainProgramsCard3Preview } from "@/routes/MainProgramsCard3Preview";
+import { MainNewsPreview } from "@/routes/MainNewsPreview";
+import { MainGalleryPreview } from "@/routes/MainGalleryPreview";
+import { AboutHeaderPreview } from "@/routes/AboutHeaderPreview";
+import { AboutMissionPreview } from "@/routes/AboutMissionPreview";
+import { AboutValuesPreview } from "@/routes/AboutValuesPreview";
+import { AboutVisionPreview } from "@/routes/AboutVisionPreview";
+import { AboutOrganizationTabsPreview } from "@/routes/AboutOrganizationTabsPreview";
+import { AboutOrganizationLogosPreview } from "@/routes/AboutOrganizationLogosPreview";
+import { AboutOrganizationChartPreview } from "@/routes/AboutOrganizationChartPreview";
+import { AboutOrganizationPanoramaPreview } from "@/routes/AboutOrganizationPanoramaPreview";
+import { ContactFormPreview } from "@/routes/ContactFormPreview";
+import { ContestHeroPreview } from "@/routes/ContestHeroPreview";
+import { ContestAboutPreview } from "@/routes/ContestAboutPreview";
+import { ContestBenefitsPreview } from "@/routes/ContestBenefitsPreview";
+import { GalleryTitlePreview } from "@/routes/GalleryTitlePreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
 import { MainStats } from "@/components/sections/MainStats";
-import { MainProgramsHeader } from "@/components/sections/MainProgramsHeader";
-import { MainProgramsCard1 } from "@/components/sections/MainProgramsCard1";
+import { MainPrograms } from "@/components/sections/MainPrograms";
+import { MainNews } from "@/components/sections/MainNews";
+import { MainGallery } from "@/components/sections/MainGallery";
+import { AboutHeader } from "@/components/sections/AboutHeader";
+import { AboutMission } from "@/components/sections/AboutMission";
+import { AboutValues } from "@/components/sections/AboutValues";
+import { AboutVision } from "@/components/sections/AboutVision";
+import { AboutOrganizationTabs } from "@/components/sections/AboutOrganizationTabs";
+import { AboutOrganizationLogos } from "@/components/sections/AboutOrganizationLogos";
+import { AboutOrganizationChart } from "@/components/sections/AboutOrganizationChart";
+import { AboutOrganizationPanorama } from "@/components/sections/AboutOrganizationPanorama";
+import { ContactForm } from "@/components/sections/ContactForm";
+import { ContestHero } from "@/components/sections/ContestHero";
+import { ContestAbout } from "@/components/sections/ContestAbout";
+import { ContestBenefits } from "@/components/sections/ContestBenefits";
 
 export function App() {
   return (
@@ -26,6 +56,23 @@ export function App() {
       <Route path="/__preview/main-stats" element={<MainStatsPreview />} />
       <Route path="/__preview/main-programs-header" element={<MainProgramsHeaderPreview />} />
       <Route path="/__preview/main-programs-card1" element={<MainProgramsCard1Preview />} />
+      <Route path="/__preview/main-programs-card2" element={<MainProgramsCard2Preview />} />
+      <Route path="/__preview/main-programs-card3" element={<MainProgramsCard3Preview />} />
+      <Route path="/__preview/main-news" element={<MainNewsPreview />} />
+      <Route path="/__preview/main-gallery" element={<MainGalleryPreview />} />
+      <Route path="/__preview/about-header" element={<AboutHeaderPreview />} />
+      <Route path="/__preview/about-mission" element={<AboutMissionPreview />} />
+      <Route path="/__preview/about-values" element={<AboutValuesPreview />} />
+      <Route path="/__preview/about-vision" element={<AboutVisionPreview />} />
+      <Route path="/__preview/about-organization-tabs" element={<AboutOrganizationTabsPreview />} />
+      <Route path="/__preview/about-organization-logos" element={<AboutOrganizationLogosPreview />} />
+      <Route path="/__preview/about-organization-chart" element={<AboutOrganizationChartPreview />} />
+      <Route path="/__preview/about-organization-panorama" element={<AboutOrganizationPanoramaPreview />} />
+      <Route path="/__preview/contact-form" element={<ContactFormPreview />} />
+      <Route path="/__preview/contest-hero" element={<ContestHeroPreview />} />
+      <Route path="/__preview/contest-about" element={<ContestAboutPreview />} />
+      <Route path="/__preview/contest-benefits" element={<ContestBenefitsPreview />} />
+      <Route path="/__preview/gallery-title" element={<GalleryTitlePreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -36,8 +83,49 @@ export function App() {
               <MainHero />
               <MainIntro />
               <MainStats />
-              <MainProgramsHeader />
-              <MainProgramsCard1 />
+              <MainPrograms />
+              <MainNews />
+              <MainGallery />
+            </>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <>
+              <AboutHeader />
+              <AboutMission />
+              <AboutValues />
+              <AboutVision />
+            </>
+          }
+        />
+        <Route
+          path="/about/organization"
+          element={
+            <>
+              <AboutOrganizationTabs />
+              <AboutOrganizationLogos />
+              <AboutOrganizationChart />
+              <AboutOrganizationPanorama />
+            </>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <>
+              <ContactForm />
+            </>
+          }
+        />
+        <Route
+          path="/contest"
+          element={
+            <>
+              <ContestHero />
+              <ContestAbout />
+              <ContestBenefits />
             </>
           }
         />

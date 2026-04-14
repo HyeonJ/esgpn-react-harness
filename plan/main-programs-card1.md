@@ -329,3 +329,12 @@ bash scripts/compare-section.sh main-programs-card1 --clip-x 252 --clip-y 0 --cl
 - viewport: 1920×1080 (fullPage capture)
 - clip: `--clip-x 265 --clip-y 0 --clip-w 1404 --clip-h 805` (baseline 실제 크기 1404×805에 맞춤)
 - 원인: baseline PNG가 1416×805 spec에서 **좌측 12px 트림**되어 1404로 export됨 (Framelink 내부 처리). 뷰포트 1920 중앙정렬 1416 섹션은 x=252에서 시작, 여기에 12 오프셋 더해 x=264, 다시 +1 AA 보정으로 x=265가 최적.
+
+---
+
+## 공통화 리팩터 후 재측정 (2026-04-14, card3 워커 동시 커밋)
+
+- **G1: 2.67% (clip-x 265, 기존과 완전 동일)**
+- 리팩터 내용: 로컬 ProgramCard/CardHeader/CardChecklist3/CardCompetencies/CardCtaBar 5파일 삭제 → `src/components/ui/ProgramCard.tsx` 공통 컴포넌트로 전환
+- 공통화 영향 없음: markup·style·data-node-id 모두 1:1 보존 (공통 컴포넌트 `nodeIds` prop으로 detail node IDs 주입).
+- G2/G3/G4 육안·수치 PASS 유지.
