@@ -45,7 +45,7 @@ Phase 2 분해 완료 (research/certification.md). 총 6개 섹션 (1 Hero / 2 S
 - [x] certification-hero (diff 10.98% ⚠ ACCEPTED / 풀폭 1920×633 / Rectangle bg + HTML overlay (text/CTA) / Gong Gothic 64/24 + Pretendard 18/16 / G5-G8 PASS / 4회차 수렴. tech-debt T-007: TopNav 미장착 ~7% + Framelink Rectangle decoration overflow 누락 ~3-4%)
 - [x] certification-stats (diff 1.18% / 풀폭 1920×194 / 3 stat cards + 2 dividers / Pretendard Bold 48/40 + Medium 16 / G5-G8 PASS / 1회차 완통과)
 - [x] certification-intro (diff 5.24% ⚠ ACCEPTED / clip 252,0,1416,291 / HatchedSectionHeading + 3-col body / G5-G8 PASS / 2회차. 한글 dense+ heading AA 패턴)
-- [ ] certification-subjects
+- [x] certification-subjects (diff 2.63% / clip 252,0,1416,411 / HatchedSectionHeading + 3 카드 + 8 CSS bullet / G5-G8 PASS / 1회차)
 - [ ] certification-benefits
 - [ ] certification-flatten-bottom (4 서브섹션 분할 후 sample/process/schedule/cta로 진행)
 

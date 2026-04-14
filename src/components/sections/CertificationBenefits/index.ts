@@ -1,0 +1,1 @@
+export { CertificationBenefits } from "./CertificationBenefits";
