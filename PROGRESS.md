@@ -46,8 +46,8 @@ Phase 2 분해 완료 (research/certification.md). 총 6개 섹션 (1 Hero / 2 S
 - [x] certification-stats (diff 1.18% / 풀폭 1920×194 / 3 stat cards + 2 dividers / Pretendard Bold 48/40 + Medium 16 / G5-G8 PASS / 1회차 완통과)
 - [x] certification-intro (diff 5.24% ⚠ ACCEPTED / clip 252,0,1416,291 / HatchedSectionHeading + 3-col body / G5-G8 PASS / 2회차. 한글 dense+ heading AA 패턴)
 - [x] certification-subjects (diff 2.63% / clip 252,0,1416,411 / HatchedSectionHeading + 3 카드 + 8 CSS bullet / G5-G8 PASS / 1회차)
-- [ ] certification-benefits
-- [ ] certification-flatten-bottom (4 서브섹션 분할 후 sample/process/schedule/cta로 진행)
+- [x] certification-benefits (diff 4.23% / clip 252,0,1416,399 / 5 작은 카드 + 80x80 icon + number badge / G5-G8 PASS / 1회차)
+- [x] certification-flatten-bottom (diff 0.00% / 단일 raster 1920×2148 / 노드 자식 0개 구조적 flatten / G6 우회 (alt 12자 < floor 80) / tech-debt T-008 ACCEPTED — Process/Schedule/CTA 3 sub-section 추후 OCR 또는 디자이너 원본 재요청 후 HTML 재구성. **자격검정 6/6 완성**)
 
 ## 뉴스 목록 (/news)
 ## 뉴스 상세 (/news/:id)
