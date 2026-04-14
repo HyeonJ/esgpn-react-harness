@@ -42,7 +42,7 @@ Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지
 
 ## 자격검정 (/certification)
 Phase 2 분해 완료 (research/certification.md). 총 6개 섹션 (1 Hero / 2 Stats / 3 Intro / 4 Subjects / 5 Benefits / 6 flatten-bottom 4 서브섹션 분할 예정) + 페이지 전체 baseline.
-- [ ] certification-hero
+- [x] certification-hero (diff 10.98% ⚠ ACCEPTED / 풀폭 1920×633 / Rectangle bg + HTML overlay (text/CTA) / Gong Gothic 64/24 + Pretendard 18/16 / G5-G8 PASS / 4회차 수렴. tech-debt T-007: TopNav 미장착 ~7% + Framelink Rectangle decoration overflow 누락 ~3-4%)
 - [ ] certification-stats
 - [ ] certification-intro
 - [ ] certification-subjects

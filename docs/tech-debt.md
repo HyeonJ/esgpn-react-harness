@@ -49,6 +49,15 @@
 - **수용 근거**: Chromium vs Figma Pretendard 폰트 AA 서브픽셀 차이. 4회차 시도(9.48 → 12.21 → 6.90 → 6.71%) 후 6.7% 수렴 확인. 에셋 교체로 해결 불가
 - **주의**: T-002(텍스트 baked-in)과 분리. 이 완화는 엔진 차이 수용만 의미함. T-002 리팩터 후에도 G1은 6~8% 유지 예상
 
+### T-007 `certification-hero` G1 완화 (TopNav 미장착 + Framelink Rectangle 한계)
+- **상태**: `ACCEPTED`
+- **파일**: `src/components/sections/CertificationHero/*`
+- **증상**: G1 10.98%
+- **수용 근거**:
+  1. baseline은 full-page 0~633 crop이라 상단 88px에 TopNav 포함. Preview는 RootLayout 미장착 → 88px strip diff ~7%p
+  2. Framelink Rectangle(299:3861) 단독 export는 페이지 composite의 좌우 leaf decoration overflow 미포함 → 추가 ~3-4%p
+- **재검토 조건**: Preview에 RootLayout 마운트 옵션 제공 또는 Framelink composite export 기능 도입
+
 ### T-006 `gallery-agreements` G1 완화 (한글+사진 dense 수렴)
 - **상태**: `ACCEPTED`
 - **파일**: `src/components/sections/GalleryAgreements/*`
@@ -69,7 +78,7 @@
 ## 카운트 (Phase 0 차단 체크용)
 
 - `OPEN` 부채: **2건** (T-001, T-002)
-- `ACCEPTED`: 4건 (T-003, T-004, T-005, T-006 — 카운트 제외)
+- `ACCEPTED`: 5건 (T-003, T-004, T-005, T-006, T-007 — 카운트 제외)
 - 차단 임계: 3건 → 현재는 진행 가능
 
 ## 신규 부채 등록 규칙
