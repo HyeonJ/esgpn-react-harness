@@ -387,6 +387,14 @@ npx tsx tests/visual/run.ts --section {섹션명} --url http://127.0.0.1:5173/__
 - 어두운 테마 섹션(card1 녹색, card2 남색, card3 갈색 등)도 **외부 wrapper는 white**, 카드 자체 bg로 어두운 색 적용
 - 예: `<div className="w-[1920px] h-[1040px] mx-auto bg-white">{section}</div>` (격리 preview 라우트 표준)
 
+**Preview 페이지 너비가 1920보다 좁으면 clip 인자 필수** (contact-form 1회차 57% 폭증 교훈):
+- `compare-section.sh`의 default 동작은 **1920 viewport에서 fullPage 캡처**
+- preview 라우트가 938×695처럼 작은 단독 렌더라도 캡처는 1920 viewport 전체 → baseline 938×695와 사이즈 mismatch → pixelmatch가 padding으로 대량 diff
+- 해결: `--clip-x {섹션x} --clip-y 0 --clip-w {baseline_w} --clip-h {baseline_h}` 명시
+  - 예: `bash scripts/compare-section.sh contact-form --clip-x 491 --clip-y 0 --clip-w 938 --clip-h 695`
+  - 좌표는 preview 페이지에서 컨테이너의 실제 위치 (보통 `mx-auto`로 중앙정렬 시 `(1920 - baseline_w) / 2`)
+- 풀폭 1920 섹션은 clip 불필요 (default와 일치)
+
 이 스크립트/스크립트조합이 수행해야 할 일:
 1. dev 서버에서 해당 섹션 URL 캡처 (clip 지정 시 해당 영역만)
 2. **`figma-screenshots/{섹션명}.png`**(flat, Framelink 저장 경로)와 pixelmatch

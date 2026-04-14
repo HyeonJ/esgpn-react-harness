@@ -41,3 +41,4 @@ Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지
 ## 뉴스 상세 (/news/:id)
 ## 갤러리 (/gallery)
 ## 고객센터 (/contact)
+- [x] contact-form (diff 4.01% / clip 491,0,938,695 / G2·G3·G4·육안 PASS / 2회차 완통과 — 1회차는 clip 누락)
