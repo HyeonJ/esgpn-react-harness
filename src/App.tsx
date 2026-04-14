@@ -11,6 +11,7 @@ import { MainProgramsCard2Preview } from "@/routes/MainProgramsCard2Preview";
 import { MainProgramsCard3Preview } from "@/routes/MainProgramsCard3Preview";
 import { MainNewsPreview } from "@/routes/MainNewsPreview";
 import { MainGalleryPreview } from "@/routes/MainGalleryPreview";
+import { AboutHeaderPreview } from "@/routes/AboutHeaderPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -18,6 +19,7 @@ import { MainStats } from "@/components/sections/MainStats";
 import { MainPrograms } from "@/components/sections/MainPrograms";
 import { MainNews } from "@/components/sections/MainNews";
 import { MainGallery } from "@/components/sections/MainGallery";
+import { AboutHeader } from "@/components/sections/AboutHeader";
 
 export function App() {
   return (
@@ -35,6 +37,7 @@ export function App() {
       <Route path="/__preview/main-programs-card3" element={<MainProgramsCard3Preview />} />
       <Route path="/__preview/main-news" element={<MainNewsPreview />} />
       <Route path="/__preview/main-gallery" element={<MainGalleryPreview />} />
+      <Route path="/__preview/about-header" element={<AboutHeaderPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -48,6 +51,14 @@ export function App() {
               <MainPrograms />
               <MainNews />
               <MainGallery />
+            </>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <>
+              <AboutHeader />
             </>
           }
         />

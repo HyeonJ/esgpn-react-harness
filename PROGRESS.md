@@ -25,6 +25,7 @@ Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지
 - [x] main-gallery (diff 4.05% / G2 PASS / G3 13/13 / G4 PASS / 육안 PASS — 3회차 통과. BG 파일 매핑이 research와 반대임을 시각으로 확정 후 import 스왑, cityscape PNG RGBA alpha 보존(JPG로 변환하면 black void 발생)이 핵심 해결점. **메인페이지 9/9 완성**)
 
 ## About - 개요 (/about)
+- [x] about-header (diff 3.40% / G2 PASS ±2 / G3 N/A 텍스트전용 / G4 PASS all 토큰 일치 / 육안 PASS — 3회차 통과. 전략 [A] 완전 HTML 재구성. SectionTabs 공통 컴포넌트 신설(ui/). Yeseva One 재사용, font-size 144→152 조정으로 글리프 폭 baseline 일치. line-height "120px"로 cap 높이 제어)
 ## About - 조직도 (/about/organization)
 ## 경진대회 (/contest)
 ## 자격검정 (/certification)
