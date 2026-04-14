@@ -49,6 +49,14 @@
 - **수용 근거**: Chromium vs Figma Pretendard 폰트 AA 서브픽셀 차이. 4회차 시도(9.48 → 12.21 → 6.90 → 6.71%) 후 6.7% 수렴 확인. 에셋 교체로 해결 불가
 - **주의**: T-002(텍스트 baked-in)과 분리. 이 완화는 엔진 차이 수용만 의미함. T-002 리팩터 후에도 G1은 6~8% 유지 예상
 
+### T-006 `gallery-agreements` G1 완화 (한글+사진 dense 수렴)
+- **상태**: `ACCEPTED`
+- **파일**: `src/components/sections/GalleryAgreements/*`
+- **증상**: 한글 텍스트 + 4장 사진 dense composite. 수정 루프 5.72%에서 수렴
+- **현 G1**: 5.72% (⚠ 0.72%p 초과)
+- **수용 근거**: §2.5 "한글 text 다수 + 사진 dense 6~7% 수렴" 패턴. image fill % crop 우회 시도 시 16.78%로 악화 → 5.72% 이하 압축 구조적 불가 확정. baseline은 gallery-full.png에서 alpha=0 transparent 영역 white 베이크 후 비교
+- **재검토 조건**: 폰트 렌더 엔진 변경 또는 이미지 정밀 fill crop 알고리즘 도입 시
+
 ### T-005 `gallery-title` G1 완화
 - **상태**: `ACCEPTED`
 - **파일**: `src/components/sections/GalleryTitle/*`
@@ -61,7 +69,7 @@
 ## 카운트 (Phase 0 차단 체크용)
 
 - `OPEN` 부채: **2건** (T-001, T-002)
-- `ACCEPTED`: 3건 (카운트 제외)
+- `ACCEPTED`: 4건 (T-003, T-004, T-005, T-006 — 카운트 제외)
 - 차단 임계: 3건 → 현재는 진행 가능
 
 ## 신규 부채 등록 규칙
