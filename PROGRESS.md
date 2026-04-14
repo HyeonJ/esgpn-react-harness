@@ -41,6 +41,14 @@ Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지
 - [x] contest-benefits (diff 6.71% ⚠ 완화 / clip 252,0,1416,969 / G2·G3 7/7·G4 PASS / 육안 PASS / 페이지통합 PASS(2026-04-14 mx-auto 보정 후) — 4회차 5% 초과 후 [A] 완화 수락. 전략: B+C 결합(CTA rendered composite + 카드 아이콘 6 nodeId-only rendered). 회차 이력: 1(9.48%) → 2(multiply 실험 10.93~12.21% 악화 revert) → 3 B만(6.90%) → 4 B+C(6.71%) 수렴. 잔여 diff 주원인: Chromium vs Figma Pretendard 폰트 AA 서브픽셀 차이, 에셋 교체로 해결 불가. HatchedSectionHeading 재사용 2회차. BenefitCard 로컬, CtaBanner는 composite + aria-label 접근성. docs §2.5 "한글+blend 섹션 6~7% 수렴 패턴" 보강)
 
 ## 자격검정 (/certification)
+Phase 2 분해 완료 (research/certification.md). 총 6개 섹션 (1 Hero / 2 Stats / 3 Intro / 4 Subjects / 5 Benefits / 6 flatten-bottom 4 서브섹션 분할 예정) + 페이지 전체 baseline.
+- [ ] certification-hero
+- [ ] certification-stats
+- [ ] certification-intro
+- [ ] certification-subjects
+- [ ] certification-benefits
+- [ ] certification-flatten-bottom (4 서브섹션 분할 후 sample/process/schedule/cta로 진행)
+
 ## 뉴스 목록 (/news)
 ## 뉴스 상세 (/news/:id)
 ## 갤러리 (/gallery)
