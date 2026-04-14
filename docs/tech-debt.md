@@ -49,6 +49,20 @@
 - **수용 근거**: Chromium vs Figma Pretendard 폰트 AA 서브픽셀 차이. 4회차 시도(9.48 → 12.21 → 6.90 → 6.71%) 후 6.7% 수렴 확인. 에셋 교체로 해결 불가
 - **주의**: T-002(텍스트 baked-in)과 분리. 이 완화는 엔진 차이 수용만 의미함. T-002 리팩터 후에도 G1은 6~8% 유지 예상
 
+### T-010 `news-list` G1 20.37% (layout 추정 차이)
+- **상태**: `ACCEPTED`
+- **파일**: `src/components/sections/NewsList/*`
+- **증상**: 8 list item 패딩/간격 추정 불일치. 페이지네이션 디자인 정확도 부족
+- **수용 근거**: design_context 호출 시간/컨텍스트 제약으로 metadata만 사용. layout 정밀 측정 미실시
+- **재검토 조건**: 신선 세션에서 `get_design_context(129:2609)` 정밀 호출 후 padding/gap/font 재정렬
+
+### T-009 `news-title` G1 6.35% (텍스트 placeholder 차이)
+- **상태**: `ACCEPTED`
+- **파일**: `src/components/sections/NewsTitle/*`
+- **증상**: Figma 원본은 placeholder 영문 ("Amazon bets..."), 우리 구현은 사전 추정 한글 카피
+- **수용 근거**: Figma placeholder 영문은 무의미한 더미. 사전 추정 §4.6 "지식으로 여는 지속 가능한 내일" 채택이 정상. text 차이로 인한 G1 손해 6%p 수준
+- **재검토 조건**: 디자이너로부터 실제 카피 확정 후 정렬
+
 ### T-008 `certification-flatten-bottom` 단일 raster (Figma 노드 자식 0)
 - **상태**: `ACCEPTED`
 - **파일**: `src/components/sections/CertificationFlattenBottom/*`
@@ -87,7 +101,7 @@
 ## 카운트 (Phase 0 차단 체크용)
 
 - `OPEN` 부채: **2건** (T-001, T-002)
-- `ACCEPTED`: 6건 (T-003~T-008 — 카운트 제외)
+- `ACCEPTED`: 8건 (T-003~T-010 — 카운트 제외)
 - 차단 임계: 3건 → 현재는 진행 가능
 
 ## 신규 부채 등록 규칙

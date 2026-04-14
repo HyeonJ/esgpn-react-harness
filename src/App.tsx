@@ -32,6 +32,10 @@ import { CertificationIntroPreview } from "@/routes/CertificationIntroPreview";
 import { CertificationSubjectsPreview } from "@/routes/CertificationSubjectsPreview";
 import { CertificationBenefitsPreview } from "@/routes/CertificationBenefitsPreview";
 import { CertificationFlattenBottomPreview } from "@/routes/CertificationFlattenBottomPreview";
+import { NewsTabsPreview } from "@/routes/NewsTabsPreview";
+import { NewsTitlePreview } from "@/routes/NewsTitlePreview";
+import { NewsFeaturedPreview } from "@/routes/NewsFeaturedPreview";
+import { NewsListPreview } from "@/routes/NewsListPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -60,6 +64,10 @@ import { CertificationIntro } from "@/components/sections/CertificationIntro";
 import { CertificationSubjects } from "@/components/sections/CertificationSubjects";
 import { CertificationBenefits } from "@/components/sections/CertificationBenefits";
 import { CertificationFlattenBottom } from "@/components/sections/CertificationFlattenBottom";
+import { NewsTabs } from "@/components/sections/NewsTabs";
+import { NewsTitle } from "@/components/sections/NewsTitle";
+import { NewsFeatured } from "@/components/sections/NewsFeatured";
+import { NewsList } from "@/components/sections/NewsList";
 
 export function App() {
   return (
@@ -98,6 +106,10 @@ export function App() {
       <Route path="/__preview/certification-subjects" element={<CertificationSubjectsPreview />} />
       <Route path="/__preview/certification-benefits" element={<CertificationBenefitsPreview />} />
       <Route path="/__preview/certification-flatten-bottom" element={<CertificationFlattenBottomPreview />} />
+      <Route path="/__preview/news-tabs" element={<NewsTabsPreview />} />
+      <Route path="/__preview/news-title" element={<NewsTitlePreview />} />
+      <Route path="/__preview/news-featured" element={<NewsFeaturedPreview />} />
+      <Route path="/__preview/news-list" element={<NewsListPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -174,6 +186,17 @@ export function App() {
               <CertificationSubjects />
               <CertificationBenefits />
               <CertificationFlattenBottom />
+            </>
+          }
+        />
+        <Route
+          path="/news"
+          element={
+            <>
+              <NewsTabs />
+              <NewsTitle />
+              <NewsFeatured />
+              <NewsList />
             </>
           }
         />

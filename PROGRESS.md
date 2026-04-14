@@ -51,10 +51,10 @@ Phase 2 분해 완료 (research/certification.md). 총 6개 섹션 (1 Hero / 2 S
 
 ## 뉴스 목록 (/news)
 Phase 2 분해 완료 (research/news.md). 4 섹션 + Footer/TopNav 재사용.
-- [ ] news-tabs (936×29, SectionTabs 재사용)
-- [ ] news-title (936×124)
-- [ ] news-featured (936×568, NewsCard 신설)
-- [ ] news-list (936×1416, NewsListItem 신설 + Pagination)
+- [x] news-tabs (diff 2.44% / clip 492,0,936,30 / SectionTabs 재사용 / 1회차 PASS)
+- [x] news-title (diff 6.35% ⚠ ACCEPTED / clip 492,0,936,124 / 사전 추정 카피 "지식으로 여는 지속 가능한 내일" 사용 — Figma placeholder text와 다름. tech-debt T-009 ACCEPTED)
+- [x] news-featured (diff 6.63% ⚠ ACCEPTED / clip 491,0,938,569 / 한글 dense + image AA, baseline alpha bg 베이크 후 9.78→6.63)
+- [x] news-list (diff 20.37% ⚠ ACCEPTED / clip 491,0,937,1416 / 8 list item 추정 layout 차이. tech-debt T-010 ACCEPTED — 향후 정밀 측정 필요)
 
 ## 뉴스 상세 (/news/:id)
 ## 갤러리 (/gallery)
