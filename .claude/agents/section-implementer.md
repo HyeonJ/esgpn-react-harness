@@ -41,7 +41,9 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 - 새 공통 컴포넌트를 먼저 만들어야 하는지 여부
 - 이전 실행 결과 (재호출인 경우)
 
-## 작업 순서 (7단계, 점프 금지)
+## 작업 순서 (단계 4.5 포함, 점프 금지)
+
+7단계 + 단계 4.5(품질 게이트)로 총 8단계.
 
 ### 단계 1: 리서치 → `research/{섹션명}.md`
 - **baseline PNG 저장**: `mcp__figma-framelink__download_figma_images`로 섹션 노드 저장. 경로 규약 — 공통 컴포넌트는 `figma-screenshots/{section}.png`, 페이지 섹션은 `figma-screenshots/{page}-{section}.png` (flat, pngScale 1). Framelink 미등록이면 `docs/figma-workflow.md` Phase 0 수행 안내 후 멈춤
@@ -73,7 +75,28 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 - `any`/`unknown` 금지
 - 빌드/린트/타입체크 통과 확인
 
-### 단계 5: 측정 → plan/{섹션명}.md 하단 측정 섹션
+### 단계 4.5: 품질 게이트 (G5~G8) — 단계 5 진입 전 필수
+구조가 망가진 코드는 픽셀 측정에 도달하지 말 것. 다음 3개 명령을 순차 실행:
+
+```bash
+# G5 시맨틱 HTML
+npx eslint {섹션 디렉토리}
+
+# G6/G8 텍스트:이미지 비율 + i18n 가능성
+node scripts/check-text-ratio.mjs {섹션 디렉토리}
+
+# 또는 3개를 한 번에 (G7 Lighthouse 포함, dev 서버 기동 + lhci 설치 시)
+bash scripts/measure-quality.sh {섹션명} {섹션 디렉토리}
+```
+
+- **G5~G8은 완화 금지.** G5 FAIL → eslint 에러 수정. G6 FAIL → 텍스트 baked-in raster 의심 → HTML 재구성. G7 FAIL → Lighthouse audit 수정. G8 FAIL → JSX literal text 추가
+- **자동 가드 체크 동시 실행** (경고만):
+  - `bash scripts/check-tailwind-antipatterns.sh {섹션 디렉토리}` — 음수 width·정수 반올림
+  - `bash scripts/check-baked-in-png.sh {섹션명}` — Framelink PNG 위에 CSS 재적용
+- 실패 시 **단계 4로 반송.** plan 측정 섹션에 G5~G8 결과 기록
+- 통과 시 단계 5 진입. plan 측정 섹션에 숫자 기록
+
+### 단계 5: 측정 (G1~G4) → plan/{섹션명}.md 하단 측정 섹션
 - 풀폭: `scripts/compare-section.sh {섹션명}`
 - floating/중앙정렬: `npx tsx tests/visual/run.ts --section {섹션명} --url ... --baseline figma-screenshots/{섹션명}.png --clip-x {x} --clip-y {y} --clip-w {w} --clip-h {h}` (clip 값은 research의 캔버스 좌표)
 - baseline은 `figma-screenshots/{섹션명}.png` (flat, Framelink 저장 경로)
@@ -90,10 +113,13 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 - 각 회차 결과를 plan 측정 섹션에 누적 기록
 - **3회에도 미통과면 멈추고 오케스트레이터에 실패 보고** (임의 우회 금지)
 
-### 단계 7: 커밋
-- 모든 게이트 통과 후에만
-- `git commit -m "feat(section): {페이지}-{섹션명} 구현 (diff X.X%)"`
-- `PROGRESS.md` 해당 항목 체크 + diff % 기록
+### 단계 7: 자동 커밋 (모든 게이트 + 육안 PASS 시)
+- 조건: G1~G8 전부 PASS + 육안 semantic OK + 페이지 통합 게이트 OK + 빌드/타입 통과
+- 오케스트레이터가 자동 커밋:
+  - `git commit -m "feat(section): {페이지}-{섹션명} 구현 (diff X.X% / G5-G8 PASS) [auto]"`
+  - `PROGRESS.md` 해당 항목 체크 + 측정값 요약 자동 추가
+- 사용자에게는 "커밋 {hash} 완료. 다음 섹션: {후보}. 계속 진행할까요?" 한 줄만 통보
+- **완화([ACCEPTED_DEBT]) 커밋인 경우** 커밋 메시지 태그 추가 + `docs/tech-debt.md` 자동 append (사용자에게 부채 엔트리 확인 요청)
 
 ## 절대 금지
 - 다른 섹션 파일 수정
@@ -106,14 +132,17 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 - 측정값 없이 "괜찮아 보임" 통과 처리
 - 3회 후 임의 우회
 
-## 승인 게이트 (반드시 멈춤)
-| 지점 | 멈춤 사유 |
-|------|----------|
-| 단계 1 완료 | 리서치 검토 (경과 보고) |
-| 단계 2 완료 | plan 승인 필요 |
-| 단계 5 3회 실패 | 사용자 결정 필요 |
+## 승인 게이트 (섹션당 1개로 축소)
 
-각 멈춤 시 `approval-gate-format` 스킬의 표준 포맷으로 보고한다.
+| 지점 | 동작 |
+|------|------|
+| 단계 1 완료 | **통보만** (자동으로 단계 2 진행) |
+| 단계 2 완료 | **real gate** — plan 승인 필요 (섹션당 유일한 멈춤) |
+| 단계 4.5 FAIL | 자동으로 단계 4로 반송 (승인 필요 없음) |
+| 단계 5/6 3회 실패 | 사용자 결정 필요 (재분할/다른접근/엔진차이 수용/되돌리기/완화) |
+| 단계 7 전체 PASS | **자동 커밋** (승인 필요 없음) — 사용자에게 1줄 통보 후 다음 섹션 제안 |
+
+approval-gate가 필요한 지점 2개(단계 2, 3회 실패)에서만 `approval-gate-format` 스킬의 표준 포맷으로 보고한다.
 
 ## 재호출 시
 - 이전 plan/{섹션명}.md 있으면 읽고 이어서 진행

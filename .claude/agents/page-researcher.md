@@ -23,12 +23,35 @@ model: opus
 ## 작업 절차
 1. 공식 Figma MCP `get_metadata`로 페이지의 자식 노드 트리 추출 (페이지 전체 `get_design_context` 금지)
 2. 각 섹션 후보의 예상 토큰 크기 판단, 12K 초과 시 더 작게 분할
-3. 사전 추정 표와 대조 — 차이점 기록
-4. 각 섹션에 대해 **Framelink `mcp__figma-framelink__download_figma_images`** 호출 → **`figma-screenshots/{page}-{section}.png`** 저장 (flat, pngScale 1). 공통 컴포넌트는 예외로 `figma-screenshots/{section}.png` (page prefix 없음)
-5. 페이지 전체 → Framelink `download_figma_images`로 `figma-screenshots/{page}-full.png` 저장
-6. 페이지 내 반복 컴포넌트 식별 (`figma-project-context.md` §5 공통 카탈로그와 대조)
-7. floating/중앙정렬 섹션은 research에 **캔버스 좌표(x, y, width, height)** 도 기록 (단계 5 clip 파라미터용)
-8. 결과를 `research/{페이지명}.md`에 기록 후 **멈춤**
+3. **서브섹션 분할 판단** — 각 후보 섹션에 대해 아래 3조건 중 하나라도 해당하면 서브섹션으로 쪼갠다 (필수):
+   - **이질적 에셋 3+ 혼재** — 텍스트·raster·SVG·interactive 중 3종 이상 한 섹션에 섞임 (예: 텍스트 블록 + 카드 raster + 인터랙티브 CTA → 3종)
+   - **반복 자식 3+** — 카드·탭·item 등 반복 패턴 3개 이상 → 반복 자식 각각을 서브섹션으로 + 부모는 wrapper 섹션
+   - **예상 토큰 >10K** — 섹션 내부 구조 복잡도로 MCP 호출 토큰 초과 예상
+4. 사전 추정 표와 대조 — 차이점 기록
+5. 각 섹션/서브섹션에 대해 **Framelink `mcp__figma-framelink__download_figma_images`** 호출 → **`figma-screenshots/{page}-{section}.png`** 저장 (flat, pngScale 1). 공통 컴포넌트는 예외로 `figma-screenshots/{section}.png` (page prefix 없음)
+6. 페이지 전체 → Framelink `download_figma_images`로 `figma-screenshots/{page}-full.png` 저장
+7. 페이지 내 반복 컴포넌트 식별 (`figma-project-context.md` §5 공통 카탈로그와 대조)
+8. floating/중앙정렬 섹션은 research에 **캔버스 좌표(x, y, width, height)** 도 기록 (단계 5 clip 파라미터용)
+9. 결과를 `research/{페이지명}.md`에 기록 후 **멈춤**
+
+### 서브섹션 분할 예시 (main-hero 역설계)
+
+기존 1섹션 "main-hero"는 회차 6까지 소모하며 raster 안티패턴으로 도망침. 서브섹션 규칙 적용 시:
+
+```
+MainHero (wrapper 섹션)
+├─ main-hero-intro        (heading + body 텍스트 블록)
+├─ main-hero-cards        (ProgramCardTrio — 반복 자식 3 → 별도 서브섹션)
+│   ├─ card1
+│   ├─ card2
+│   └─ card3
+├─ main-hero-cta-pair     (버튼 2개)
+└─ main-hero-integration  (4개 조립 wrapper — 실코드 거의 없음)
+```
+
+- 이 경우 각 서브섹션이 독립 커밋. 카드 섹션이 막혀도 intro/cta는 이미 완료
+- 통합 커밋은 import + layout div만 (코드 거의 없음)
+- 섹션 단위 정의는 **편의적 근사가 아닌 구조 결정** — 이질 에셋 + 반복 자식이 한 커밋에 묶이면 회차가 전체 섹션을 오염시킨다
 
 주의: 공식 `get_screenshot`은 inline 전용이라 파일 저장 불가. 반드시 Framelink 사용. Framelink 미등록 상태면 `docs/figma-workflow.md` Phase 0 수행 안내 후 멈춤.
 

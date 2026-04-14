@@ -164,15 +164,31 @@ scripts/
 ### 3.1 페이지 분해
 - `docs/figma-project-context.md`에서 해당 페이지의 Node ID 확인
 - Figma MCP `get_metadata`로 페이지의 자식 노드(섹션) 트리 추출
-- **섹션 단위로 분할**: 각 섹션이 12K MCP 토큰 이하인지 확인. 초과하면 더 작게 나눈다
+- **섹션 단위로 분할**: 다음 4조건 중 하나라도 해당하면 **서브섹션으로 추가 쪼개기**:
+  1. 예상 MCP 토큰 > 12K
+  2. 이질적 에셋 타입 3+ 혼재 (텍스트·raster·SVG·interactive)
+  3. 반복 자식 3+ (카드·탭·item 등 반복 패턴)
+  4. 섹션 내부에 blend mode / 복잡 transform 가진 요소 3+
+
 - 결과를 표로 정리:
 
 ```markdown
-| # | 섹션명 | Node ID | 예상 토큰 | Figma 사이즈 | 비고 |
-|---|--------|---------|-----------|--------------|------|
-| 1 | Hero   | 12:2325 | ~8K       | 1920x827     | 풀스크린 이미지 |
-| 2 | Intro  | 12:2400 | ~5K       | 1920x600     | 좌측 타임라인 |
+| # | 섹션명 | Node ID | 예상 토큰 | Figma 사이즈 | 분할 사유 | 비고 |
+|---|--------|---------|-----------|--------------|----------|------|
+| 1 | main-hero-intro    | 12:2325 | ~3K | 1920x300 | 텍스트 블록 | |
+| 2 | main-hero-cards    | 12:2326 | ~5K | 1920x400 | 반복 자식 3+ → wrapper | |
+| 2a | main-hero-card1   | 12:2327 | ~2K | 400x400  | | |
+| 2b | main-hero-card2   | 12:2328 | ~2K | 400x400  | | |
+| 2c | main-hero-card3   | 12:2329 | ~2K | 400x400  | | |
+| 3 | main-hero-cta-pair | 12:2330 | ~2K | 1920x100 | 버튼 2 | |
+| 4 | main-hero-integration | (wrapper) | ~1K | - | 조립 wrapper | 실코드 거의 없음 |
 ```
+
+**섹션 단위 정의**:
+- 섹션 = 독립적 레이아웃 블록 (sibling들끼리 수평 조립 가능)
+- 서브섹션 = 그 안의 강결합 패턴 (반복 자식 그룹, 복잡 composite)
+- 두 단위 모두 **독립 커밋 가능**. 한 서브섹션이 회차를 태우더라도 sibling에 영향 없음
+- 통합 wrapper 섹션(imports + layout div만)은 실코드 거의 없는 별도 커밋
 
 ### 3.2 페이지 전체 베이스라인 확보
 - Framelink `download_figma_images`로 페이지 전체 PNG 저장 → `figma-screenshots/{페이지명}-full.png`

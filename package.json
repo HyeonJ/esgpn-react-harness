@@ -10,7 +10,10 @@
     "lint": "eslint . --ext .ts,.tsx",
     "typecheck": "tsc --noEmit",
     "test:visual": "tsx tests/visual/run.ts --self-test",
-    "doctor": "bash scripts/doctor.sh"
+    "doctor": "bash scripts/doctor.sh",
+    "check:antipatterns": "bash scripts/check-tailwind-antipatterns.sh",
+    "check:baked-png": "bash scripts/check-baked-in-png.sh",
+    "check:quality": "bash scripts/measure-quality.sh"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -20,6 +23,8 @@
     "react-router-dom": "^6.28.0"
   },
   "devDependencies": {
+    "@babel/parser": "^7.26.0",
+    "@babel/traverse": "^7.26.0",
     "@eslint/js": "^9.15.0",
     "@playwright/test": "^1.49.0",
     "@tailwindcss/vite": "^4.0.0",
@@ -32,6 +37,7 @@
     "@typescript-eslint/parser": "^8.15.0",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.15.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "pixelmatch": "^6.0.0",
     "pngjs": "^7.0.0",

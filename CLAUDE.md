@@ -28,36 +28,70 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 
 ## Figma 모드 절대 규칙 (워커에도 강제됨)
 
-- **작업 단위 = 섹션 (페이지 아님).** 한 섹션 = 한 브랜치 = 한 커밋
-- **측정값을 숫자로 plan에 기록하지 않은 섹션은 미완료** (눈대중 금지)
-- **4 게이트 통과 필수:** G1 시각(diff<5%), G2 치수(font±1, 나머지±2), G3 에셋(naturalWidth>0), G4 색상(hex 일치)
-- **3회 수정 실패 시 사용자 보고 후 멈춤** — 임의 우회 금지
+> **철학**: 실패는 "자동 가드"로 막는다. 새 함정 발견 시 텍스트 규칙 추가가 아니라 lint/스크립트 이식 우선. 텍스트 규칙은 "왜 이 가드가 존재하는가" 설명용.
+
+### 구조 규칙
+- **작업 단위 = 섹션 (페이지 아님).** 한 섹션 = 한 브랜치 = 한 커밋. 한 브랜치에 여러 섹션 혼재 금지
+- **섹션이 이질적 에셋 3+ / 반복 자식 3+ / 예상 토큰 >10K 중 하나라도 해당하면 서브섹션으로 쪼갠다** (Phase 2 분할 시 강제. `docs/figma-workflow.md §3` 참조)
+- **섹션은 자기 정렬 책임을 진다** — 섹션 루트에 `mx-auto` 내장. Preview wrapper 의존 금지. 페이지 통합 육안 게이트(docs §6.5) 통과 필수
+
+### 품질 게이트 (8 게이트 — 모두 통과해야 섹션 완료)
+| G | 항목 | 기준 | 자동화 |
+|---|---|---|---|
+| G1 | 시각 diff | < 5% | `scripts/compare-section.sh` |
+| G2 | 치수 | font±1, 나머지±2 | Playwright computed style |
+| G3 | 에셋 | naturalWidth > 0 | Playwright DOM |
+| G4 | 색상 | hex 일치 | Playwright computed style |
+| G5 | 시맨틱 HTML | eslint jsx-a11y error 0 | `npm run lint` |
+| G6 | 텍스트:이미지 비율 | text/alt ≥ 3:1 (alt≥80자일 때만 적용) | `scripts/check-text-ratio.mjs` |
+| G7 | a11y/SEO | Lighthouse a11y≥95, SEO≥90 | `scripts/measure-quality.sh` (lhci 설치 시) |
+| G8 | i18n 가능성 | JSX에 literal text 존재 | `scripts/check-text-ratio.mjs` |
+
+- **G5~G8은 단계 4.5에서 G1~G4보다 먼저 측정** — 구조가 망가진 코드는 픽셀 측정에 도달하지 말 것
+- **측정값은 숫자로 plan에 기록.** 눈대중 금지. "괜찮아 보임" 금지
+- **G1 수치 PASS만으로 섹션 완료 금지** — baseline/capture/diff 3종 이미지를 반드시 육안 스캔. semantic 오류(SVG flip, 요소 swap, 색 반전, 줄바꿈 위치)는 수치로 못 잡는다
+
+### 자동 가드 (문서 규칙에서 이식됨)
+아래는 과거 문서 규칙이었으나 이제 스크립트/lint로 자동 검출된다. 수동 확인 불필요:
+- 음수 width/height (`w-[-...`) → `scripts/check-tailwind-antipatterns.sh`
+- 정수 회전·letter-spacing (반올림 금지) → 동 스크립트 warn
+- Framelink baked-in PNG 위에 CSS rotate/blend/bg 중첩 → `scripts/check-baked-in-png.sh`
+- 시맨틱 HTML 위반 → eslint jsx-a11y (G5)
+- 텍스트 baked-in raster → G6/G8
+
+여전히 사람이 판단해야 하는 규칙은 `docs/section-implementation.md §2.4/§2.5` 참조.
+
+### 에셋 규칙
 - **에셋 URL 무조건 다운로드.** CSS/유니코드 대체 금지
-- **동적 에셋(GIF/비디오) 원본 사용 금지** — 부모 노드를 Framelink `download_figma_images`로 정적 PNG 추출
-- **baseline PNG는 Framelink MCP로만 저장** — 공식 `get_screenshot`은 inline 전용이라 파일 저장 불가. 경로 규약: 공통은 `figma-screenshots/{section}.png` (예: `header.png`), 페이지는 `figma-screenshots/{page}-{section}.png` (예: `main-hero.png`), 페이지 전체는 `{page}-full.png`
-- **Framelink PNG는 완성된 합성 사진** — 회전·블렌드·배경·그림자가 모두 baked-in. CSS rotate/blend/bg 추가 금지 (이중 적용). PNG native 크기 ≠ metadata AABB. 배치는 `wrapper=AABB + inner=native` 패턴 (docs §2.5). baseline PNG 크기는 spec과 다를 수 있으니 `file` 명령으로 실측 (§2.6)
-- **Figma 수치는 반올림하지 않는다** — rotation·position·letter-spacing·line-height·border-radius 등 소수점 포함 원본 값을 그대로 Tailwind arbitrary(`rotate-[4.237deg]`, `left-[123.7px]`)로 사용. 정수 근사는 회전·변형 요소에서 서브픽셀 누적 오차로 반영돼 G1 게이트를 악화시킨다
-- **G1 수치 PASS만으로 섹션 완료 금지** — baseline/capture/diff 3종 이미지를 반드시 육안 스캔. pixelmatch는 픽셀 밀도만 보므로 방향 반전(SVG flip), 요소 위치 swap, 색상 반전, 텍스트 줄바꿈 위치 같은 **semantic 오류는 수치로 못 잡는다**. 발견 시 수치와 무관하게 단계 6 재진입 후 수정
-- **섹션은 자기 정렬 책임을 진다 + 페이지 통합 게이트 필수** — 섹션 루트에 `mx-auto` 내장(1416/1920 모두). Preview 라우트 wrapper로 정렬 해결 금지 — Preview와 실제 라우트 DOM이 달라지면 격리 G1 PASS여도 실제 페이지에서 좌측 치우침·가로 스크롤·margin collapse 회귀 발생. **섹션 완료 전 페이지 통합 육안 게이트(docs §6.5) 통과 필수** — 실제 사용자 라우트(`/contest` 등) 1920 fullPage 캡처로 수평 정렬·섹션 간격·z-index 확인
-- **텍스트 baked-in raster 절대 금지** — 사용자가 읽는 텍스트(제목·본문·CTA 라벨·카드 내부 설명 등)는 **반드시 HTML로 렌더**. G1이 7~10% 나와도 HTML 유지가 정답. G1 단일 지표 최적화로 raster 선택 시 접근성·SEO·i18n·검색·유지보수성 모두 희생 — 안티패턴. **raster 허용 대상**: 배경 이미지·장식 사진·아이콘·SVG 장식 등 **텍스트 없는 시각 요소만**. text-bearing composite 만들면 안 됨
-- **캔버스-에셋 개수 불일치 시 사용자 보고 후 멈춤**
-- **한 브랜치에 여러 섹션 섞기 금지**
+- **동적 에셋(GIF/비디오) 원본 사용 금지** — 부모 노드를 Framelink로 정적 PNG 추출 (`dynamic-asset-handling` 스킬)
+- **캔버스-에셋 개수 불일치 시 사용자 보고 후 멈춤** — 임의 진행 금지
+- **baseline PNG는 Framelink MCP로만 저장**, 경로 규약:
+  - 공통: `figma-screenshots/{section}.png`
+  - 페이지 섹션: `figma-screenshots/{page}-{section}.png`
+  - 페이지 전체: `figma-screenshots/{page}-full.png`
+
+### 실패 처리
+- **게이트 미통과 시 최대 3회 수정.** 3회에도 미달이면 사용자 보고 + 멈춤. 임의 우회 금지
+- **3회 실패 시 선택지 순서는 `(a)재분할 → (b)다른접근 → (c)엔진차이 수용 → (d)되돌리기 → (e)완화`** — 완화는 맨 끝. `(e)완화` 선택 시 커밋 메시지에 `[ACCEPTED_DEBT]` 태그 + `docs/tech-debt.md` 엔트리 자동 추가 필수
+- **`docs/tech-debt.md`의 `OPEN` 부채 3건 이상이면 새 섹션 진행 차단** (Phase 0 오케스트레이터 체크). 쌓인 부채 먼저 해소
 
 ---
 
-## 사용자 개입 지점 (하네스가 반드시 멈추는 곳)
+## 사용자 개입 지점 (축소판 — 섹션당 1회)
 
 | 지점 | 당신이 할 일 |
 |------|-----------|
-| Phase 1 plan 완료 | plan/phase1-setup.md 검토 후 승인 또는 메모 반영 |
+| Phase 1 plan 완료 | plan/phase1-setup.md 검토 후 승인 |
 | Phase 2 페이지 분할 완료 | research/{페이지명}.md 검토 후 승인 또는 재분할 |
-| 섹션 단계 1 (리서치) 완료 | research/{섹션명}.md 검토 |
-| 섹션 단계 2 (plan) 완료 | plan/{섹션명}.md 검토 후 승인 또는 메모 반영 |
-| 4 게이트 통과 후 커밋 전 | 필요 시 diff 이미지 재확인 |
-| 4 게이트 3회 실패 | 완화/다른접근/디버깅/되돌리기 중 선택 |
+| **섹션 단계 2 (plan) 완료** | plan/{섹션명}.md 검토 후 승인 또는 메모 (real gate, 섹션당 1회) |
+| 게이트 3회 실패 | 선택지 중 결정 |
 | 페이지 통합 검증 완료 | 페이지 완료 처리 |
 
-각 지점에서 오케스트레이터가 **현재 단계 / 검토할 파일 / 결과 요약 / 다음 행동 선택지 [A][B][C][D] / 권장 / 체크리스트**를 표준 포맷으로 출력한다 (`approval-gate-format` 스킬 참조). 당신은 선택지 중 하나를 고르거나 메모를 추가하면 된다.
+**자동화된 지점 (통보만, 개입 불필요)**:
+- 섹션 단계 1 (리서치) 완료 → 요약 통보만, 자동으로 단계 2 진행
+- 단계 5 게이트 전체 PASS → 자동 커밋 (메시지에 diff % 포함) + PROGRESS.md 갱신
+
+각 real gate에서 오케스트레이터가 `approval-gate-format` 스킬의 표준 포맷으로 출력한다.
 
 ---
 
@@ -65,14 +99,14 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 
 | 파일 | 역할 |
 |------|------|
-| `docs/figma-workflow.md` | 4 Phase 전체 흐름 |
-| `docs/section-implementation.md` | 섹션 7단계 절차 + 동적 에셋 규칙 |
+| `docs/figma-workflow.md` | 4 Phase 전체 흐름 + Phase 2 섹션 분할 규칙 |
+| `docs/section-implementation.md` | 섹션 7단계 절차 (4.5단계 품질 게이트 포함) |
 | `docs/figma-project-context.md` | 페이지 Node ID, 공통 컴포넌트 카탈로그, 리스크 |
+| `docs/tech-debt.md` | 기술부채 트래커 (Phase 0 차단 체크 대상) |
 | `docs/frontend.md`, `docs/react.md` | 코드 컨벤션 |
 | `docs/backend.md`, `docs/spring.md` | 백엔드 작업 시 |
-| `docs/_SESSION_PROMPTS_REFERENCE.md` | (참고) 이전 수동 세션 프롬프트 — 하네스가 대체함 |
-| `docs/setup.md` | 새 PC에서 환경 세팅 절차 (Playwright, Framelink, Figma PAT 등) |
-| `PROGRESS.md` (프로젝트 루트) | 진행 상황 진실의 원천 |
+| `docs/setup.md` | 새 PC 환경 세팅 절차 |
+| `PROGRESS.md` | 진행 상황 진실의 원천 |
 
 ---
 
@@ -82,13 +116,21 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 .claude/
 ├─ agents/
 │  ├─ phase1-setup-worker.md    — Phase 1 프로젝트 셋업 전담
-│  ├─ page-researcher.md        — Phase 2 페이지 분해 전담
+│  ├─ page-researcher.md        — Phase 2 페이지 분해 전담 (서브섹션 분할 포함)
 │  └─ section-implementer.md    — Phase 3 섹션 7단계 전담
 └─ skills/
    ├─ figma-to-react/           — 메인 오케스트레이터 (진입점)
    ├─ approval-gate-format/     — 승인 대기 표준 보고 포맷
    ├─ dynamic-asset-handling/   — GIF/비디오 정적 프레임 추출
-   └─ visual-regression-gates/  — 4 게이트 측정 절차
+   └─ visual-regression-gates/  — 8 게이트 측정 절차
+
+scripts/
+├─ measure-quality.sh           — G5~G8 umbrella (단계 4.5)
+├─ check-text-ratio.mjs         — G6/G8 텍스트/이미지 비율
+├─ check-baked-in-png.sh        — Framelink baked-in 중첩 검출
+├─ check-tailwind-antipatterns.sh — 음수 width, 정수 반올림 검출
+├─ compare-section.sh           — G1~G4 통합 측정
+└─ doctor.sh                    — 환경 점검
 ```
 
 ---
@@ -99,3 +141,4 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 |------|----------|------|------|
 | 2026-04-13 | 초기 구성 | 전체 (agents 3, skills 4) | docs v2 기반 Figma→React 오케스트레이터 구축 |
 | 2026-04-13 | Framelink MCP 도입 | docs/figma-workflow.md Phase 0, section-implementation.md §2.1 / §2.3 / §6.1, visual-regression-gates, section-implementer, page-researcher, figma-to-react, figma-project-context §5 | 공식 `get_screenshot` inline 제약으로 G1 baseline 수동 export 필요 → Framelink `download_figma_images`로 자동화. baseline 경로 `figma-screenshots/{섹션명}.png` flat 통일, floating 요소용 `--clip-*` 인자 추가 |
+| 2026-04-14 | 하네스 v2 — 규칙→자동가드 이식 + 8게이트 | CLAUDE.md·section-implementation·figma-workflow·visual-regression·approval-gate·section-implementer·page-researcher·figma-to-react + scripts 4개 신설 + tech-debt.md 신설 | deep-research + harness-feedback 진단 반영. 핵심 변경: (1) G5~G8 품질 게이트 신설·단계 4.5 배치로 text-bearing raster 등 구조 안티패턴 재발 차단 (2) "완화" 옵션을 선택지 말단 이동 + `[ACCEPTED_DEBT]` 태그 + tech-debt.md 트래커 (OPEN 3건 시 차단) (3) 섹션 분할 기준 강화 (이질 에셋 3+ / 반복자식 3+ / 토큰 >10K) (4) 승인 게이트 3→1 축소 (섹션 단계 1/7 자동화) (5) 문서 함정 규칙 일부를 lint/스크립트로 이식 |
