@@ -126,10 +126,14 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 
 scripts/
 ├─ measure-quality.sh           — G5~G8 umbrella (단계 4.5)
-├─ check-text-ratio.mjs         — G6/G8 텍스트/이미지 비율
+├─ check-text-ratio.mjs         — G6/G8 텍스트/이미지 비율 + raster-heavy 감지
 ├─ check-baked-in-png.sh        — Framelink baked-in 중첩 검출
 ├─ check-tailwind-antipatterns.sh — 음수 width, 정수 반올림 검출
-├─ compare-section.sh           — G1~G4 통합 측정
+├─ check-composite-diff.mjs     — Framelink 단독 export vs page composite 차이 (v3)
+├─ bake-baseline.mjs            — baseline alpha=0 영역 full-page crop으로 white 베이크 (v3)
+├─ track-diff-history.mjs       — G1 회차 history + 악화 revert 힌트 (v3)
+├─ detect-placeholder-text.mjs  — 영문 placeholder 감지 (v3)
+├─ compare-section.sh           — G1~G4 통합 측정 (--bake-from-full 옵션 v3)
 └─ doctor.sh                    — 환경 점검
 ```
 
@@ -142,3 +146,4 @@ scripts/
 | 2026-04-13 | 초기 구성 | 전체 (agents 3, skills 4) | docs v2 기반 Figma→React 오케스트레이터 구축 |
 | 2026-04-13 | Framelink MCP 도입 | docs/figma-workflow.md Phase 0, section-implementation.md §2.1 / §2.3 / §6.1, visual-regression-gates, section-implementer, page-researcher, figma-to-react, figma-project-context §5 | 공식 `get_screenshot` inline 제약으로 G1 baseline 수동 export 필요 → Framelink `download_figma_images`로 자동화. baseline 경로 `figma-screenshots/{섹션명}.png` flat 통일, floating 요소용 `--clip-*` 인자 추가 |
 | 2026-04-14 | 하네스 v2 — 규칙→자동가드 이식 + 8게이트 | CLAUDE.md·section-implementation·figma-workflow·visual-regression·approval-gate·section-implementer·page-researcher·figma-to-react + scripts 4개 신설 + tech-debt.md 신설 | deep-research + harness-feedback 진단 반영. 핵심 변경: (1) G5~G8 품질 게이트 신설·단계 4.5 배치로 text-bearing raster 등 구조 안티패턴 재발 차단 (2) "완화" 옵션을 선택지 말단 이동 + `[ACCEPTED_DEBT]` 태그 + tech-debt.md 트래커 (OPEN 3건 시 차단) (3) 섹션 분할 기준 강화 (이질 에셋 3+ / 반복자식 3+ / 토큰 >10K) (4) 승인 게이트 3→1 축소 (섹션 단계 1/7 자동화) (5) 문서 함정 규칙 일부를 lint/스크립트로 이식 |
+| 2026-04-15 | 하네스 v3 — 자율 모드 1세션 피드백 8항목 반영 | scripts 4개 신설 (bake-baseline, check-composite-diff, track-diff-history, detect-placeholder-text) + compare-section.sh `--bake-from-full` / diff history tracking + check-text-ratio raster-heavy 휴리스틱 + PreviewWrapper (withHeader/withFooter) + section-implementer 자율 모드 최적화 + page-researcher flatten/placeholder 경고 | experiment/autonomous-run 1세션 (38섹션) 회귀 분석에서 8가지 한계 식별: baseline alpha 베이크, Preview layout 옵션, composite 차이 가드, G6 floor bypass, 자율 design_context 사전 fetch, 회차 best revert 힌트, placeholder 감지, flatten 자동 경고 |

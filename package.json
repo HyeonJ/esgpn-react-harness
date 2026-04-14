@@ -13,7 +13,10 @@
     "doctor": "bash scripts/doctor.sh",
     "check:antipatterns": "bash scripts/check-tailwind-antipatterns.sh",
     "check:baked-png": "bash scripts/check-baked-in-png.sh",
-    "check:quality": "bash scripts/measure-quality.sh"
+    "check:quality": "bash scripts/measure-quality.sh",
+    "bake:baseline": "node scripts/bake-baseline.mjs",
+    "check:composite": "node scripts/check-composite-diff.mjs",
+    "check:placeholder": "node scripts/detect-placeholder-text.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

@@ -37,17 +37,32 @@ URL="http://127.0.0.1:5173/__preview/$SECTION"
 BASELINE="figma-screenshots/${SECTION}.png"
 CLIP_ARGS=()
 
+BAKE_FROM=""
+BAKE_XYWH=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --url)
       URL="$2"; shift 2 ;;
     --clip-x|--clip-y|--clip-w|--clip-h)
       CLIP_ARGS+=("$1" "$2"); shift 2 ;;
+    --bake-from-full)
+      # --bake-from-full <page-name>:<x>,<y>,<w>,<h>
+      # 예: --bake-from-full news:491,833,937,1416
+      BAKE_FROM="$2"; shift 2 ;;
     *)
       echo "error: unknown option: $1" >&2
       exit 2 ;;
   esac
 done
+
+# C-1: baseline alpha=0 자동 베이크 (full-page crop)
+if [[ -n "$BAKE_FROM" ]]; then
+  page="${BAKE_FROM%%:*}"
+  xywh="${BAKE_FROM#*:}"
+  IFS=',' read -r bx by bw bh <<< "$xywh"
+  echo "[bake] $BASELINE ← figma-screenshots/${page}-full.png @ ($bx,$by,${bw}x${bh})"
+  node scripts/bake-baseline.mjs "$SECTION" "$bx" "$by" "$bw" "$bh" --from "${page}-full.png" || exit 2
+fi
 
 if [[ ! -f "$BASELINE" ]]; then
   echo "error: baseline not found: $BASELINE" >&2
@@ -60,4 +75,15 @@ if [[ "$code" != "200" ]]; then
   exit 2
 fi
 
-npx tsx tests/visual/run.ts --section "$SECTION" --url "$URL" --baseline "$BASELINE" "${CLIP_ARGS[@]}"
+OUT_FILE=$(mktemp)
+trap 'rm -f "$OUT_FILE"' EXIT
+npx tsx tests/visual/run.ts --section "$SECTION" --url "$URL" --baseline "$BASELINE" "${CLIP_ARGS[@]}" | tee "$OUT_FILE"
+rc=${PIPESTATUS[0]}
+
+# C-6: G1 diff history 추적
+diff_val=$(grep -oE 'DIFF: [0-9]+\.[0-9]+' "$OUT_FILE" | awk '{print $2}')
+if [[ -n "$diff_val" ]]; then
+  node scripts/track-diff-history.mjs "$SECTION" "$diff_val" || true
+fi
+
+exit "$rc"

@@ -45,6 +45,19 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 
 7단계 + 단계 4.5(품질 게이트)로 총 8단계.
 
+### 자율 모드 최적화 (승인 게이트 없이 연속 실행)
+
+**`figma-to-react` 오케스트레이터가 자율 모드로 호출한 경우:**
+- 단계 1(리서치) 완료 후 단계 2(plan) 승인 대기 없이 진행 가능
+- **단계 1에서 `get_design_context` 사전 fetch 권장** — 단계 2 plan 작성 시 text/색/layout 정확도 확보 → 회차 감소 효과
+- 단계 2 plan은 계속 작성하되, 자율 판단으로 즉시 단계 3 진입
+- 3회 실패 시 선택지(재분할/다른접근/엔진차이 수용/되돌리기/완화)를 **스스로 판단** — 완화는 최후, 엔진차이는 ACCEPTED (부채 카운트 제외)
+- 단계 7 모든 게이트 PASS → 자동 커밋 [auto] 태그
+
+**승인 모드 (기본)로 호출된 경우:**
+- 단계 2 plan 완료 후 사용자 승인 대기
+- 3회 실패 시 사용자에게 보고 후 결정 받기
+
 ### 단계 1: 리서치 → `research/{섹션명}.md`
 - **baseline PNG 저장**: `mcp__figma-framelink__download_figma_images`로 섹션 노드 저장. 경로 규약 — 공통 컴포넌트는 `figma-screenshots/{section}.png`, 페이지 섹션은 `figma-screenshots/{page}-{section}.png` (flat, pngScale 1). Framelink 미등록이면 `docs/figma-workflow.md` Phase 0 수행 안내 후 멈춤
 - 공식 Figma MCP `get_design_context` (12K 이하), `get_variable_defs`(신규 토큰 있을 때), Framelink `get_figma_data`(레이아웃 YAML 보조)
