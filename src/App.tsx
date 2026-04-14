@@ -17,6 +17,7 @@ import { AboutValuesPreview } from "@/routes/AboutValuesPreview";
 import { AboutVisionPreview } from "@/routes/AboutVisionPreview";
 import { AboutOrganizationTabsPreview } from "@/routes/AboutOrganizationTabsPreview";
 import { AboutOrganizationLogosPreview } from "@/routes/AboutOrganizationLogosPreview";
+import { AboutOrganizationChartPreview } from "@/routes/AboutOrganizationChartPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -30,6 +31,7 @@ import { AboutValues } from "@/components/sections/AboutValues";
 import { AboutVision } from "@/components/sections/AboutVision";
 import { AboutOrganizationTabs } from "@/components/sections/AboutOrganizationTabs";
 import { AboutOrganizationLogos } from "@/components/sections/AboutOrganizationLogos";
+import { AboutOrganizationChart } from "@/components/sections/AboutOrganizationChart";
 
 export function App() {
   return (
@@ -53,6 +55,7 @@ export function App() {
       <Route path="/__preview/about-vision" element={<AboutVisionPreview />} />
       <Route path="/__preview/about-organization-tabs" element={<AboutOrganizationTabsPreview />} />
       <Route path="/__preview/about-organization-logos" element={<AboutOrganizationLogosPreview />} />
+      <Route path="/__preview/about-organization-chart" element={<AboutOrganizationChartPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -86,6 +89,7 @@ export function App() {
             <>
               <AboutOrganizationTabs />
               <AboutOrganizationLogos />
+              <AboutOrganizationChart />
             </>
           }
         />
