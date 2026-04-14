@@ -60,7 +60,7 @@ export function ContestBenefits() {
   return (
     <section
       aria-labelledby="contest-benefits-title"
-      className="flex w-[1416px] flex-col items-stretch gap-5 px-[240px] py-[64px]"
+      className="mx-auto flex w-[1416px] flex-col items-stretch gap-5 px-[240px] py-[64px]"
     >
       <HatchedSectionHeading
         icon={headingIcon}

@@ -33,7 +33,7 @@ export function ContestAbout() {
   return (
     <section
       aria-labelledby="contest-about-title"
-      className="flex w-[1416px] flex-col items-stretch gap-5 px-[240px] py-[64px]"
+      className="mx-auto flex w-[1416px] flex-col items-stretch gap-5 px-[240px] py-[64px]"
     >
       <HatchedSectionHeading
         icon={headingIcon}

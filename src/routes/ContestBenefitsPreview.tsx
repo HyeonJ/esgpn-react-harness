@@ -7,9 +7,5 @@ import { ContestBenefits } from "@/components/sections/ContestBenefits";
  *   --clip-x 252 --clip-y 0 --clip-w 1416 --clip-h 969
  */
 export function ContestBenefitsPreview() {
-  return (
-    <div className="w-[1416px] mx-auto bg-white">
-      <ContestBenefits />
-    </div>
-  );
+  return <ContestBenefits />;
 }
