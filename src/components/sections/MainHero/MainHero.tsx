@@ -1,38 +1,65 @@
 import { HeroIntroCard, type HeroIntroCardProps } from "./HeroIntroCard";
 import { HeroCTA } from "./HeroCTA";
 import bgImg from "@/assets/main-hero/bg.png";
-import card1Image from "@/assets/main-hero/card1.png";
-import card2Image from "@/assets/main-hero/card2.png";
-import card3Image from "@/assets/main-hero/card3.png";
+import icon1 from "@/assets/main-hero/icon-1.png";
+import icon2 from "@/assets/main-hero/icon-2.png";
+import icon3 from "@/assets/main-hero/icon-3.png";
 
 /**
  * 메인페이지 Hero 섹션.
  * Figma 노드: 43:1730 (Frame 2043685963), 1920×1040, 풀폭.
  *
- * 회차 5 접근 전환: 카드 3개는 Figma 부모 노드를 raster export한 PNG로 렌더
- * (HeroIntroCard 내부 DOM 합성 제거). G1 sub-pixel/glyph/blur divergence 제거 목적.
+ * T-001 리팩터 (v3): 카드 3개를 composite PNG → HTML 본체 + leaf 아이콘 PNG로 전환.
+ * 텍스트 baked-in raster 안티패턴 해소. G6 PASS 기대.
  */
-// Figma 노드 정확한 bounding-box 치수 (소수점 보존, §2.4 정밀 수치 규칙).
-// Card 1/3: 320×340 카드 @ 4° 회전 → bbox 342.938×361.494
-// Card 2:   320×340 카드 @ 0° 회전 → bbox 320×340
 const CARDS: HeroIntroCardProps[] = [
   {
-    cardImage: card1Image,
-    width: 342.938,
-    height: 361.494,
-    alt: "ESG마인드 자격검정 - 기본 개념부터 실무 적용까지 체계적인 교육으로 차세대 리더의 ESG 실천 역량을 인증합니다",
+    icon: icon1,
+    iconBlend: "lighten",
+    rotation: -4,
+    title: "ESG마인드 자격검정",
+    description: (
+      <>
+        기본 개념부터 실무 적용까지,
+        <br />
+        체계적인 교육으로 차세대 리더의
+        <br />
+        ESG 실천 역량을 인증합니다.
+      </>
+    ),
+    alt: "ESG마인드 자격검정 — 체계적 교육으로 ESG 실천 역량 인증",
   },
   {
-    cardImage: card2Image,
-    width: 320,
-    height: 340,
-    alt: "ESG실천 아이디어 경진대회 - 청년과 지역사회의 협력으로 현장 문제를 해결하며 지속가능한 변화를 만드는 실질적인 ESG 성과를 도출합니다",
+    icon: icon2,
+    iconBlend: "lighten",
+    rotation: 0,
+    title: "ESG실천 아이디어 경진대회",
+    description: (
+      <>
+        청년과 지역사회의 협력으로 현장 문제를
+        <br />
+        해결하며, 지속가능한 변화를 만드는
+        <br />
+        실질적인 ESG 성과를 도출합니다.
+      </>
+    ),
+    alt: "ESG실천 아이디어 경진대회 — 청년·지역사회 협력 현장 문제 해결",
   },
   {
-    cardImage: card3Image,
-    width: 342.938,
-    height: 361.494,
-    alt: "사회공헌 및 재능나눔 - 산업체·지자체 파트너십을 통해 ESG 가치를 지역 일자리와 서비스로 연결하며 상생의 가치를 창출합니다",
+    icon: icon3,
+    iconBlend: "screen",
+    rotation: 4,
+    title: "사회공헌 및 재능나눔",
+    description: (
+      <>
+        산업체·지자체 파트너십을 통해 ESG 가치를
+        <br />
+        지역 일자리와 서비스로 연결하며
+        <br />
+        상생의 가치를 창출합니다.
+      </>
+    ),
+    alt: "사회공헌 및 재능나눔 — 산업체·지자체 파트너십으로 상생 가치 창출",
   },
 ];
 
@@ -122,7 +149,7 @@ export function MainHero() {
             {/* 3 cards */}
             <div className="flex justify-center gap-12">
               {CARDS.map((card) => (
-                <HeroIntroCard key={card.alt} {...card} />
+                <HeroIntroCard key={card.title} {...card} />
               ))}
             </div>
 

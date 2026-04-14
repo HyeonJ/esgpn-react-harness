@@ -14,24 +14,33 @@
 ## 현재 부채 (초기 이관 — 2026-04-14)
 
 ### T-001 `main-hero` 카드 3개 텍스트 baked-in raster
-- **상태**: `OPEN`
-- **파일**: `src/components/sections/MainHero/HeroIntroCard.tsx` + `card{1,2,3}.png`
-- **증상**: 카드 전체(그린 블러 + 제목 + 체크리스트 + 설명 + 아이콘)가 단일 composite PNG. `<img alt="한 줄 요약">` 하나로 모든 텍스트가 raster화됨
-- **희생**: SEO·스크린리더·i18n·Ctrl+F·텍스트 선택 전부 불가
-- **최초 유입**: main-hero 회차 5~6 (G1 수렴을 위해 raster 전환)
-- **현 G1**: 2.24%
-- **리팩터 방향**: HTML 카드 + 아이콘(정적 프레임)만 raster. G1 5~7% 수용 예상
-- **수용 불가 이유**: 엔진 차이가 아니라 설계 선택. 안티패턴
+- **상태**: `RESOLVED` (2026-04-15 v3)
+- **파일**: `src/components/sections/MainHero/HeroIntroCard.tsx` + `icon-{1,2,3}.png` (card{1,2,3}.png 제거됨)
+- **해결**: 리서치 `docs/research/dev/figma-transparent-icon-export` §3 Q1(자식 leaf nodeId로 투명 PNG export) 패턴 적용
+  1. `get_design_context(17:200/17:203/17:206)` 카드 구조 파악 (bg blur + icon + title + desc)
+  2. 아이콘 leaf nodeId 20:210/20:212/20:213만 Framelink `download_figma_images` (투명 PNG)
+  3. HeroIntroCard를 HTML 본체로 재구성: backdrop-blur + bg rgba + icon img(mix-blend) + h3/p
+- **G1 변화**: 2.24% → 8.07% (+5.83%p, 리서치 §3 Q5 하이브리드 예상 범위 내)
+- **G6 변화**: ratio 1.17 FAIL → 4.33 PASS (안티패턴 해소)
+- **잔여 diff 원인**: 새 ACCEPTED T-012 참조 (engine diff)
+
+### T-012 `main-hero` G1 하이브리드 엔진 차이 (T-001 리팩터 후속)
+- **상태**: `ACCEPTED` (T-001 해소와 함께 신규 등록)
+- **파일**: `src/components/sections/MainHero/*`
+- **증상**: HTML 카드 + 아이콘 raster 하이브리드의 G1 8.07%. baseline(Figma 합성) vs Chromium 렌더 간 mix-blend-lighten/screen rendering + Pretendard 한글 AA 서브픽셀 차이
+- **수용 근거**: 리서치 §3 Q5 "아이콘 + HTML 텍스트 하이브리드 G1 5~7% 예상, 엔진 차이 구조적 한계". T-001 RESOLVED가 본체이고 이 엔진 차이는 T-001의 정당한 부산물
+- **재검토 조건**: Chrome blend mode 업데이트 또는 Figma 렌더 엔진 변경 시
 
 ### T-002 `contest-benefits` CTA 텍스트 baked-in raster
-- **상태**: `OPEN`
-- **파일**: `src/components/sections/ContestBenefits/CtaBanner.tsx` + `cta-composite.png`
-- **증상**: CTA 전체(배경 blend + "지금 바로 신청하세요" 제목 + 서브텍스트 + "경진대회 참가하기" 버튼) 단일 composite PNG
-- **희생**: CTA 텍스트 검색·번역·접근성 불가 (aria-label 한 줄만)
-- **최초 유입**: contest-benefits 회차 3~4 (blend 섹션 G1 수렴)
-- **현 G1**: 6.71% (이미 완화 상태)
-- **리팩터 방향**: 배경 이미지만 raster + HTML 텍스트/버튼 오버레이. G1 6~8% 수용 예상
-- **수용 불가 이유**: 엔진 차이(한글+blend)는 정당하나 텍스트 baked-in은 별개 안티패턴
+- **상태**: `RESOLVED` (2026-04-15 v3)
+- **파일**: `src/components/sections/ContestBenefits/CtaBanner.tsx` + `cta-bg.png` + `cta-arrow.png` (cta-composite.png는 보존하되 사용 중단)
+- **해결**:
+  1. `get_design_context(302:6592)` CTA 구조 파악 (bg #005c33 + city image mix-blend-luminosity + h3/p/button)
+  2. bg 이미지와 arrow icon만 leaf nodeId로 export
+  3. CtaBanner HTML 재구성: color div + blend image div + HTML h3 + p + button
+- **G1 변화**: 6.71% → 10.82% (+4.11%p, blend + 한글 dense hybrid 예상 범위)
+- **G6 변화**: ratio 이전 FAIL → 14.76 PASS (안티패턴 해소)
+- **T-002 본체 해소 + T-004 엔진 차이 (이전부터 ACCEPTED)는 그대로 유지**. T-004는 이제 "blend + 한글 hybrid" 의미
 
 ### T-003 `contest-hero` G1 완화 (엔진 차이)
 - **상태**: `ACCEPTED`
@@ -60,9 +69,10 @@
 
 ## 카운트 (Phase 0 차단 체크용)
 
-- `OPEN` 부채: **2건** (T-001, T-002)
-- `ACCEPTED`: 3건 (카운트 제외)
-- 차단 임계: 3건 → 현재는 진행 가능
+- `OPEN` 부채: **0건** (T-001, T-002 RESOLVED 2026-04-15)
+- `ACCEPTED`: 4건 (T-003, T-004, T-005, T-012)
+- `RESOLVED`: 2건 (T-001, T-002)
+- 차단 임계: 3건 → 충분히 여유
 
 ## 신규 부채 등록 규칙
 

@@ -64,6 +64,7 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 ### 에셋 규칙
 - **에셋 URL 무조건 다운로드.** CSS/유니코드 대체 금지
 - **동적 에셋(GIF/비디오) 원본 사용 금지** — 부모 노드를 Framelink로 정적 PNG 추출 (`dynamic-asset-handling` 스킬)
+- **Framelink는 leaf nodeId로 호출** — 아이콘/장식 export 시 부모 카드/프레임 nodeId **금지**. 자식 leaf nodeId(아이콘/사진/blur 레이어)만 전달. 부모를 넘기면 자식 전체(텍스트 포함)가 단일 composite PNG 한 장으로 묶임 = text-bearing raster 안티패턴의 주 원인. 자식 nodeId 모르면 `get_figma_data(부모, depth=3)` 트리 탐색 선행. **예외**: 섹션 baseline PNG만 섹션 nodeId 그대로 사용 (비교 기준)
 - **캔버스-에셋 개수 불일치 시 사용자 보고 후 멈춤** — 임의 진행 금지
 - **baseline PNG는 Framelink MCP로만 저장**, 경로 규약:
   - 공통: `figma-screenshots/{section}.png`
@@ -133,6 +134,7 @@ scripts/
 ├─ bake-baseline.mjs            — baseline alpha=0 영역 full-page crop으로 white 베이크 (v3)
 ├─ track-diff-history.mjs       — G1 회차 history + 악화 revert 힌트 (v3)
 ├─ detect-placeholder-text.mjs  — 영문 placeholder 감지 (v3)
+├─ check-figma-export-targets.mjs — 대형 composite PNG 감지 (leaf nodeId 호출 강제) (v3)
 ├─ compare-section.sh           — G1~G4 통합 측정 (--bake-from-full 옵션 v3)
 └─ doctor.sh                    — 환경 점검
 ```

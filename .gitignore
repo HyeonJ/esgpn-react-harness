@@ -35,3 +35,6 @@ dev-captures/
 
 # Harness runtime artifacts — 산출물은 커밋 (research/font-calibration 스크린샷 포함)
 # figma-screenshots/ 는 Phase 2/3 베이스라인, 커밋함
+
+# v3: G1 회차 history (로컬 측정 기록)
+tests/visual/history/

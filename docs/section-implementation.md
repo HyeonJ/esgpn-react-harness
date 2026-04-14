@@ -40,6 +40,13 @@
 목적: 섹션을 코드로 옮기기 전에 **섹션의 모든 디테일을 종이 위로 꺼낸다.**
 
 ### 2.1 Figma MCP 호출
+
+> **핵심 규칙 (리서치 근거)**: Framelink `download_figma_images`와 REST `/v1/images`는 전달받은 `nodeId`를 **렌더 루트**로 삼는다. 부모 Group/Frame nodeId를 넘기면 자식(텍스트·배경·blur 포함) 전체를 **단일 composite PNG 한 장**으로 받는다. 텍스트 baked-in raster 안티패턴의 90%는 이 호출 실수에서 발생.
+>
+> **→ 아이콘/장식 raster export 시**: 부모 카드/프레임 nodeId **절대 금지**. **자식 leaf nodeId(아이콘/사진/blur 레이어 등)**만 전달. 자식 nodeId 모르면 `get_figma_data(부모, depth=3)`로 트리 탐색 선행.
+>
+> 예외: 섹션 **baseline** PNG (`figma-screenshots/{section}.png`)는 섹션 전체를 비교 기준으로 써야 하므로 섹션 nodeId 그대로 OK. 섹션 내 **에셋**(아이콘 등)은 leaf 호출 필수.
+
 다음 순서로 호출. 결과는 모두 `research/{섹션명}.md`에 기록한다.
 
 1. **`mcp__figma-framelink__download_figma_images`** (Framelink) — 해당 섹션 노드를 baseline PNG로 **파일 저장**
