@@ -68,6 +68,13 @@ body,
   height: 100%;
 }
 
+/* 1920 고정 width + 세로 스크롤바가 viewport 일부를 잠식하는 문제로 인한
+ * 가로 스크롤 차단. 반응형 전환 별건 PR로 처리될 때까지의 임시 대응.
+ * Playwright 시각 회귀(1920 viewport 고정)에는 영향 없음. */
+html {
+  overflow-x: clip;
+}
+
 body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
