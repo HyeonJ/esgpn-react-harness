@@ -36,6 +36,12 @@ import { NewsTabsPreview } from "@/routes/NewsTabsPreview";
 import { NewsTitlePreview } from "@/routes/NewsTitlePreview";
 import { NewsFeaturedPreview } from "@/routes/NewsFeaturedPreview";
 import { NewsListPreview } from "@/routes/NewsListPreview";
+import {
+  NewsDetailBreadcrumbPreview,
+  NewsDetailArticlePreview,
+  NewsDetailRelatedPreview,
+  NewsDetailBackPreview,
+} from "@/routes/NewsDetailPreviews";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -68,6 +74,10 @@ import { NewsTabs } from "@/components/sections/NewsTabs";
 import { NewsTitle } from "@/components/sections/NewsTitle";
 import { NewsFeatured } from "@/components/sections/NewsFeatured";
 import { NewsList } from "@/components/sections/NewsList";
+import { NewsDetailBreadcrumb } from "@/components/sections/NewsDetailBreadcrumb";
+import { NewsDetailArticle } from "@/components/sections/NewsDetailArticle";
+import { NewsDetailRelated } from "@/components/sections/NewsDetailRelated";
+import { NewsDetailBack } from "@/components/sections/NewsDetailBack";
 
 export function App() {
   return (
@@ -110,6 +120,10 @@ export function App() {
       <Route path="/__preview/news-title" element={<NewsTitlePreview />} />
       <Route path="/__preview/news-featured" element={<NewsFeaturedPreview />} />
       <Route path="/__preview/news-list" element={<NewsListPreview />} />
+      <Route path="/__preview/news-detail-breadcrumb" element={<NewsDetailBreadcrumbPreview />} />
+      <Route path="/__preview/news-detail-article" element={<NewsDetailArticlePreview />} />
+      <Route path="/__preview/news-detail-related" element={<NewsDetailRelatedPreview />} />
+      <Route path="/__preview/news-detail-back" element={<NewsDetailBackPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -197,6 +211,17 @@ export function App() {
               <NewsTitle />
               <NewsFeatured />
               <NewsList />
+            </>
+          }
+        />
+        <Route
+          path="/news/:id"
+          element={
+            <>
+              <NewsDetailBreadcrumb />
+              <NewsDetailArticle />
+              <NewsDetailRelated />
+              <NewsDetailBack />
             </>
           }
         />

@@ -1,0 +1,1 @@
+export { NewsDetailRelated } from "./NewsDetailRelated";

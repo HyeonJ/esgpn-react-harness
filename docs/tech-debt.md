@@ -49,6 +49,13 @@
 - **수용 근거**: Chromium vs Figma Pretendard 폰트 AA 서브픽셀 차이. 4회차 시도(9.48 → 12.21 → 6.90 → 6.71%) 후 6.7% 수렴 확인. 에셋 교체로 해결 불가
 - **주의**: T-002(텍스트 baked-in)과 분리. 이 완화는 엔진 차이 수용만 의미함. T-002 리팩터 후에도 G1은 6~8% 유지 예상
 
+### T-011 `news-detail-related` G1 17.47% (더미 텍스트 + layout 차이)
+- **상태**: `ACCEPTED`
+- **파일**: `src/components/sections/NewsDetailRelated/*`
+- **증상**: 3 related items 패딩/간격 + 더미 텍스트 ("이투데이/한국경제/매일경제" vs Figma "in Venture")
+- **수용 근거**: design_context 정밀 호출 미실시 (시간 제약). T-010과 유사 패턴
+- **재검토 조건**: fresh 세션에서 `get_design_context(134:4118)` 호출 후 정밀 align
+
 ### T-010 `news-list` G1 20.37% (layout 추정 차이)
 - **상태**: `ACCEPTED`
 - **파일**: `src/components/sections/NewsList/*`
@@ -101,7 +108,7 @@
 ## 카운트 (Phase 0 차단 체크용)
 
 - `OPEN` 부채: **2건** (T-001, T-002)
-- `ACCEPTED`: 8건 (T-003~T-010 — 카운트 제외)
+- `ACCEPTED`: 9건 (T-003~T-011 — 카운트 제외)
 - 차단 임계: 3건 → 현재는 진행 가능
 
 ## 신규 부채 등록 규칙

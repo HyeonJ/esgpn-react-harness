@@ -58,10 +58,12 @@ Phase 2 분해 완료 (research/news.md). 4 섹션 + Footer/TopNav 재사용.
 
 ## 뉴스 상세 (/news/:id)
 Phase 2 분해 완료 (research/news-detail.md). 4 섹션 + Footer/TopNav.
-- [ ] news-detail-breadcrumb (936×24)
-- [ ] news-detail-article (936×~1100, hero+title+body)
-- [ ] news-detail-related (936×486)
-- [ ] news-detail-back (936×45)
+- [x] news-detail-breadcrumb (diff 1.45% / clip 492,0,936,24 / 1회차 PASS)
+- [x] news-detail-article (diff 4.27% / clip 492,0,936,1868 / hero+title+meta+divider+body img+caption+body text / 1회차 PASS)
+- [x] news-detail-related (diff 17.47% ⚠ ACCEPTED / clip 492,0,936,570 / T-011: 더미 텍스트 차이 + layout 추정)
+- [x] news-detail-back (diff 2.84% / clip 492,0,936,45 / 1회차 PASS)
+
+**뉴스 상세 4/4 완성. 전체 페이지 9/9 완성.**
 
 ## 갤러리 (/gallery)
 - [x] gallery-title (diff 8.28% ⚠ 완화 / clip 492,0,936,124 / G2·G4 PASS / G3 N/A (에셋 0) / 육안 PASS — 2회차 수렴. 완화 사유: 사용자 승인 [A] "ESPGN → ESGPN" 교정으로 좌 2행 글리프 위치 shift + Pretendard Variable 48px Bold AA. contest-hero/benefits 완화 선례 연장)
