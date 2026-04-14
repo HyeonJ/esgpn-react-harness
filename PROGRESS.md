@@ -46,3 +46,27 @@ Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지
 ## 갤러리 (/gallery)
 ## 고객센터 (/contact)
 - [x] contact-form (diff 4.01% / clip 491,0,938,695 / G2·G3·G4·육안 PASS / 2회차 완통과 — 1회차는 clip 누락)
+
+---
+
+## 기술 부채 (Tech Debt) — 별건 리팩터 PR 대기
+
+### text-bearing raster 안티패턴 (deep-research §3 Q5 지적)
+
+**공통 원인**: G1 단일 지표 최적화로 텍스트 포함 composite PNG 채택. SEO·접근성·i18n·유지보수성 희생됨.
+
+**위반 사례 2건:**
+
+1. **main-hero 카드 3개** (`src/components/sections/MainHero/HeroIntroCard.tsx` + `card{1,2,3}.png`)
+   - 현재: 카드 전체(그린 블러 카드 + "ESG마인드 자격검정" 제목 + 체크리스트 + 설명 + 아이콘) = 단일 composite PNG
+   - 희생: 카드 내부 모든 텍스트 검색·번역·접근성 불가 (alt 한 줄 요약만)
+   - 현 G1 2.24%
+   - 리팩터 방향: 카드 본체 HTML 재구성 + 아이콘(gifRef 정적 프레임)만 raster. G1 5~7% 수용 예상
+
+2. **contest-benefits CTA** (`src/components/sections/ContestBenefits/CtaBanner.tsx` + `cta-composite.png`)
+   - 현재: CTA 전체(배경 이미지 blend + "지금 바로 신청하세요" 제목 + 서브텍스트 + "경진대회 참가하기" 버튼) = 단일 composite PNG
+   - 희생: CTA 텍스트 검색·번역·접근성 불가 (aria-label 한 줄만)
+   - 현 G1 6.71% (이미 완화됨)
+   - 리팩터 방향: 배경 이미지만 raster + HTML 텍스트·버튼 오버레이. G1 6~8% 수용 예상
+
+**리팩터 우선순위**: 전체 9 페이지 1차 구현 완료 후 별건 PR로 일괄 처리.
