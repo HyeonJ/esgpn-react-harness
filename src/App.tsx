@@ -28,6 +28,7 @@ import { GalleryAgreementsPreview } from "@/routes/GalleryAgreementsPreview";
 import { GalleryActivitiesPreview } from "@/routes/GalleryActivitiesPreview";
 import { CertificationHeroPreview } from "@/routes/CertificationHeroPreview";
 import { CertificationStatsPreview } from "@/routes/CertificationStatsPreview";
+import { CertificationIntroPreview } from "@/routes/CertificationIntroPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -52,6 +53,7 @@ import { GalleryAgreements } from "@/components/sections/GalleryAgreements";
 import { GalleryActivities } from "@/components/sections/GalleryActivities";
 import { CertificationHero } from "@/components/sections/CertificationHero";
 import { CertificationStats } from "@/components/sections/CertificationStats";
+import { CertificationIntro } from "@/components/sections/CertificationIntro";
 
 export function App() {
   return (
@@ -86,6 +88,7 @@ export function App() {
       <Route path="/__preview/gallery-activities" element={<GalleryActivitiesPreview />} />
       <Route path="/__preview/certification-hero" element={<CertificationHeroPreview />} />
       <Route path="/__preview/certification-stats" element={<CertificationStatsPreview />} />
+      <Route path="/__preview/certification-intro" element={<CertificationIntroPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -158,6 +161,7 @@ export function App() {
             <>
               <CertificationHero />
               <CertificationStats />
+              <CertificationIntro />
             </>
           }
         />
