@@ -44,6 +44,7 @@ Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지
 ## 뉴스 목록 (/news)
 ## 뉴스 상세 (/news/:id)
 ## 갤러리 (/gallery)
+- [x] gallery-title (diff 8.28% ⚠ 완화 / clip 492,0,936,124 / G2·G4 PASS / G3 N/A (에셋 0) / 육안 PASS — 2회차 수렴. 완화 사유: 사용자 승인 [A] "ESPGN → ESGPN" 교정으로 좌 2행 글리프 위치 shift + Pretendard Variable 48px Bold AA. contest-hero/benefits 완화 선례 연장)
 ## 고객센터 (/contact)
 - [x] contact-form (diff 4.01% / clip 491,0,938,695 / G2·G3·G4·육안 PASS / 2회차 완통과 — 1회차는 clip 누락)
 

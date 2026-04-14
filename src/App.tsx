@@ -23,6 +23,7 @@ import { ContactFormPreview } from "@/routes/ContactFormPreview";
 import { ContestHeroPreview } from "@/routes/ContestHeroPreview";
 import { ContestAboutPreview } from "@/routes/ContestAboutPreview";
 import { ContestBenefitsPreview } from "@/routes/ContestBenefitsPreview";
+import { GalleryTitlePreview } from "@/routes/GalleryTitlePreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -71,6 +72,7 @@ export function App() {
       <Route path="/__preview/contest-hero" element={<ContestHeroPreview />} />
       <Route path="/__preview/contest-about" element={<ContestAboutPreview />} />
       <Route path="/__preview/contest-benefits" element={<ContestBenefitsPreview />} />
+      <Route path="/__preview/gallery-title" element={<GalleryTitlePreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header 전역 장착 */}
       <Route element={<RootLayout />}>
