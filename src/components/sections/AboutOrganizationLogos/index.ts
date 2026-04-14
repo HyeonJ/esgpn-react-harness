@@ -1,0 +1,1 @@
+export { AboutOrganizationLogos } from "./AboutOrganizationLogos";
