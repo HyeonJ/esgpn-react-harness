@@ -1,7 +1,7 @@
 /**
  * HatchedDivider — 좌우 해치(`///`) + 중앙 실선.
  * research/about-mission.md §3.1 측정치: 폭 932px, 높이 10px.
- * 로컬 컴포넌트. Values/Vision 섹션에서 재등장 시 src/components/ui/로 승격.
+ * 공통 컴포넌트 (AboutMission 2개 + AboutValues 2개 = 4회 사용, Rule of Three 충족 후 승격).
  */
 export function HatchedDivider({ className = "" }: { className?: string }) {
   return (

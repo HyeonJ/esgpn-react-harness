@@ -1,6 +1,6 @@
 import photoLarge from "@/assets/about-mission/photo-large.png";
 import photoSmall from "@/assets/about-mission/photo-small.png";
-import { HatchedDivider } from "./HatchedDivider";
+import { HatchedDivider } from "@/components/ui/HatchedDivider";
 
 /**
  * AboutMission — /about 페이지 Mission 섹션.

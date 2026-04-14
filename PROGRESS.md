@@ -26,7 +26,8 @@ Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지
 
 ## About - 개요 (/about)
 - [x] about-header (diff 3.40% / G2 PASS ±2 / G3 N/A 텍스트전용 / G4 PASS all 토큰 일치 / 육안 PASS — 3회차 통과. 전략 [A] 완전 HTML 재구성. SectionTabs 공통 컴포넌트 신설(ui/). Yeseva One 재사용, font-size 144→152 조정으로 글리프 폭 baseline 일치. line-height "120px"로 cap 높이 제어)
-- [x] about-mission (diff 4.23% / G2 PASS (section 1920×754, h2 28/33/700, p 16/24, photos 357×359 + 145×161) / G3 2/2 (photo-large naturalWidth 357, photo-small 145) / G4 PASS (#4FB654 green #1D2623 gray-900 일치) / 육안 PASS — 1회차 통과. 전략 [A] 완전 HTML 재구성. HatchedDivider 로컬 SVG 컴포넌트 신설(Values/Vision 등장 시 ui/ 승격 예정). 사진 2장은 about-full.png baseline crop. 본문 `<br>` 수동 줄바꿈. brand-500 토큰 재사용)
+- [x] about-mission (diff 4.23% / G2 PASS (section 1920×754, h2 28/33/700, p 16/24, photos 357×359 + 145×161) / G3 2/2 (photo-large naturalWidth 357, photo-small 145) / G4 PASS (#4FB654 green #1D2623 gray-900 일치) / 육안 PASS — 1회차 통과. 전략 [A] 완전 HTML 재구성. HatchedDivider 로컬 SVG 컴포넌트 신설(Values/Vision 등장 시 ui/ 승격 예정). 사진 2장은 about-full.png baseline crop. 본문 `<br>` 수동 줄바꿈. brand-500 토큰 재사용. **HatchedDivider 공통 승격 후 유지: import 경로만 변경, regression 재측정 4.23% 동일**)
+- [x] about-values (diff 4.28% / G2 PASS (section 1920×722, icons 144×141/138×141/131×150/151×150, centerX 714/1205, titles 22px/700, descs 16px/24px) / G3 4/4 (icon-1~4 naturalWidth 144/138/131/151) / G4 PASS (#1d2623 다크, divider #B1B9B6/#97A29E) / 육안 PASS — 2회차 통과. 전략 [A] 완전 HTML 재구성. HatchedDivider 공통 승격 (Rule of Three 4회 사용 충족 → ui/). ValueCard 로컬 첫 카운트. 4 아이콘 about-full.png baseline crop 10px 여유, top=85/385 보정으로 여유 offset 상쇄. clip 불필요 풀폭 1920)
 ## About - 조직도 (/about/organization)
 ## 경진대회 (/contest)
 ## 자격검정 (/certification)
