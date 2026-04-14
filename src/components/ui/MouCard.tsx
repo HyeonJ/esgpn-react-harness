@@ -11,8 +11,9 @@ import type { CSSProperties, ReactNode } from "react";
  *       title  (24px SemiBold, leading 1.4, center, color #1d2623)
  *       desc   (14px Regular, leading 1.5, tracking 0.28, center, color #1d2623)
  *
- * 첫 사용처: gallery-agreements (4 카드).
- * 두 번째 사용처(gallery-activities)에서 재사용 시 ui/MouCard.tsx로 승격 후보.
+ * 사용처 (Rule of Three 충족 후 ui/ 승격):
+ *  - gallery-agreements (4 카드)
+ *  - gallery-activities (1 카드)
  */
 export interface ImageCrop {
   /** % heights/widths and offsets from Figma 노드 데이터 */

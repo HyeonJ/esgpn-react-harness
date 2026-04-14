@@ -1,7 +1,7 @@
 import mou1Image from "@/assets/gallery-agreements/mou-1.png";
 import mou2Image from "@/assets/gallery-agreements/mou-2.png";
-import { HatchedInlineHeading } from "./HatchedInlineHeading";
-import { MouCard } from "./MouCard";
+import { HatchedInlineHeading } from "@/components/ui/HatchedInlineHeading";
+import { MouCard } from "@/components/ui/MouCard";
 
 /**
  * GalleryAgreements — 갤러리 페이지 "업무 협약" 섹션.

@@ -25,6 +25,7 @@ import { ContestAboutPreview } from "@/routes/ContestAboutPreview";
 import { ContestBenefitsPreview } from "@/routes/ContestBenefitsPreview";
 import { GalleryTitlePreview } from "@/routes/GalleryTitlePreview";
 import { GalleryAgreementsPreview } from "@/routes/GalleryAgreementsPreview";
+import { GalleryActivitiesPreview } from "@/routes/GalleryActivitiesPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -46,6 +47,7 @@ import { ContestAbout } from "@/components/sections/ContestAbout";
 import { ContestBenefits } from "@/components/sections/ContestBenefits";
 import { GalleryTitle } from "@/components/sections/GalleryTitle";
 import { GalleryAgreements } from "@/components/sections/GalleryAgreements";
+import { GalleryActivities } from "@/components/sections/GalleryActivities";
 
 export function App() {
   return (
@@ -77,6 +79,7 @@ export function App() {
       <Route path="/__preview/contest-benefits" element={<ContestBenefitsPreview />} />
       <Route path="/__preview/gallery-title" element={<GalleryTitlePreview />} />
       <Route path="/__preview/gallery-agreements" element={<GalleryAgreementsPreview />} />
+      <Route path="/__preview/gallery-activities" element={<GalleryActivitiesPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -139,6 +142,7 @@ export function App() {
             <>
               <GalleryTitle />
               <GalleryAgreements />
+              <GalleryActivities />
             </>
           }
         />

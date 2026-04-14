@@ -46,6 +46,7 @@ Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지
 ## 갤러리 (/gallery)
 - [x] gallery-title (diff 8.28% ⚠ 완화 / clip 492,0,936,124 / G2·G4 PASS / G3 N/A (에셋 0) / 육안 PASS — 2회차 수렴. 완화 사유: 사용자 승인 [A] "ESPGN → ESGPN" 교정으로 좌 2행 글리프 위치 shift + Pretendard Variable 48px Bold AA. contest-hero/benefits 완화 선례 연장)
 - [x] gallery-agreements (diff 5.72% ⚠ ACCEPTED / clip 491,0,937,1024 / G2 ±2 PASS (936×1022 vs 1024) / G3 4/4 (mou-1·mou-2 각 2회) / G4 PASS (heading #000, title/desc #1d2623) / G5-G8 PASS / 육안 PASS — 4회차 수렴 (1: 9.49% bg 알파, 2: 5.72% baseline crop, 3: 16.78% image % crop 시도 실패, 4: revert 5.72%). 자율 [C] 엔진 차이 수용. tech-debt T-006 ACCEPTED. MouCard / HatchedInlineHeading 로컬, gallery-activities에서 재사용 후 ui/ 승격 검토)
+- [x] gallery-activities (diff 1.34% / clip 491,0,937,519 / G2 PASS (heading 16/24/500 LS -0.16, title 24/33.6/600, desc 14/21/400 LS 0.28) / G3 1/1 (award.png 912) / G4 PASS (#000 heading, #1d2623 title·desc) / G5-G8 PASS / 육안 PASS — 1회차 완통과. ui/MouCard + ui/HatchedInlineHeading 동시 승격 (Rule of Three 충족), agreements regression 0.00%p. **갤러리 3/3 완성**)
 ## 고객센터 (/contact)
 - [x] contact-form (diff 4.01% / clip 491,0,938,695 / G2·G3·G4·육안 PASS / 2회차 완통과 — 1회차는 clip 누락)
 
