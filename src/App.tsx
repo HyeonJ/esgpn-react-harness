@@ -22,6 +22,7 @@ import { AboutOrganizationPanoramaPreview } from "@/routes/AboutOrganizationPano
 import { ContactFormPreview } from "@/routes/ContactFormPreview";
 import { ContestHeroPreview } from "@/routes/ContestHeroPreview";
 import { ContestAboutPreview } from "@/routes/ContestAboutPreview";
+import { ContestBenefitsPreview } from "@/routes/ContestBenefitsPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -40,6 +41,7 @@ import { AboutOrganizationPanorama } from "@/components/sections/AboutOrganizati
 import { ContactForm } from "@/components/sections/ContactForm";
 import { ContestHero } from "@/components/sections/ContestHero";
 import { ContestAbout } from "@/components/sections/ContestAbout";
+import { ContestBenefits } from "@/components/sections/ContestBenefits";
 
 export function App() {
   return (
@@ -68,6 +70,7 @@ export function App() {
       <Route path="/__preview/contact-form" element={<ContactFormPreview />} />
       <Route path="/__preview/contest-hero" element={<ContestHeroPreview />} />
       <Route path="/__preview/contest-about" element={<ContestAboutPreview />} />
+      <Route path="/__preview/contest-benefits" element={<ContestBenefitsPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -120,6 +123,7 @@ export function App() {
             <>
               <ContestHero />
               <ContestAbout />
+              <ContestBenefits />
             </>
           }
         />
