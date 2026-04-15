@@ -76,6 +76,33 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 - **3회 실패 시 선택지 순서는 `(a)재분할 → (b)다른접근 → (c)엔진차이 수용 → (d)되돌리기 → (e)완화`** — 완화는 맨 끝. `(e)완화` 선택 시 커밋 메시지에 `[ACCEPTED_DEBT]` 태그 + `docs/tech-debt.md` 엔트리 자동 추가 필수
 - **`docs/tech-debt.md`의 `OPEN` 부채 3건 이상이면 새 섹션 진행 차단** (Phase 0 오케스트레이터 체크). 쌓인 부채 먼저 해소
 
+### 섹션 파일 편집 위임 규칙 (cross-cutting 포함)
+- **`src/components/sections/**`, `src/components/ui/` 파일 수정은 `section-implementer` 워커로 위임**. 직접 편집 금지
+- bulk sed / find-replace 같은 cross-cutting 작업도 섹션당 워커 1개로 분할 (반응형/리네임/스타일 통일 등 포함)
+- 예외 존: `src/components/layout/`, `src/styles/`, `src/App.tsx`, `src/routes/`, `tests/`, `scripts/` — 직접 편집 OK
+- Why: 과거 bulk sed가 섹션 내부 절대위치 레이아웃을 무음 파괴. 워커 분할 + 섹션별 스크린샷 검증이 유일한 가드
+
+### 변경 후 시각 검증 의무
+- **섹션 파일을 수정하는 모든 작업 완료 시 4뷰포트(375/768/1440/1920) 스크린샷 + Figma 원본 비교 필수**
+- 구현 완료 외에도 반응형/폭조정/리팩터/토큰치환 등 cross-cutting 작업 후에도 동일 적용
+- 자동화: `scripts/compare-section.sh {섹션명}` 또는 워커가 Playwright로 4뷰포트 캡처 → docs/width-/에 저장
+- "수치 PASS만으로 완료" 금지. 눈으로 확인해서 semantic 오류(요소 swap, 줄바꿈 이상, blend 모드 오작동) 없는지 검증
+
+### 반응형 — 개발자 재량 범위 (Figma 1920 단일 디자인 기준)
+- Figma에 반응형 목업이 없어도 개발자가 **표준 breakpoint (320/768/1024/1440)** 범위에서 다음은 **재량 허용**:
+  - 외곽 컨테이너: `max-w-[...] w-full mx-auto` 축소 (A 머지된 표준)
+  - stacking: 좁은 뷰포트에서 `flex-row` → `flex-col` 전환
+  - 좌우 패딩 축소: `px-[252px]` → `px-6 md:px-12 xl:px-[252px]`
+  - 텍스트 `whitespace-nowrap` 제거, 폰트 크기 비례 축소
+- **디자이너 승인 필요**: 요소 숨김, 순서 재배열, 아이콘 → 텍스트 치환 같은 **레이아웃 재설계**
+- Figma 디자인이 깨지지 않는 범위에서만 재량 적용. 의심 시 사용자에게 문의
+- Why: 업계 표준은 개발자 재량 인정 (NN/G, Tailwind, Bootstrap). 단, "Figma 레이아웃 해석 변경"은 디자이너 영역
+
+### Header fixed clearance
+- 페이지 최상단 섹션의 `padding-top` = `max(Figma 첫 element y 좌표, 108px)` (floor = Header pill 88 + gap 20)
+- Figma에서 디자이너가 이미 y 좌표에 여백을 포함시킨 경우 그대로 사용. 포함 안 시켰으면 floor 값 적용
+- 적용 사례: /contact pt-[180px], /about pt-[169px], /gallery pt-[180px], /news pt-[140px], /news/:id pt-[140px]
+
 ---
 
 ## 사용자 개입 지점 (축소판 — 섹션당 1회)
