@@ -21,7 +21,7 @@ interface MainNewsProps {
 
 export function MainNews({ className }: MainNewsProps) {
   const base =
-    "relative w-full xl:h-[1040px] flex flex-col items-start justify-center px-6 md:px-12 xl:px-[252px] py-16 md:py-24 xl:py-[120px] overflow-hidden";
+    "relative w-full xl:h-[1040px] flex flex-col items-start justify-center px-6 md:px-12 xl:px-[252px] py-16 md:py-24 xl:py-[120px] overflow-visible xl:overflow-hidden";
   return (
     <section
       className={className ? `${base} ${className}` : base}

@@ -24,7 +24,7 @@ interface MainProgramsCard2Props {
 }
 
 export function MainProgramsCard2({ className }: MainProgramsCard2Props) {
-  const base = "relative max-w-[1416px] w-full h-[805px] mx-auto overflow-hidden xl:overflow-visible";
+  const base = "relative max-w-[1416px] w-full xl:h-[805px] mx-auto overflow-hidden xl:overflow-visible";
   return (
     <section
       className={className ? `${base} ${className}` : base}

@@ -25,7 +25,7 @@ interface MainGalleryProps {
 
 export function MainGallery({ className }: MainGalleryProps) {
   const base =
-    "relative w-full xl:h-[1888px] flex flex-col gap-[48px] items-start pt-[80px] md:pt-[120px] pb-[120px] md:pb-[200px] px-6 md:px-12 xl:px-[252px] overflow-hidden";
+    "relative w-full xl:h-[1888px] flex flex-col gap-[48px] items-start pt-[80px] md:pt-[120px] pb-[120px] md:pb-[200px] px-6 md:px-12 xl:px-[252px] overflow-visible xl:overflow-hidden";
   return (
     <section
       className={className ? `${base} ${className}` : base}
