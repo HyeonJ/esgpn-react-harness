@@ -135,6 +135,7 @@ scripts/
 ├─ track-diff-history.mjs       — G1 회차 history + 악화 revert 힌트 (v3)
 ├─ detect-placeholder-text.mjs  — 영문 placeholder 감지 (v3)
 ├─ check-figma-export-targets.mjs — 대형 composite PNG 감지 (leaf nodeId 호출 강제) (v3)
+├─ rembg-icon.py                — GIF/dark-bg 아이콘 배경 제거 (birefnet-general + alpha matting) (v3)
 ├─ compare-section.sh           — G1~G4 통합 측정 (--bake-from-full 옵션 v3)
 └─ doctor.sh                    — 환경 점검
 ```

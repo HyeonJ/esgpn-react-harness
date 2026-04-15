@@ -20,15 +20,25 @@
   1. `get_design_context(17:200/17:203/17:206)` 카드 구조 파악 (bg blur + icon + title + desc)
   2. 아이콘 leaf nodeId 20:210/20:212/20:213만 Framelink `download_figma_images` (투명 PNG)
   3. HeroIntroCard를 HTML 본체로 재구성: backdrop-blur + bg rgba + icon img(mix-blend) + h3/p
-- **G1 변화**: 2.24% → 8.07% (+5.83%p, 리서치 §3 Q5 하이브리드 예상 범위 내)
+- **G1 변화**: 2.24% → 8.07% → **5.47%** (rembg 배경 제거 + alpha matting 후)
+  - 회차 1 (HTML 카드 + Framelink icon PNG): 8.07% — GIF source 검정 배경 잔존
+  - 시도들 (실패):
+    - chroma-key: 5.64% but 흰색 영역 검정 끼임
+    - luma-to-alpha: 5.41% but 색상 경계 띠
+    - u2net (rembg 기본): 6.11% but 내부 fill 잔존
+    - isnet-anime: 5.42% but 아이콘 너무 흐림
+  - **회차 12 (birefnet-general + alpha matting): 5.47% ✅**
+    - `scripts/rembg-icon.py` — rembg Python API로 배경 제거 + trimap 기반 edge 정밀화
+    - ONNX 모델 ~1GB 최초 다운로드, 이후 로컬 캐시
 - **G6 변화**: ratio 1.17 FAIL → 4.33 PASS (안티패턴 해소)
 - **잔여 diff 원인**: 새 ACCEPTED T-012 참조 (engine diff)
 
 ### T-012 `main-hero` G1 하이브리드 엔진 차이 (T-001 리팩터 후속)
 - **상태**: `ACCEPTED` (T-001 해소와 함께 신규 등록)
 - **파일**: `src/components/sections/MainHero/*`
-- **증상**: HTML 카드 + 아이콘 raster 하이브리드의 G1 8.07%. baseline(Figma 합성) vs Chromium 렌더 간 mix-blend-lighten/screen rendering + Pretendard 한글 AA 서브픽셀 차이
+- **증상**: HTML 카드 + 아이콘 raster 하이브리드의 G1 5.47% (rembg birefnet-general + alpha matting 후). 잔여는 Pretendard 한글 AA 서브픽셀 + 카드 bg blur 렌더 차이
 - **수용 근거**: 리서치 §3 Q5 "아이콘 + HTML 텍스트 하이브리드 G1 5~7% 예상, 엔진 차이 구조적 한계". T-001 RESOLVED가 본체이고 이 엔진 차이는 T-001의 정당한 부산물
+- **GIF source 배경 제거 경로**: `scripts/rembg-icon.py` (U-Net 기반 segmentation + trimap matting). 단순 픽셀 후처리(chroma-key/luma-to-alpha) 여러 시도 실패 후 정착. 동일 패턴 재등장 시 재사용
 - **재검토 조건**: Chrome blend mode 업데이트 또는 Figma 렌더 엔진 변경 시
 
 ### T-002 `contest-benefits` CTA 텍스트 baked-in raster
