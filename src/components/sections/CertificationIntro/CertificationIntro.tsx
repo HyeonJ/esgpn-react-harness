@@ -14,7 +14,7 @@ export function CertificationIntro() {
   return (
     <section
       aria-labelledby="certification-intro-heading"
-      className="mx-auto flex w-[1416px] flex-col items-end gap-[20px] px-[240px] py-[64px]"
+      className="mx-auto flex max-w-[1416px] w-full flex-col items-end gap-[20px] px-[240px] py-[64px]"
     >
       <HatchedSectionHeading
         icon={iconImage}

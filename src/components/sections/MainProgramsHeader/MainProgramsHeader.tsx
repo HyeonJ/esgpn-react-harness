@@ -14,7 +14,7 @@
 export function MainProgramsHeader() {
   return (
     <section
-      className="relative mx-auto w-[1416px] h-[261px] bg-transparent flex flex-col items-center text-center"
+      className="relative mx-auto max-w-[1416px] w-full h-[261px] bg-transparent flex flex-col items-center text-center"
       style={{ gap: 24, paddingTop: 24, paddingBottom: 24 }}
       aria-label="ESGPN 핵심 프로그램 소개"
       data-node-id="252:987"

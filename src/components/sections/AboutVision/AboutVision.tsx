@@ -8,7 +8,7 @@ import panorama from "@/assets/about-vision/panorama.png";
  */
 export function AboutVision() {
   return (
-    <section className="relative w-[1920px] h-[783px] bg-white overflow-hidden mx-auto">
+    <section className="relative max-w-[1920px] w-full h-[783px] bg-white overflow-hidden mx-auto">
       {/* 본문 텍스트 — 3행 중앙정렬 */}
       <div className="absolute left-0 right-0 top-[65px] text-center text-[16px] leading-[24px] text-[var(--color-gray-900)]">
         <p className="whitespace-nowrap">

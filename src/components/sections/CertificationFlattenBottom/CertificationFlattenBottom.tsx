@@ -15,7 +15,7 @@ export function CertificationFlattenBottom() {
   return (
     <section
       aria-label="응시방법 및 시험일정 안내"
-      className="relative mx-auto block w-[1920px]"
+      className="relative mx-auto block max-w-[1920px] w-full"
     >
       <img
         src={bgImage}

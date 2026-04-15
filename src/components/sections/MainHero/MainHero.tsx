@@ -66,7 +66,7 @@ const CARDS: HeroIntroCardProps[] = [
 export function MainHero() {
   return (
     <section
-      className="relative w-[1920px] h-[1040px] overflow-hidden mx-auto"
+      className="relative max-w-[1920px] w-full h-[1040px] overflow-hidden mx-auto"
       style={{ backgroundColor: "#f3f3f3" }}
       aria-label="ESGPN 소개 히어로"
     >

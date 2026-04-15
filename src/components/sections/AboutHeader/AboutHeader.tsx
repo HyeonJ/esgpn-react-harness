@@ -20,7 +20,7 @@ import { SectionTabs } from "@/components/ui/SectionTabs";
 export function AboutHeader() {
   return (
     <section
-      className="w-[1920px] h-[542px] bg-white mx-auto flex flex-col items-center"
+      className="max-w-[1920px] w-full h-[542px] bg-white mx-auto flex flex-col items-center"
       aria-label="About 개요 및 철학 헤더"
     >
       {/* Tabs row (Figma page-y 169) */}

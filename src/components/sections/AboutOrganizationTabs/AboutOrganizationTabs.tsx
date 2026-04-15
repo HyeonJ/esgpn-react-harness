@@ -19,7 +19,7 @@ import { SectionTabs } from "@/components/ui/SectionTabs";
 export function AboutOrganizationTabs() {
   return (
     <section
-      className="w-[1920px] h-[190px] bg-white mx-auto flex flex-col items-center"
+      className="max-w-[1920px] w-full h-[190px] bg-white mx-auto flex flex-col items-center"
       aria-label="About 조직도 탭"
     >
       <div className="pt-[168px]">

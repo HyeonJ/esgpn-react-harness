@@ -16,7 +16,7 @@ import { EsgDiagram } from "./EsgDiagram";
 export function MainStats() {
   return (
     <section
-      className="relative w-[1920px] h-[1040px] mx-auto bg-white overflow-hidden flex items-center justify-center"
+      className="relative max-w-[1920px] w-full h-[1040px] mx-auto bg-white overflow-hidden flex items-center justify-center"
       style={{ paddingLeft: 252, paddingRight: 252, paddingTop: 200, paddingBottom: 200, gap: 63 }}
       aria-label="ESG 중요성 스탯"
       data-node-id="26:273"
