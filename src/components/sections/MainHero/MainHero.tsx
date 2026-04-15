@@ -93,12 +93,6 @@ export function MainHero() {
           <div className="flex flex-col gap-8 w-full">
             {/* Heading group */}
             <div className="flex flex-col items-center gap-1 relative">
-              {/* 흰색 띠 (워드마크 위 패치, 286×27, x=408 y=1) */}
-              <div
-                className="absolute bg-white"
-                style={{ left: "408px", top: "1px", width: "286px", height: "27px" }}
-                aria-hidden="true"
-              />
               <p
                 className="font-['Pretendard_Variable'] font-semibold relative"
                 style={{
