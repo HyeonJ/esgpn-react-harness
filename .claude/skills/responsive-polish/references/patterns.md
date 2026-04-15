@@ -165,6 +165,26 @@ Figma 1920 디자인은 섹션 높이가 픽셀 고정 (`h-[1040px]`, `h-[1888px
 - 같은 섹션에 `overflow-hidden` 없이 `absolute` 배치 자식이 있으면 좁은 뷰포트에서 튀어나갈 수 있음 → §4-2 decouple 병행
 - Hero 같이 배경 이미지가 섹션 bottom 에 뿌리박힌 디자인은 min-h 없이 단순 `xl:h-` 만 적용 권장 (배경은 `xl:overflow-hidden` 으로 clip)
 
+### §8 + §4-2 조합 (필수 케이스)
+섹션 루트에 §8 적용 + **내부 content wrapper가 `absolute inset-0` 인 경우** 같이 §4-2 decouple 필수:
+```diff
+<section className="... xl:h-[1040px] overflow-visible xl:overflow-hidden">
+-  <div className="absolute inset-0 flex flex-col items-center ...">
++  <div className="relative xl:absolute xl:inset-0 flex flex-col items-center ...">
+    {content}
+```
+이유: 섹션이 `xl:h-` 만 가지면 좁은 뷰포트에서 height=0 → `absolute inset-0` 자식도 height=0 → 내용 전부 top:0 에 쌓임. `relative` 로 전환해 normal flow에 진입시켜야 섹션이 콘텐츠 높이에 맞춰 자람.
+
+### §1-5 선점 섹션 (MainProgramsCard 같은 케이스)
+이미 `overflow-hidden xl:overflow-visible` 가 있는 섹션 (FloatingCity 가로 clip용) 은 **§8의 overflow 부분을 재작성하지 말 것**. height 만 `xl:` prefix 추가:
+```diff
+- className="... h-[805px] overflow-hidden xl:overflow-visible"
++ className="... xl:h-[805px] overflow-hidden xl:overflow-visible"
+```
+
+### xl 뷰포트 자체의 overflow (Figma 원본)
+`detect-cutoff.mjs` 가 xl 뷰포트에서 `v-overflow-clipped-content` 를 리포트할 수 있음 — 이는 Figma 원본 의도(content bottom > section height 를 designer가 알고 `overflow-hidden` 으로 clip). **§8 수정 대상 아님**. 1440/1920 에서만 보고되면 무시.
+
 ## §6. 금지 패턴
 
 - `hidden md:block` 로 모바일 전용 요소 만들기 — 디자이너 승인 필요

@@ -87,7 +87,7 @@ export function MainHero() {
       />
 
       {/* Inner 컨테이너: w 1102, padding 160/409/110 (반응형: px 축소) */}
-      <div className="absolute inset-0 flex flex-col items-center pt-[160px] pb-[110px] px-4 md:px-12 xl:px-[409px] z-10">
+      <div className="relative xl:absolute xl:inset-0 flex flex-col items-center pt-[160px] pb-[110px] px-4 md:px-12 xl:px-[409px] z-10">
         <div className="flex flex-col items-stretch gap-[86px] w-full max-w-[1102px]">
           {/* Heading + Body */}
           <div className="flex flex-col gap-8 w-full">
