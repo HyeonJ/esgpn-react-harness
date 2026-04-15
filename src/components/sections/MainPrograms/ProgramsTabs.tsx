@@ -19,7 +19,7 @@ const TABS: { id: ProgramTabId; label: string }[] = [
  */
 export function ProgramsTabs({ active, onSelect }: ProgramsTabsProps) {
   return (
-    <div className="flex items-center gap-4" role="tablist" aria-label="프로그램 선택 탭">
+    <div className="flex flex-wrap items-center justify-center gap-4 px-4" role="tablist" aria-label="프로그램 선택 탭">
       {TABS.map((tab) => {
         const isActive = tab.id === active;
         const color = isActive ? "var(--color-brand-500)" : "var(--color-gray-400)";

@@ -9,7 +9,7 @@ import { NEWS_ITEMS } from "./data";
 export function NewsList() {
   return (
     <div
-      className="flex flex-col gap-[8px] h-full items-start justify-center py-[24px] shrink-0 w-[748px]"
+      className="flex flex-col gap-[8px] h-full items-start justify-center py-[24px] shrink-0 w-full xl:w-[748px]"
       data-node-id="40:1418"
     >
       <NewsPager />

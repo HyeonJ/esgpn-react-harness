@@ -12,8 +12,7 @@ import { IntroGlobeGroup } from "./IntroGlobeGroup";
 export function MainIntro() {
   return (
     <section
-      className="relative max-w-[1920px] w-full h-[1040px] mx-auto bg-white overflow-hidden flex items-center justify-center"
-      style={{ paddingLeft: 252, paddingRight: 252, paddingTop: 200, paddingBottom: 200, gap: 63 }}
+      className="relative max-w-[1920px] w-full xl:h-[1040px] mx-auto bg-white overflow-hidden flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 px-6 md:px-12 xl:px-[252px] py-24 md:py-32 xl:py-[200px]"
       aria-label="ESGPN 소개 인트로"
     >
       <IntroLeftColumn />

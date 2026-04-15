@@ -21,7 +21,7 @@ interface MainNewsProps {
 
 export function MainNews({ className }: MainNewsProps) {
   const base =
-    "relative w-full h-[1040px] flex flex-col items-start justify-center px-[252px] py-[120px] overflow-hidden";
+    "relative w-full xl:h-[1040px] flex flex-col items-start justify-center px-6 md:px-12 xl:px-[252px] py-16 md:py-24 xl:py-[120px] overflow-hidden";
   return (
     <section
       className={className ? `${base} ${className}` : base}
@@ -58,9 +58,9 @@ export function MainNews({ className }: MainNewsProps) {
         </div>
       </div>
 
-      {/* 콘텐츠 — 좌 헤딩 / 우 리스트 2열 */}
+      {/* 콘텐츠 — 좌 헤딩 / 우 리스트 2열 (반응형: mobile 1열 stack) */}
       <div
-        className="flex flex-1 items-start justify-between min-h-px min-w-px overflow-clip relative w-full"
+        className="flex flex-col xl:flex-row flex-1 items-start xl:justify-between min-h-px min-w-px overflow-clip relative w-full gap-8 xl:gap-0"
         data-node-id="40:1420"
       >
         <NewsHeading />

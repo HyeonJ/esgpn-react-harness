@@ -25,7 +25,7 @@ interface MainGalleryProps {
 
 export function MainGallery({ className }: MainGalleryProps) {
   const base =
-    "relative w-full h-[1888px] flex flex-col gap-[48px] items-start pt-[120px] pb-[200px] px-[252px] overflow-hidden";
+    "relative w-full xl:h-[1888px] flex flex-col gap-[48px] items-start pt-[80px] md:pt-[120px] pb-[120px] md:pb-[200px] px-6 md:px-12 xl:px-[252px] overflow-hidden";
   return (
     <section
       className={className ? `${base} ${className}` : base}
@@ -49,7 +49,7 @@ export function MainGallery({ className }: MainGalleryProps) {
           svgSrc={dividerPartnership}
         />
         <div
-          className="flex gap-[24px] items-start relative shrink-0 w-full"
+          className="flex flex-col md:flex-row gap-[24px] items-start relative shrink-0 w-full"
           data-node-id="43:1844"
         >
           {partnershipCards.map((card) => (
@@ -93,7 +93,7 @@ export function MainGallery({ className }: MainGalleryProps) {
         >
           <GalleryCard
             variant="award"
-            widthClass="w-[456px]"
+            widthClass="w-full max-w-[456px]"
             nodeId={awardCard.nodeId}
             thumbNodeId={awardCard.thumbNodeId}
             titleNodeId={awardCard.titleNodeId}

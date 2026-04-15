@@ -86,9 +86,9 @@ export function MainHero() {
         }}
       />
 
-      {/* Inner 컨테이너: w 1102, padding 160/409/110 */}
-      <div className="absolute inset-0 flex flex-col items-center pt-[160px] pb-[110px] px-[409px] z-10">
-        <div className="flex flex-col items-stretch gap-[86px] w-[1102px]">
+      {/* Inner 컨테이너: w 1102, padding 160/409/110 (반응형: px 축소) */}
+      <div className="absolute inset-0 flex flex-col items-center pt-[160px] pb-[110px] px-4 md:px-12 xl:px-[409px] z-10">
+        <div className="flex flex-col items-stretch gap-[86px] w-full max-w-[1102px]">
           {/* Heading + Body */}
           <div className="flex flex-col gap-8 w-full">
             {/* Heading group */}
@@ -111,11 +111,10 @@ export function MainHero() {
                 세상을 아름답게 만드는 힘, ESGPN
               </p>
               <h1
-                className="relative"
+                className="relative text-[48px] md:text-[72px] xl:text-[100px]"
                 style={{
                   fontFamily: "var(--font-family-yeseva)",
                   fontWeight: 400,
-                  fontSize: "100px",
                   lineHeight: "1em",
                   letterSpacing: "0px",
                   color: "var(--color-brand-700)",
@@ -147,14 +146,14 @@ export function MainHero() {
           {/* Cards + CTA */}
           <div className="flex flex-col items-center gap-12">
             {/* 3 cards */}
-            <div className="flex justify-center gap-12">
+            <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-12">
               {CARDS.map((card) => (
                 <HeroIntroCard key={card.title} {...card} />
               ))}
             </div>
 
             {/* CTA pair */}
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col md:flex-row items-center gap-3">
               <HeroCTA variant="white" label="ESG 실천 아이디어 경진대회 참여하기" />
               <HeroCTA variant="green" label="ESG 마인드 자격검정 신청하기" />
             </div>

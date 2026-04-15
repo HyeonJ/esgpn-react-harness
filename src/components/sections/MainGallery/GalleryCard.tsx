@@ -105,7 +105,7 @@ export function GalleryCard({
           {title}
         </p>
         <div
-          className="flex flex-col justify-center text-[14px] tracking-[0.28px] whitespace-nowrap leading-[0]"
+          className="flex flex-col justify-center text-[14px] tracking-[0.28px] xl:whitespace-nowrap leading-[0]"
           data-node-id={descNodeId}
         >
           <p className="leading-[1.5] whitespace-pre">{desc}</p>

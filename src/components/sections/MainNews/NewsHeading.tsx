@@ -4,7 +4,7 @@
 export function NewsHeading() {
   return (
     <div
-      className="flex flex-col gap-[24px] items-start justify-center py-[24px] shrink-0 w-[576px]"
+      className="flex flex-col gap-[24px] items-start justify-center py-[24px] shrink-0 w-full xl:w-[576px]"
       data-node-id="40:1329"
     >
       <div
