@@ -20,18 +20,15 @@
   1. `get_design_context(17:200/17:203/17:206)` 카드 구조 파악 (bg blur + icon + title + desc)
   2. 아이콘 leaf nodeId 20:210/20:212/20:213만 Framelink `download_figma_images` (투명 PNG)
   3. HeroIntroCard를 HTML 본체로 재구성: backdrop-blur + bg rgba + icon img(mix-blend) + h3/p
-- **G1 변화**: 2.24% → 8.07% → **5.64%** (chroma-key 후처리 후 -2.43%p)
-  - 회차 1 (HTML 카드 + Framelink icon PNG): 8.07% — GIF source는 투명 배경 불가 → 검정 배경 그대로 찍힘
-  - 회차 2 (`scripts/chroma-key-black.mjs` 후처리): **5.64%** — near-black 픽셀을 알파 0으로 치환, AA 경계 선형 그라데이션
+- **G1 변화**: 2.24% → 8.07% (+5.83%p, 리서치 §3 Q5 하이브리드 예상 범위 내)
 - **G6 변화**: ratio 1.17 FAIL → 4.33 PASS (안티패턴 해소)
 - **잔여 diff 원인**: 새 ACCEPTED T-012 참조 (engine diff)
 
 ### T-012 `main-hero` G1 하이브리드 엔진 차이 (T-001 리팩터 후속)
 - **상태**: `ACCEPTED` (T-001 해소와 함께 신규 등록)
 - **파일**: `src/components/sections/MainHero/*`
-- **증상**: HTML 카드 + 아이콘 raster 하이브리드의 G1 5.64% (chroma-key 후). Pretendard 한글 AA 서브픽셀 차이 + 카드 bg blur 렌더 차이
+- **증상**: HTML 카드 + 아이콘 raster 하이브리드의 G1 8.07%. baseline(Figma 합성) vs Chromium 렌더 간 mix-blend-lighten/screen rendering + Pretendard 한글 AA 서브픽셀 차이
 - **수용 근거**: 리서치 §3 Q5 "아이콘 + HTML 텍스트 하이브리드 G1 5~7% 예상, 엔진 차이 구조적 한계". T-001 RESOLVED가 본체이고 이 엔진 차이는 T-001의 정당한 부산물
-- **chroma-key 후처리**: `scripts/chroma-key-black.mjs`로 GIF source 검정 배경을 픽셀 단위 투명 치환. GIF는 투명 배경 지원 안 하므로 imageRef 우회도 불가, 후처리가 유일 경로
 - **재검토 조건**: Chrome blend mode 업데이트 또는 Figma 렌더 엔진 변경 시
 
 ### T-002 `contest-benefits` CTA 텍스트 baked-in raster
