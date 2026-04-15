@@ -29,7 +29,7 @@ interface MainProgramsCard3Props {
 }
 
 export function MainProgramsCard3({ className }: MainProgramsCard3Props) {
-  const base = "relative max-w-[1416px] w-full h-[805px] mx-auto";
+  const base = "relative max-w-[1416px] w-full h-[805px] mx-auto overflow-hidden xl:overflow-visible";
   return (
     <section
       className={className ? `${base} ${className}` : base}

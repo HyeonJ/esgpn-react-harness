@@ -76,7 +76,7 @@ export function Footer({ className }: FooterProps) {
       )}
     >
       {/* Top Row */}
-      <div className="flex w-full items-start gap-[var(--spacing-10)] px-[252px]">
+      <div className="flex flex-col xl:flex-row w-full items-start gap-[var(--spacing-10)] px-6 md:px-12 xl:px-[252px]">
         {/* 좌측 컬럼 */}
         <div className="flex min-w-0 flex-1 flex-col gap-[var(--spacing-12)]">
           {/* Info Block */}
@@ -116,7 +116,7 @@ export function Footer({ className }: FooterProps) {
         {/* 우측 네비 */}
         <nav
           aria-label="푸터 메뉴"
-          className="flex h-[21px] items-center gap-[var(--spacing-4)]"
+          className="flex flex-wrap xl:flex-nowrap xl:h-[21px] items-center gap-[var(--spacing-4)]"
         >
           {FOOTER_NAV.map((item, idx) => (
             <Fragment key={item.to}>
