@@ -11,9 +11,15 @@ import { FormInput } from "./FormInput";
  *  - 정적 UI (onSubmit preventDefault, button type="button")
  *  - 버튼 텍스트 "문의 남기기" (baseline "Button Sample" placeholder 교체)
  */
+/**
+ * 섹션 자기 정렬 책임 (CLAUDE.md Figma 절대 규칙):
+ *   Figma wrapper `134:3696` 1920×1074, form 영역 (492, 180, 936, 694).
+ *   즉 상단 180px + 하단 200px 수직 padding 내장.
+ *   Preview/라우트 모두에서 Header 아래로 적절히 띄어야 함.
+ */
 export function ContactForm() {
   return (
-    <section className="relative w-[936px] h-[694px] mx-auto flex flex-col gap-[56px] items-start bg-white">
+    <section className="relative w-[936px] mx-auto flex flex-col gap-[56px] items-start bg-white pt-[180px] pb-[200px]">
       {/* Title row 936×124 flex gap-32 items-end */}
       <div className="flex gap-[32px] items-end justify-center w-full">
         <h1 className="shrink-0 whitespace-nowrap font-bold text-[48px] leading-[1.3] tracking-[-1.92px] text-black m-0">
