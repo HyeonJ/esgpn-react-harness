@@ -38,5 +38,3 @@ dev-captures/
 
 # v3: G1 회차 history (로컬 측정 기록)
 tests/visual/history/
-
-.vercel
