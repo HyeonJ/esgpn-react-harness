@@ -7,20 +7,24 @@ import { SectionTabs } from "@/components/ui/SectionTabs";
  * 구현 전략: [A] 완전 HTML 재구성 (텍스트 전용, 이미지 삽입 금지).
  * baseline: figma-screenshots/about-header.png (1920×454, about-full crop).
  *
- * 수직 구성 (about-full.png y축 기준, 섹션 top=88 상대):
- *   탭 row:        y=169~189  → section 내부 top 81 (pt-[81px])
- *   ESGPN 타이틀:  y=269~388  → 탭 밑줄(y=189)에서 80px gap (mt-[80px])
- *   서브카피:      y=435~476  → ESGPN 하단(y=388)에서 47px gap (mt-[47px])
- *   섹션 하단:     y=541 (height=454)
+ * 수직 구성 (Figma 절대 page-y 기준):
+ *   탭 row:        y=169~189  → pt-[169px] (Header fixed 0-88 clear)
+ *   ESGPN 타이틀:  y=269~388  → 탭 밑줄(y=189)에서 80px gap
+ *   서브카피:      y=435~476  → ESGPN 하단(y=388)에서 47px gap
+ *   섹션 하단:     y=541 → height 542 (= 기존 454 + Header 88 여백 내장)
+ *
+ * v3 fix: Header가 fixed top-4라 섹션이 page y=0부터 시작. 이전 pt-[81px]은
+ * "section y=0 = page y=88" 모델 기반이었으나 Header 통과로 탭이 가림.
+ * 이제 Figma 절대 page-y 기준 (contact-form과 동일 패턴).
  */
 export function AboutHeader() {
   return (
     <section
-      className="w-[1920px] h-[454px] bg-white mx-auto flex flex-col items-center"
+      className="w-[1920px] h-[542px] bg-white mx-auto flex flex-col items-center"
       aria-label="About 개요 및 철학 헤더"
     >
-      {/* Tabs row (상단에서 81px 오프셋 — y=169 - 88) */}
-      <div className="pt-[81px]">
+      {/* Tabs row (Figma page-y 169) */}
+      <div className="pt-[169px]">
         <SectionTabs
           tabs={[
             { label: "개요 & 철학", href: "/about", active: true },
