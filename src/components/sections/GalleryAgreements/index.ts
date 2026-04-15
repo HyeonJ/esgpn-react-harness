@@ -1,0 +1,1 @@
+export { GalleryAgreements } from "./GalleryAgreements";

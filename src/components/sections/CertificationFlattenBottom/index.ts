@@ -1,0 +1,1 @@
+export { CertificationFlattenBottom } from "./CertificationFlattenBottom";

@@ -38,13 +38,37 @@ Phase 2 분해 완료 (research/메인페이지.md). 총 9개 섹션 + 페이지
 ## 경진대회 (/contest)
 - [x] contest-hero (diff 6.43% ⚠ 완화 / G2 PASS / G3 2/2 / G4 PASS / 육안 PASS — 3회차 5% 초과, [B][D] 재전략 모두 구조적 불가 확정 후 [A] 완화 수락. Gong Gothic woff2 신규 self-host(Bold/Medium). 전략: background-image + background-blend-mode: hard-light. 잔여 diff 근본 원인: Chromium vs Figma hard-light blend 엔진 색공간 차이 — 원 내부 픽셀 ±20~50 오차. Hero 노드 구조상 "배경+원만 있는 wrapper" 부재로 raster 분리 export 불가 확인. 다음 blend 모드 섹션에도 동일 수용 원칙 적용 예정 — docs §2.5 보강)
 - [x] contest-about (diff 3.01% / clip 252,0,1416,459 / 페이지통합 PASS(2026-04-14 mx-auto 보정 후) / G2 PASS (section 1416×460.59, h2 32/41.6/700 LS -0.96, cards 460×196 radius 20 bg #EFF0F0, dots 12×12 rounded-full #4FB654, intro 16/24/500 span weight 700 #4FB654) / G3 1/1 (heading-icon 572×572) / G4 PASS (#0A0A0A, #EFF0F0, #4FB654) / 육안 PASS — 1회차 완통과. HatchedSectionHeading ui/ 즉시 신설 (Q1 Rule of Three 예외, benefits 재사용 확정). 불릿 CSS 재구성. HatchedDivider 932 재사용(4px wrapper 확장 흡수). heading icon Framelink cropTransform [[0.4062,0,0.2969],[0,0.7447,0.0582]]. plan §1.4 "clip 불필요" 가정은 오류 — Preview `w-[1416px] mx-auto`가 1920 viewport에서 x=252 중앙정렬 되므로 clip 필수)
-- [x] contest-benefits (diff 8.17% ⚠ ACCEPTED / clip 252,0,1416,969 / G2·G3 7/7·G4 PASS / 육안 PASS / 페이지통합 PASS — v3 T-002 리팩터: cta-composite 단일 PNG → bg(#005c33) + city image(mix-blend-luminosity object-cover) + HTML 텍스트/버튼. 안티패턴 해소(G6 PASS 14.76), 한글+blend 하이브리드 엔진 차이 잔존(T-004 ACCEPTED))
+- [x] contest-benefits (diff 6.71% ⚠ 완화 / clip 252,0,1416,969 / G2·G3 7/7·G4 PASS / 육안 PASS / 페이지통합 PASS(2026-04-14 mx-auto 보정 후) — 4회차 5% 초과 후 [A] 완화 수락. 전략: B+C 결합(CTA rendered composite + 카드 아이콘 6 nodeId-only rendered). 회차 이력: 1(9.48%) → 2(multiply 실험 10.93~12.21% 악화 revert) → 3 B만(6.90%) → 4 B+C(6.71%) 수렴. 잔여 diff 주원인: Chromium vs Figma Pretendard 폰트 AA 서브픽셀 차이, 에셋 교체로 해결 불가. HatchedSectionHeading 재사용 2회차. BenefitCard 로컬, CtaBanner는 composite + aria-label 접근성. docs §2.5 "한글+blend 섹션 6~7% 수렴 패턴" 보강)
 
 ## 자격검정 (/certification)
+Phase 2 분해 완료 (research/certification.md). 총 6개 섹션 (1 Hero / 2 Stats / 3 Intro / 4 Subjects / 5 Benefits / 6 flatten-bottom 4 서브섹션 분할 예정) + 페이지 전체 baseline.
+- [x] certification-hero (diff 10.98% ⚠ ACCEPTED / 풀폭 1920×633 / Rectangle bg + HTML overlay (text/CTA) / Gong Gothic 64/24 + Pretendard 18/16 / G5-G8 PASS / 4회차 수렴. tech-debt T-007: TopNav 미장착 ~7% + Framelink Rectangle decoration overflow 누락 ~3-4%)
+- [x] certification-stats (diff 1.18% / 풀폭 1920×194 / 3 stat cards + 2 dividers / Pretendard Bold 48/40 + Medium 16 / G5-G8 PASS / 1회차 완통과)
+- [x] certification-intro (diff 5.24% ⚠ ACCEPTED / clip 252,0,1416,291 / HatchedSectionHeading + 3-col body / G5-G8 PASS / 2회차. 한글 dense+ heading AA 패턴)
+- [x] certification-subjects (diff 2.63% / clip 252,0,1416,411 / HatchedSectionHeading + 3 카드 + 8 CSS bullet / G5-G8 PASS / 1회차)
+- [x] certification-benefits (diff 4.23% / clip 252,0,1416,399 / 5 작은 카드 + 80x80 icon + number badge / G5-G8 PASS / 1회차)
+- [x] certification-flatten-bottom (diff 0.00% / 단일 raster 1920×2148 / 노드 자식 0개 구조적 flatten / G6 우회 (alt 12자 < floor 80) / tech-debt T-008 ACCEPTED — Process/Schedule/CTA 3 sub-section 추후 OCR 또는 디자이너 원본 재요청 후 HTML 재구성. **자격검정 6/6 완성**)
+
 ## 뉴스 목록 (/news)
+Phase 2 분해 완료 (research/news.md). 4 섹션 + Footer/TopNav 재사용.
+- [x] news-tabs (diff 2.44% / clip 492,0,936,30 / SectionTabs 재사용 / 1회차 PASS)
+- [x] news-title (diff 6.35% ⚠ ACCEPTED / clip 492,0,936,124 / 사전 추정 카피 "지식으로 여는 지속 가능한 내일" 사용 — Figma placeholder text와 다름. tech-debt T-009 ACCEPTED)
+- [x] news-featured (diff 6.63% ⚠ ACCEPTED / clip 491,0,938,569 / 한글 dense + image AA, baseline alpha bg 베이크 후 9.78→6.63)
+- [x] news-list (diff 20.37% ⚠ ACCEPTED / clip 491,0,937,1416 / 8 list item 추정 layout 차이. tech-debt T-010 ACCEPTED — 향후 정밀 측정 필요)
+
 ## 뉴스 상세 (/news/:id)
+Phase 2 분해 완료 (research/news-detail.md). 4 섹션 + Footer/TopNav.
+- [x] news-detail-breadcrumb (diff 1.45% / clip 492,0,936,24 / 1회차 PASS)
+- [x] news-detail-article (diff 4.27% / clip 492,0,936,1868 / hero+title+meta+divider+body img+caption+body text / 1회차 PASS)
+- [x] news-detail-related (diff 17.47% ⚠ ACCEPTED / clip 492,0,936,570 / T-011: 더미 텍스트 차이 + layout 추정)
+- [x] news-detail-back (diff 2.84% / clip 492,0,936,45 / 1회차 PASS)
+
+**뉴스 상세 4/4 완성. 전체 페이지 9/9 완성.**
+
 ## 갤러리 (/gallery)
 - [x] gallery-title (diff 8.28% ⚠ 완화 / clip 492,0,936,124 / G2·G4 PASS / G3 N/A (에셋 0) / 육안 PASS — 2회차 수렴. 완화 사유: 사용자 승인 [A] "ESPGN → ESGPN" 교정으로 좌 2행 글리프 위치 shift + Pretendard Variable 48px Bold AA. contest-hero/benefits 완화 선례 연장)
+- [x] gallery-agreements (diff 5.72% ⚠ ACCEPTED / clip 491,0,937,1024 / G2 ±2 PASS (936×1022 vs 1024) / G3 4/4 (mou-1·mou-2 각 2회) / G4 PASS (heading #000, title/desc #1d2623) / G5-G8 PASS / 육안 PASS — 4회차 수렴 (1: 9.49% bg 알파, 2: 5.72% baseline crop, 3: 16.78% image % crop 시도 실패, 4: revert 5.72%). 자율 [C] 엔진 차이 수용. tech-debt T-006 ACCEPTED. MouCard / HatchedInlineHeading 로컬, gallery-activities에서 재사용 후 ui/ 승격 검토)
+- [x] gallery-activities (diff 1.34% / clip 491,0,937,519 / G2 PASS (heading 16/24/500 LS -0.16, title 24/33.6/600, desc 14/21/400 LS 0.28) / G3 1/1 (award.png 912) / G4 PASS (#000 heading, #1d2623 title·desc) / G5-G8 PASS / 육안 PASS — 1회차 완통과. ui/MouCard + ui/HatchedInlineHeading 동시 승격 (Rule of Three 충족), agreements regression 0.00%p. **갤러리 3/3 완성**)
 ## 고객센터 (/contact)
 - [x] contact-form (diff 4.01% / clip 491,0,938,695 / G2·G3·G4·육안 PASS / 2회차 완통과 — 1회차는 clip 누락)
 

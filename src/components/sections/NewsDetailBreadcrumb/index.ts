@@ -1,0 +1,1 @@
+export { NewsDetailBreadcrumb } from "./NewsDetailBreadcrumb";
