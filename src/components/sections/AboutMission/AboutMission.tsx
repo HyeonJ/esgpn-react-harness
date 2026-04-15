@@ -9,7 +9,7 @@ import { HatchedDivider } from "@/components/ui/HatchedDivider";
  */
 export function AboutMission() {
   return (
-    <section className="relative w-[1920px] h-[754px] bg-white mx-auto">
+    <section className="relative max-w-[1920px] w-full h-[754px] bg-white mx-auto">
       {/* 상단 divider */}
       <HatchedDivider className="absolute top-0 left-1/2 -translate-x-1/2" />
 

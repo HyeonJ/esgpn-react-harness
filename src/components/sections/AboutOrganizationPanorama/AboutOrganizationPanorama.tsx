@@ -8,7 +8,7 @@ import panorama from "@/assets/about-vision/panorama.png";
  */
 export function AboutOrganizationPanorama() {
   return (
-    <section className="relative w-[1920px] h-[440px] bg-white overflow-hidden mx-auto">
+    <section className="relative max-w-[1920px] w-full h-[440px] bg-white overflow-hidden mx-auto">
       {/* 파노라마 배경 이미지 — vision 에셋 재사용, offset -48px (research §3.2) */}
       <img
         src={panorama}

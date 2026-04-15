@@ -13,7 +13,7 @@ import icon4 from "@/assets/about-values/icon-4.png";
  */
 export function AboutValues() {
   return (
-    <section className="relative w-[1920px] h-[722px] bg-white mx-auto">
+    <section className="relative max-w-[1920px] w-full h-[722px] bg-white mx-auto">
       {/* 상단 divider */}
       <HatchedDivider className="absolute top-0 left-1/2 -translate-x-1/2" />
 

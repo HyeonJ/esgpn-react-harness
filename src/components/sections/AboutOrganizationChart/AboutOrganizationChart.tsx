@@ -19,7 +19,7 @@ import { OrgChartConnector } from "./OrgChartConnector";
  */
 export function AboutOrganizationChart() {
   return (
-    <section className="relative w-[1920px] h-[390px] bg-white mx-auto">
+    <section className="relative max-w-[1920px] w-full h-[390px] bg-white mx-auto">
       {/* HatchedDivider "실행 구조" — baseline 기준 */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2">
         <HatchedDivider label="실행 구조" />

@@ -31,7 +31,7 @@ export function CertificationStats() {
   return (
     <section
       aria-labelledby="certification-stats-heading"
-      className="relative mx-auto h-[194px] w-[1920px] overflow-hidden"
+      className="relative mx-auto h-[194px] max-w-[1920px] w-full overflow-hidden"
     >
       <h2 id="certification-stats-heading" className="sr-only">
         자격검정 통계

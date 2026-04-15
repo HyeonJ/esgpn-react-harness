@@ -13,7 +13,7 @@ import { PartnerLogoRow } from "./PartnerLogoRow";
  */
 export function AboutOrganizationLogos() {
   return (
-    <section className="relative w-[1920px] h-[300px] bg-white mx-auto">
+    <section className="relative max-w-[1920px] w-full h-[300px] bg-white mx-auto">
       {/* HatchedDivider with label */}
       <div className="absolute top-[84px] left-1/2 -translate-x-1/2">
         <HatchedDivider label="운영주체" />

@@ -12,7 +12,7 @@ export function CertificationHero() {
   return (
     <section
       aria-labelledby="certification-hero-heading"
-      className="relative mx-auto h-[633px] w-[1920px] overflow-hidden"
+      className="relative mx-auto h-[633px] max-w-[1920px] w-full overflow-hidden"
     >
       {/* Rectangle bg (1920×827, inset-0 → 0~633 visible) */}
       <img

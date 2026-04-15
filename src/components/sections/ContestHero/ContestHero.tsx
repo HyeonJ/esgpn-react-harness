@@ -23,9 +23,9 @@ import { ContestStatItem } from "./ContestStatItem";
 export function ContestHero() {
   return (
     <section
-      className="relative flex flex-col items-center mx-auto"
+      className="relative flex flex-col items-center mx-auto w-full"
       style={{
-        width: 1920,
+        maxWidth: 1920,
         height: 818,
         overflow: "visible",
         // Figma: fill[IMAGE(hard-light)] + fill[SOLID #0C3B0E]
