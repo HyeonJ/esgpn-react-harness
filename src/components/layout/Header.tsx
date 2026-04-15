@@ -155,7 +155,7 @@ export function Header({
             aria-expanded={open}
             aria-controls={menuId}
             className={clsx(
-              "w-10 h-10 shrink-0",
+              "w-10 h-10 shrink-0 xl:hidden",
               "flex items-center justify-center",
               "rounded-full",
               "bg-[var(--color-black-opacity-100)]",
