@@ -76,6 +76,16 @@ Footer / Header 의 `flex h-[21px]` 가로 링크들이 whitespace-nowrap 이라
 ### 2-3. 텍스트-이미지 병렬
 이미지 먼저 보여주고 싶으면 `flex-col-reverse xl:flex-row`
 
+### 2-4. Equal-weight 3+ cards (Hero feature, 주요사업 3-column 패턴)
+3개 이상 **동등한 중요도** 카드가 `flex-row` 인데 모바일/태블릿 viewport 합계 초과 시 **mobile~tablet 전부 stack**:
+```diff
+- <div className="flex flex-row justify-center gap-6">  (3 cards)
++ <div className="flex flex-col xl:flex-row justify-center items-center gap-6">
+```
+- **`md:flex-row` 넣지 말 것**: 768에서도 3카드 × 280px = 840 > 768 → 잘림 재발
+- 디자이너가 "다 보여줘야 한다"고 명시한 경우에만 stack. 대부분 1920 Hero/Feature 3-column은 동등 중요도라 stack이 기본
+- 대안: Horizontal snap scroll — 더 모바일다움. 단, 힌트(peek) 필수. 기본은 stack 권장 (NN/G: 2%만 carousel 넘어감)
+
 ---
 
 ## §3. 타이포 스케일

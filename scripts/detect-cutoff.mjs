@@ -29,7 +29,7 @@ async function inspectAt(vp) {
     const out = [];
     const all = Array.from(document.querySelectorAll("*"));
 
-    // 1) Horizontal overflow (right > viewport). clipped vs unclipped 구분
+    // 1) Horizontal overflow (right > viewport). clipped vs unclipped, content vs decoration 구분
     const isClippedBy = (el) => {
       let cur = el.parentElement;
       while (cur) {
@@ -39,12 +39,25 @@ async function inspectAt(vp) {
       }
       return false;
     };
+    const hasContent = (el) => {
+      // 본문 콘텐츠 요소 포함 여부 (텍스트/링크/버튼/이미지 중 실제 의미 있는 것)
+      if (el.querySelector("p, h1, h2, h3, h4, h5, h6, a, button, label, li")) return true;
+      const txt = (el.textContent || "").trim();
+      if (txt.length >= 10) return true;
+      return false;
+    };
     for (const el of all) {
       const r = el.getBoundingClientRect();
       if (r.width === 0 || r.height === 0) continue;
       if (r.right > VW + 1) {
+        const clipped = isClippedBy(el);
+        const content = hasContent(el);
+        let kind;
+        if (!clipped) kind = "h-overflow";
+        else if (content) kind = "h-overflow-clipped-content";
+        else kind = "h-overflow-clipped-deco";
         out.push({
-          kind: isClippedBy(el) ? "h-overflow-clipped" : "h-overflow",
+          kind,
           tag: el.tagName,
           cls: String(el.className).slice(0, 60),
           w: Math.round(r.width),
@@ -75,7 +88,35 @@ async function inspectAt(vp) {
       }
     }
 
-    // 3) Image 과도 축소 (rendered < natural * 0.3)
+    // 3a) Cards overflow row: 같은 flex 컨테이너 자식 중 2+ 요소가 viewport 초과
+    //     → stacking 필요 시그널 (개별 h-overflow 보다 구조적 문제)
+    const flexContainers = new Map();
+    for (const el of all) {
+      if (!el.parentElement) continue;
+      const cs = getComputedStyle(el.parentElement);
+      if (cs.display !== "flex" && cs.display !== "inline-flex") continue;
+      if (cs.flexDirection !== "row" && cs.flexDirection !== "row-reverse") continue;
+      const r = el.getBoundingClientRect();
+      if (r.right > VW + 1 && r.width > 40) {
+        const parent = el.parentElement;
+        if (!flexContainers.has(parent)) flexContainers.set(parent, []);
+        flexContainers.get(parent).push(el);
+      }
+    }
+    for (const [parent, children] of flexContainers) {
+      if (children.length < 2) continue;
+      const rp = parent.getBoundingClientRect();
+      out.push({
+        kind: "cards-overflow-row",
+        tag: parent.tagName,
+        cls: String(parent.className).slice(0, 60),
+        w: Math.round(rp.width),
+        childCount: children.length,
+        text: children.map((c) => (c.textContent || "").slice(0, 20)).join(" | "),
+      });
+    }
+
+    // 3b) Image 과도 축소 (rendered < natural * 0.3)
     for (const el of all) {
       if (el.tagName !== "IMG") continue;
       const img = el;
@@ -128,8 +169,10 @@ for (const { vp, issues, doc } of reports) {
     console.log(`[${kind}] ${items.length}건`);
     for (const it of items.slice(0, 30)) {
       const snippet = it.text ? ` "${it.text.replace(/\s+/g, " ")}"` : "";
-      if (kind === "h-overflow" || kind === "h-overflow-clipped") {
+      if (kind === "h-overflow" || kind === "h-overflow-clipped-content" || kind === "h-overflow-clipped-deco") {
         console.log(`  ${it.tag} w=${it.w} right=${it.right} .${it.cls}${snippet}`);
+      } else if (kind === "cards-overflow-row") {
+        console.log(`  ${it.tag} parent w=${it.w} children=${it.childCount} .${it.cls}  [${it.text}]`);
       } else if (kind === "text-clip-x") {
         console.log(`  ${it.tag} clientW=${it.clientW} scrollW=${it.scrollW} ws=${it.whiteSpace} .${it.cls}${snippet}`);
       } else if (kind === "img-shrink") {
@@ -149,11 +192,17 @@ if (hitSet.size) {
     console.log("    - 섹션 루트 w-[1920px] → max-w-[1920px] w-full mx-auto");
     console.log("    - 큰 px-[252px] → px-6 md:px-12 xl:px-[252px]");
   }
-  if (hitSet.has("h-overflow-clipped")) {
-    console.log("  h-overflow-clipped (부모 overflow-hidden 안쪽 — 이미 clip됨)");
-    console.log("    - scrollWidth 기준으론 OK. 하지만 내부 내용이 잘려보이면 UX 문제");
-    console.log("    - 실제 컨텐츠 잘림 유발 시 patterns.md §7 'absolute decouple' 패턴 적용");
-    console.log("      (좁은 뷰포트 relative + w-full, xl:absolute xl:w-[Npx] 로 원본 복원)");
+  if (hitSet.has("h-overflow-clipped-content")) {
+    console.log("  h-overflow-clipped-content (본문 포함, clip됨) — 실제 UX 문제. 반드시 수정");
+    console.log("    → patterns.md §4-2 absolute decouple (relative xl:absolute)");
+    console.log("    → §2-4 equal-weight cards stacking (flex-col xl:flex-row)");
+  }
+  if (hitSet.has("h-overflow-clipped-deco")) {
+    console.log("  h-overflow-clipped-deco (장식/blob/배경만, clip됨) — OK, 손대지 말 것");
+  }
+  if (hitSet.has("cards-overflow-row")) {
+    console.log("  cards-overflow-row (flex-row 자식 2+가 viewport 초과) — 구조적 stacking 필요");
+    console.log("    → patterns.md §2-4: `flex-col xl:flex-row` (md:flex-row 넣지 말 것)");
   }
   if (hitSet.has("text-clip-x")) {
     console.log("  text-clip-x → whitespace-nowrap 제거 또는 xl:whitespace-nowrap");

@@ -30,6 +30,9 @@ node scripts/detect-cutoff.mjs <path>
 | h-overflow 내부 블록 | `w-[576px]` | `w-full xl:w-[576px]` |
 | h-overflow absolute 자식 (`left-[Npx] w-[Mpx]` 합이 1920 경계) | 부모 overflow 없음 | 부모에 `overflow-hidden xl:overflow-visible` |
 | h-overflow nav/링크 list nowrap | `flex gap-4` + 자식 `whitespace-nowrap` | `flex flex-wrap xl:flex-nowrap gap-y-2 gap-x-4` |
+| cards-overflow-row (equal cards) | `flex flex-row gap-6` 3 cards | `flex flex-col xl:flex-row gap-6` (md:flex-row 금지) |
+| h-overflow-clipped-content (clip된 본문) | 텍스트/링크/버튼 포함 블록 | patterns.md §4-2 decouple 또는 §2-4 stack |
+| h-overflow-clipped-deco (clip된 장식) | blob/배경 이미지만 | 손대지 말 것 (OK) |
 | text-clip-x ws=nowrap | `whitespace-nowrap` | `xl:whitespace-nowrap` 또는 제거 |
 | text-clip-x 긴 제목 | 없음 | `line-clamp-2 xl:line-clamp-none` |
 | img-shrink | 고정 width | `w-full max-w-[Npx] aspect-[W/H]` |
