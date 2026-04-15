@@ -17,7 +17,8 @@
     "bake:baseline": "node scripts/bake-baseline.mjs",
     "check:composite": "node scripts/check-composite-diff.mjs",
     "check:placeholder": "node scripts/detect-placeholder-text.mjs",
-    "check:export-targets": "node scripts/check-figma-export-targets.mjs"
+    "check:export-targets": "node scripts/check-figma-export-targets.mjs",
+    "chroma:key": "node scripts/chroma-key-black.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
