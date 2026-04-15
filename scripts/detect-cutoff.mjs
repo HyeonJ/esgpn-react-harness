@@ -88,6 +88,40 @@ async function inspectAt(vp) {
       }
     }
 
+    // 2b) V-overflow: 자식 bottom > 부모 bottom (부모가 고정 height + overflow-hidden)
+    //     Fixed-height 섹션에서 stack된 콘텐츠가 잘리는 시그널
+    for (const el of all) {
+      if (!(el instanceof HTMLElement)) continue;
+      const cs = getComputedStyle(el);
+      if (cs.overflowY !== "hidden" && cs.overflow !== "hidden" && cs.overflowY !== "clip" && cs.overflow !== "clip") continue;
+      if (cs.height === "auto" || !cs.height) continue;
+      const rp = el.getBoundingClientRect();
+      if (rp.height < 100) continue;
+      let maxChildBottom = 0;
+      let hasContentChild = false;
+      for (const child of el.children) {
+        const rc = child.getBoundingClientRect();
+        if (rc.height === 0) continue;
+        const bottomRel = rc.bottom - rp.top;
+        if (bottomRel > maxChildBottom) maxChildBottom = bottomRel;
+        const txt = (child.textContent || "").trim();
+        if (child.querySelector("p, h1, h2, h3, h4, h5, h6, a, button, li, img") || txt.length > 10) {
+          hasContentChild = true;
+        }
+      }
+      if (maxChildBottom > rp.height + 2 && hasContentChild) {
+        out.push({
+          kind: "v-overflow-clipped-content",
+          tag: el.tagName,
+          cls: String(el.className).slice(0, 60),
+          parentH: Math.round(rp.height),
+          childMaxBottom: Math.round(maxChildBottom),
+          excess: Math.round(maxChildBottom - rp.height),
+          text: (el.textContent || "").slice(0, 40),
+        });
+      }
+    }
+
     // 3a) Cards overflow row: 같은 flex 컨테이너 자식 중 2+ 요소가 viewport 초과
     //     → stacking 필요 시그널 (개별 h-overflow 보다 구조적 문제)
     const flexContainers = new Map();
@@ -173,6 +207,8 @@ for (const { vp, issues, doc } of reports) {
         console.log(`  ${it.tag} w=${it.w} right=${it.right} .${it.cls}${snippet}`);
       } else if (kind === "cards-overflow-row") {
         console.log(`  ${it.tag} parent w=${it.w} children=${it.childCount} .${it.cls}  [${it.text}]`);
+      } else if (kind === "v-overflow-clipped-content") {
+        console.log(`  ${it.tag} h=${it.parentH} childBottom=${it.childMaxBottom} excess=+${it.excess} .${it.cls}${snippet}`);
       } else if (kind === "text-clip-x") {
         console.log(`  ${it.tag} clientW=${it.clientW} scrollW=${it.scrollW} ws=${it.whiteSpace} .${it.cls}${snippet}`);
       } else if (kind === "img-shrink") {
@@ -203,6 +239,10 @@ if (hitSet.size) {
   if (hitSet.has("cards-overflow-row")) {
     console.log("  cards-overflow-row (flex-row 자식 2+가 viewport 초과) — 구조적 stacking 필요");
     console.log("    → patterns.md §2-4: `flex-col xl:flex-row` (md:flex-row 넣지 말 것)");
+  }
+  if (hitSet.has("v-overflow-clipped-content")) {
+    console.log("  v-overflow-clipped-content (고정 height + overflow-hidden 섹션에서 본문 세로 잘림)");
+    console.log("    → patterns.md §8: `h-[Npx] overflow-hidden` → `min-h-[Npx] xl:h-[Npx] overflow-visible xl:overflow-hidden`");
   }
   if (hitSet.has("text-clip-x")) {
     console.log("  text-clip-x → whitespace-nowrap 제거 또는 xl:whitespace-nowrap");
