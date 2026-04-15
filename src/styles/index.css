@@ -68,6 +68,13 @@ body,
   height: 100%;
 }
 
+/* Responsive 안전장치: 반응형 전환 중 가로 스크롤 방지 */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;

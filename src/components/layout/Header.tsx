@@ -55,9 +55,9 @@ export function Header({
       role="banner"
       className={clsx(
         "fixed top-4 left-1/2 -translate-x-1/2 z-50",
-        "w-[calc(100%-32px)] max-w-[1416px] h-[72px]",
+        "w-[calc(100%-16px)] sm:w-[calc(100%-32px)] max-w-[1416px] h-[72px]",
         "flex items-center justify-between",
-        "px-10",
+        "px-4 sm:px-6 lg:px-10",
         "rounded-[40px]",
         "bg-[var(--color-black-opacity-100)]",
         "backdrop-blur-[12px] [-webkit-backdrop-filter:blur(12px)]",
@@ -67,13 +67,13 @@ export function Header({
       {/* 로고 */}
       <Link
         to="/"
-        className="flex items-center w-[180px] shrink-0"
+        className="flex items-center w-auto lg:w-[180px] shrink-0"
         aria-label="ESGPN 홈으로"
       >
         <img
           src={esgpnLogo}
           alt="ESGPN"
-          className="w-[98px] h-[22px] mix-blend-luminosity"
+          className="w-[80px] h-[18px] lg:w-[98px] lg:h-[22px] mix-blend-luminosity"
         />
       </Link>
 
@@ -93,12 +93,12 @@ export function Header({
       </nav>
 
       {/* 우측 액션 블록 */}
-      <div className="flex items-center justify-end gap-5 w-[180px] shrink-0">
+      <div className="flex items-center justify-end gap-3 sm:gap-5 w-auto lg:w-[180px] shrink-0">
         <Link
           to="/contact"
           className={clsx(
             "font-['Pretendard']",
-            "text-[14px] leading-[21px] font-medium",
+            "hidden sm:inline text-[13px] sm:text-[14px] leading-[21px] font-medium",
             "text-[var(--color-gray-900)]",
             "mix-blend-luminosity whitespace-nowrap",
             "transition-opacity hover:opacity-70",
