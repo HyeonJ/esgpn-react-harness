@@ -33,7 +33,26 @@
 + className="w-full xl:w-[576px]"
 ```
 
-### 1-5. Overflow 감지 스크립트
+### 1-5. 부모 overflow-hidden으로 clip (Figma 원본 intentional overflow 보존)
+자식이 `absolute left-[Npx] w-[Mpx]` (픽셀 고정) 로 1920 기준 배치돼서 좁은 뷰포트에서 삐져나갈 때, 자식을 건드리지 않고 부모에서 clip:
+```diff
+- className="relative ..."  (섹션 base)
++ className="relative overflow-hidden xl:overflow-visible ..."
+```
+- 좁은 뷰포트: `overflow-hidden` 으로 삐져나간 부분 시각적으로 자름 (가로스크롤 방지)
+- 1920: `xl:overflow-visible` 로 원본 디자인 복원 (디자이너가 intentional 로 그린 경우)
+- ESGPN MainProgramsCard1/2/3 에서 적용됨 (FloatingCity 가 left=861 w=555 = right=1416)
+
+### 1-6. nav / 링크 list 가 nowrap 으로 overflow
+Footer / Header 의 `flex h-[21px]` 가로 링크들이 whitespace-nowrap 이라 좁은 뷰포트에서 넘침:
+```diff
+- className="flex items-center gap-4"
++ className="flex flex-wrap xl:flex-nowrap items-center gap-y-2 gap-x-4"
+```
+- 좁은 뷰포트: 2-3줄로 줄바꿈
+- 1920: 원본 1줄 유지
+
+### 1-7. Overflow 감지 스크립트
 `tests/visual/find-overflow.ts` 실행 — 뷰포트 초과 요소 찾아줌
 
 ---
@@ -72,11 +91,31 @@
 
 ---
 
-## §4. 내부 절대위치 — 건드리지 말 것
+## §4. 내부 절대위치 — 조건부 decouple 허용
 
-`absolute left-[X%] top-[Y%] w-[Z%]` 같은 Figma 원본 퍼센트 기반 위치는 **좁은 뷰포트에서도 비율 유지되니 수정 금지**.
+### 4-1. 유지할 것 (% 기반)
+`absolute left-[X%] top-[Y%] w-[Z%]` 같은 **Figma 원본 퍼센트 기반 위치는 비율 유지되므로 수정 금지**.
 
-예외: `absolute left-[408px] width-[286px]` 처럼 px 고정 + 부모 overflow-hidden 없음 → 좁은 뷰포트에서 밖으로 튀어나감. 이때만 container에 `overflow-hidden` 추가 (좁을 때만 잘라내기).
+### 4-2. decouple 해야 할 것 (px 고정 + 실 컨텐츠)
+`absolute left-[408px] w-[620px]` 같은 **픽셀 고정 + 실제 텍스트/이미지가 들어있는** 블록은 좁은 뷰포트에서 잘리면 UX 문제. Figma 원본 유지하되 좁은 뷰포트에선 decouple:
+
+```diff
+- <div className="absolute left-[408px] top-[120px] w-[620px] flex flex-col">
++ <div className="relative xl:absolute xl:left-[408px] xl:top-[120px] w-full xl:w-[620px] flex flex-col">
+```
+- 좁은 뷰포트(<xl): `relative` + `w-full` 로 normal flow에 정상 진입
+- xl 이상: 원본 Figma 절대위치 그대로 복원
+
+### 4-3. clip만 쓰면 안 되는 이유
+`overflow-hidden xl:overflow-visible` 으로 clip만 하면 `document.scrollWidth === clientWidth` PASS 하지만, **내부 컨텐츠가 오른쪽으로 잘려 사라짐 → 실제 UX 실패**. 이 경우 §4-2 decouple 패턴 필수.
+
+### 4-4. clip 여전히 유효한 케이스
+자식이 **장식 요소**(blob, 배경 이미지, 그라디언트)인 경우엔 `overflow-hidden xl:overflow-visible` 로 clip OK. 실 컨텐츠 있으면 §4-2 필수.
+
+### 판별 기준
+- `detect-cutoff.mjs` 의 `h-overflow` (UNCLIPPED) → §1 패턴
+- `h-overflow-clipped` + 실제 텍스트/이미지 포함 → §4-2 decouple
+- `h-overflow-clipped` + 장식만 → §1-5 clip 유지 OK
 
 ---
 

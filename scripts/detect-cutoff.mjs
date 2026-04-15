@@ -29,13 +29,22 @@ async function inspectAt(vp) {
     const out = [];
     const all = Array.from(document.querySelectorAll("*"));
 
-    // 1) Horizontal overflow (right > viewport)
+    // 1) Horizontal overflow (right > viewport). clipped vs unclipped 구분
+    const isClippedBy = (el) => {
+      let cur = el.parentElement;
+      while (cur) {
+        const cs = getComputedStyle(cur);
+        if (cs.overflowX === "hidden" || cs.overflowX === "clip" || cs.overflow === "hidden" || cs.overflow === "clip") return true;
+        cur = cur.parentElement;
+      }
+      return false;
+    };
     for (const el of all) {
       const r = el.getBoundingClientRect();
       if (r.width === 0 || r.height === 0) continue;
       if (r.right > VW + 1) {
         out.push({
-          kind: "h-overflow",
+          kind: isClippedBy(el) ? "h-overflow-clipped" : "h-overflow",
           tag: el.tagName,
           cls: String(el.className).slice(0, 60),
           w: Math.round(r.width),
@@ -135,9 +144,15 @@ for (const { vp, issues, doc } of reports) {
 if (hitSet.size) {
   console.log("HINT — 패턴 매칭:");
   if (hitSet.has("h-overflow")) {
-    console.log("  h-overflow → responsive-polish/references/patterns.md §1");
+    console.log("  h-overflow (UNCLIPPED — 실제 가로스크롤 유발) → patterns.md §1");
     console.log("    - 섹션 루트 w-[1920px] → max-w-[1920px] w-full mx-auto");
     console.log("    - 큰 px-[252px] → px-6 md:px-12 xl:px-[252px]");
+  }
+  if (hitSet.has("h-overflow-clipped")) {
+    console.log("  h-overflow-clipped (부모 overflow-hidden 안쪽 — 이미 clip됨)");
+    console.log("    - scrollWidth 기준으론 OK. 하지만 내부 내용이 잘려보이면 UX 문제");
+    console.log("    - 실제 컨텐츠 잘림 유발 시 patterns.md §7 'absolute decouple' 패턴 적용");
+    console.log("      (좁은 뷰포트 relative + w-full, xl:absolute xl:w-[Npx] 로 원본 복원)");
   }
   if (hitSet.has("text-clip-x")) {
     console.log("  text-clip-x → whitespace-nowrap 제거 또는 xl:whitespace-nowrap");

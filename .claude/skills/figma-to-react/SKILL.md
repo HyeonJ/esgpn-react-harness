@@ -1,6 +1,6 @@
 ---
 name: figma-to-react
-description: Figma 디자인을 React 코드로 충실도 높게 변환하는 오케스트레이터. Figma URL 제공 시, "이 디자인을 React로 구현", "Figma 페이지 만들어", "섹션 구현", "ESGPN 시작", "다음 페이지 진행", "다음 섹션 진행", "재실행", "수정", "보완" 등 Figma→React 관련 모든 요청에 반드시 사용. 오케스트레이터가 서브에이전트 워커(phase1-setup-worker / page-researcher / section-implementer)를 스폰하여 페이지 분해→섹션별 구현→측정→커밋 루프를 조율한다. 각 승인 게이트에서 approval-gate-format에 따라 사용자에게 판단 선택지를 제공하며 멈춘다.
+description: Figma 디자인을 React 코드로 충실도 높게 변환하는 오케스트레이터. Figma URL 제공 시, "이 디자인을 React로 구현", "Figma 페이지 만들어", "섹션 구현", "ESGPN 시작", "다음 페이지 진행", "다음 섹션 진행", "재실행", "수정", "보완" 등 Figma→React 관련 모든 요청에 반드시 사용. 오케스트레이터가 서브에이전트 워커(phase1-setup-worker / page-researcher / section-implementer)를 스폰하여 페이지 분해→섹션별 구현→측정→커밋 루프를 조율한다. 각 승인 게이트에서 approval-gate-format에 따라 사용자에게 판단 선택지를 제공하며 멈춘다. Do NOT auto-invoke when 작업이 기존 섹션의 반응형/overflow/모바일 대응/햄버거 메뉴 등 Figma 외 폴리시 (responsive-polish 스킬 사용).
 ---
 
 # Figma → React Orchestrator

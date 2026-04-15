@@ -1,6 +1,7 @@
 ---
 name: responsive-polish
-description: Figma baseline이 없거나 1개 뷰포트만 있는 디자인을 여러 뷰포트(375/768/1024/1440)에 대응시키는 스킬. 반응형 breakpoint 추가, container scaling, stacking, overflow 해결, Figma에 없는 UI(햄버거 메뉴 등)를 기존 디자인 톤앤매너에 맞춰 보완하는 작업에 사용. figma-to-react 스킬과 배타적 — Figma nodeId가 있는 신규 섹션 구현에는 사용 금지 (그건 figma-to-react)
+description: Figma 1920 단일 디자인을 375/768/1440 뷰포트에 대응시키는 반응형 폴리시 스킬. 사용 트리거 — "반응형", "모바일", "overflow", "잘림", "뷰포트", "햄버거", "stacking", "breakpoint", "카드 리사이즈" 또는 좁은 뷰포트 잘림 증상. 금지 — Figma nodeId 있는 신규 섹션 구현 (figma-to-react 사용). 픽셀 매칭이 목표인 작업 (section-implementer 8게이트 사용).
+when_to_use: 기존 섹션의 overflow/잘림/반응형 조정, Figma에 없는 UI(햄버거 드롭다운 등) 추가, container scaling/stacking 적용, 4뷰포트 감사 작업에 auto-invoke. Do NOT auto-invoke when 사용자가 Figma URL + "구현"/"섹션" 언급 (figma-to-react 우선).
 ---
 
 # Responsive Polish

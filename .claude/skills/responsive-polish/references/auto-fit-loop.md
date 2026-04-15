@@ -28,9 +28,17 @@ node scripts/detect-cutoff.mjs <path>
 | h-overflow 섹션 루트 | `w-[Npx]` 고정폭 | `max-w-[Npx] w-full mx-auto` |
 | h-overflow 큰 패딩 | `px-[252px]` | `px-6 md:px-12 xl:px-[252px]` |
 | h-overflow 내부 블록 | `w-[576px]` | `w-full xl:w-[576px]` |
+| h-overflow absolute 자식 (`left-[Npx] w-[Mpx]` 합이 1920 경계) | 부모 overflow 없음 | 부모에 `overflow-hidden xl:overflow-visible` |
+| h-overflow nav/링크 list nowrap | `flex gap-4` + 자식 `whitespace-nowrap` | `flex flex-wrap xl:flex-nowrap gap-y-2 gap-x-4` |
 | text-clip-x ws=nowrap | `whitespace-nowrap` | `xl:whitespace-nowrap` 또는 제거 |
 | text-clip-x 긴 제목 | 없음 | `line-clamp-2 xl:line-clamp-none` |
 | img-shrink | 고정 width | `w-full max-w-[Npx] aspect-[W/H]` |
+
+### clip된 요소 vs 실제 overflow 구분
+`detect-cutoff.mjs` 의 `h-overflow` 리포트는 부모가 `overflow-hidden` 으로 이미 clip한 요소도 포함한다. 실제 가로스크롤 유발 여부는 `document.scrollWidth === clientWidth` 로 판단:
+- `document.scrollWidth > clientWidth` → 실제 가로스크롤 발생. 수정 필요
+- `document.scrollWidth === clientWidth` 인데 element-level h-overflow 건수 > 0 → 이미 부모 clip 됨. 안 건드려도 OK
+- 스크립트 개선 제안: element마다 ancestor 중 `overflow-hidden` 여부 체크해서 "unclipped" 플래그 별도 표시
 
 ### Step 3 — 섹션별 수정 (워커 위임)
 한 번에 한 섹션만. 규칙:
