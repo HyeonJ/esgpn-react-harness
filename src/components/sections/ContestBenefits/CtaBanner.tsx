@@ -31,7 +31,7 @@ export function CtaBanner() {
         className="absolute inset-0 rounded-[20px]"
         style={{ backgroundColor: "#005c33" }}
       />
-      {/* 배경 2: 도시 이미지 mix-blend-luminosity */}
+      {/* 배경 2: 도시 이미지 mix-blend-luminosity (이미지 전체를 container에 fit) */}
       <div
         aria-hidden="true"
         className="absolute inset-0 overflow-hidden rounded-[20px]"
@@ -40,13 +40,8 @@ export function CtaBanner() {
         <img
           src={ctaBg}
           alt=""
-          className="absolute max-w-none"
-          style={{
-            height: "294.15%",
-            left: "-25.66%",
-            top: "-32.5%",
-            width: "132.39%",
-          }}
+          className="absolute inset-0 h-full w-full"
+          style={{ objectFit: "cover", objectPosition: "center bottom" }}
         />
       </div>
 

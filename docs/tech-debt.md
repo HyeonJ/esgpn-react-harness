@@ -38,7 +38,9 @@
   1. `get_design_context(302:6592)` CTA 구조 파악 (bg #005c33 + city image mix-blend-luminosity + h3/p/button)
   2. bg 이미지와 arrow icon만 leaf nodeId로 export
   3. CtaBanner HTML 재구성: color div + blend image div + HTML h3 + p + button
-- **G1 변화**: 6.71% → 10.82% (+4.11%p, blend + 한글 dense hybrid 예상 범위)
+- **G1 변화**: 6.71% → 8.17% (+1.46%p, object-cover로 도시 이미지 위치 보정)
+  - 초기 리팩터 시 Figma의 정확 crop % 그대로 적용(10.82%) → 도시 이미지가 상단 검정 영역만 보여 green-out
+  - `object-cover` + `objectPosition: center bottom`으로 이미지 fit → 10.82% → 8.17%
 - **G6 변화**: ratio 이전 FAIL → 14.76 PASS (안티패턴 해소)
 - **T-002 본체 해소 + T-004 엔진 차이 (이전부터 ACCEPTED)는 그대로 유지**. T-004는 이제 "blend + 한글 hybrid" 의미
 
