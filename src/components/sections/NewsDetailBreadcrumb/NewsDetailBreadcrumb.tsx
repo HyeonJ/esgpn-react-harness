@@ -1,10 +1,11 @@
 /**
  * NewsDetailBreadcrumb — 뉴스 상세 Breadcrumb (Figma 134:4156).
- * 936×24. ← 화살표 + "뉴스" 링크.
+ * 936×24. ← 화살표 + "뉴스" 링크. Figma 절대 page-y=140.
+ * v3: pt-[140px] 내장 (Header fixed clearance).
  */
 export function NewsDetailBreadcrumb() {
   return (
-    <nav aria-label="뉴스 경로" className="mx-auto flex w-[936px] items-center">
+    <nav aria-label="뉴스 경로" className="mx-auto flex w-[936px] items-center pt-[140px]">
       <a href="/news" className="flex items-center gap-[4px] text-[#1d2623]">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M15 6l-6 6 6 6" stroke="#1d2623" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
