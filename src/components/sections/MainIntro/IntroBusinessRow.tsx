@@ -15,7 +15,7 @@ export type IntroBusinessRowProps = {
 
 export function IntroBusinessRow({ title, lineSrc, bodyLine1, bodyLine2 }: IntroBusinessRowProps) {
   return (
-    <div className="flex items-start gap-3 w-full">
+    <div className="flex flex-col xl:flex-row items-start gap-2 xl:gap-3 w-full">
       <p
         className="font-['Pretendard_Variable'] font-bold whitespace-nowrap shrink-0"
         style={{
@@ -27,18 +27,17 @@ export function IntroBusinessRow({ title, lineSrc, bodyLine1, bodyLine2 }: Intro
       >
         {title}
       </p>
-      {/* Figma dotted line: flex-grow, h-34, 중앙 점선은 negative inset으로 살짝 오버. */}
-      <div className="flex-1 min-w-0 relative" style={{ height: 34 }}>
+      {/* Figma dotted line: flex-grow, h-34, 중앙 점선은 negative inset으로 살짝 오버. 좁은 뷰포트에선 숨김(장식). */}
+      <div className="hidden xl:block flex-1 min-w-0 relative" style={{ height: 34 }} aria-hidden="true">
         <div className="absolute" style={{ inset: "0 -2.93% 0 -2.93%" }}>
           <img src={lineSrc} alt="" aria-hidden="true" className="block w-full h-full select-none" />
         </div>
       </div>
-      {/* Body wrapper: py-6, width 308. 본문은 2줄 강제(br). */}
-      <div className="flex items-center justify-center shrink-0" style={{ paddingTop: 6, paddingBottom: 6 }}>
+      {/* Body wrapper: xl에서 width 308 고정, 좁은 뷰포트에선 w-full. */}
+      <div className="flex items-center justify-center w-full xl:w-auto xl:shrink-0" style={{ paddingTop: 6, paddingBottom: 6 }}>
         <p
-          className="font-['Pretendard_Variable'] font-normal"
+          className="font-['Pretendard_Variable'] font-normal w-full xl:w-[308px]"
           style={{
-            width: 308,
             fontSize: 14,
             lineHeight: 1.5,
             letterSpacing: "-0.07px",

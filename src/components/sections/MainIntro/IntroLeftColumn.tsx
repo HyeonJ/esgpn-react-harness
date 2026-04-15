@@ -37,9 +37,9 @@ const ROWS = [
 
 export function IntroLeftColumn() {
   return (
-    <div className="relative flex-none" style={{ width: 716, height: 545 }}>
+    <div className="relative w-full xl:flex-none xl:w-[716px] xl:h-[545px]">
       {/* 진행 점 인디케이터: 큰 원 16×16 (y=6) + 작은 원 6×6 (y=38) — 캔버스 y 253.5/285.5는 좌측 컬럼 top 247.5 기준 +6/+38 */}
-      <div className="absolute" style={{ left: 4, top: 6 }}>
+      <div className="hidden xl:block absolute" style={{ left: 4, top: 6 }}>
         <div
           className="rounded-full"
           style={{
@@ -51,7 +51,7 @@ export function IntroLeftColumn() {
           aria-hidden="true"
         />
       </div>
-      <div className="absolute" style={{ left: 9, top: 38 }}>
+      <div className="hidden xl:block absolute" style={{ left: 9, top: 38 }}>
         <div
           className="rounded-full"
           style={{ width: 6, height: 6, backgroundColor: "var(--color-gray-300)" }}
@@ -59,10 +59,9 @@ export function IntroLeftColumn() {
         />
       </div>
 
-      {/* 텍스트 묶음: 좌측 인디케이터(24) 우측 + gap 72 → left 96, w 620 */}
+      {/* 텍스트 묶음: 좌측 인디케이터(24) 우측 + gap 72 → left 96, w 620. 좁은 뷰포트는 relative+full로 decouple (§4-2). */}
       <div
-        className="absolute flex flex-col"
-        style={{ left: 96, top: 0, width: 620, gap: 112 }}
+        className="relative xl:absolute flex flex-col w-full xl:w-[620px] gap-14 xl:gap-[112px] xl:left-[96px] xl:top-0"
       >
         {/* heading group (gap 24) */}
         <div className="flex flex-col" style={{ gap: 24 }}>
@@ -116,10 +115,10 @@ export function IntroLeftColumn() {
           </p>
         </div>
 
-        {/* 사업 3행 그리드 영역 — 높이 252, 내부 본문 컬럼은 ml=20 mt=26, gap 32 */}
-        <div className="relative" style={{ width: 620, height: 252 }}>
-          {/* pill 컬럼: 본문 컬럼보다 26px 위, 20px 좌측 → ml=0 mt=0 */}
-          <div className="absolute flex flex-col" style={{ left: 0, top: 0, gap: 56 }}>
+        {/* 사업 3행 그리드 영역. 좁은 뷰포트에선 pill+row 수직 스택, xl에선 원본 absolute (pill 좌측 컬럼 + 본문 컬럼 left=20 top=26) 재현. */}
+        <div className="relative flex flex-col gap-8 xl:block xl:w-[620px] xl:h-[252px]">
+          {/* pill 컬럼: xl에서만 absolute 노출. 좁은 뷰포트에선 각 row 위 inline pill이 렌더됨 */}
+          <div className="hidden xl:flex absolute flex-col xl:left-0 xl:top-0" style={{ gap: 56 }} aria-hidden="true">
             {ROWS.map((row) => (
               <div
                 key={row.pill}
@@ -145,16 +144,38 @@ export function IntroLeftColumn() {
             ))}
           </div>
 
-          {/* 사업 본문 컬럼: ml=20, mt=26 → left 20 top 26, gap 32 */}
-          <div className="absolute flex flex-col" style={{ left: 20, top: 26, gap: 32 }}>
+          {/* 본문 컬럼: xl에선 원본 left=20 top=26 absolute. 좁은 뷰포트에선 flow + row 위 pill inline. */}
+          <div className="flex flex-col gap-8 xl:absolute xl:left-[20px] xl:top-[26px] xl:gap-8">
             {ROWS.map((row) => (
-              <IntroBusinessRow
-                key={row.title}
-                title={row.title}
-                lineSrc={row.lineSrc}
-                bodyLine1={row.bodyLine1}
-                bodyLine2={row.bodyLine2}
-              />
+              <div key={row.title} className="flex flex-col gap-3">
+                {/* pill inline (좁은 뷰포트 전용). xl에선 위의 pill 컬럼이 담당 → 중복 숨김 */}
+                <div
+                  className="xl:hidden flex items-center justify-center font-['Pretendard_Variable'] font-semibold"
+                  style={{
+                    width: 94,
+                    height: 29,
+                    borderRadius: 24,
+                    backgroundColor: "var(--color-brand-500)",
+                    color: "var(--color-gray-000)",
+                    fontSize: 14,
+                    lineHeight: 1.5,
+                    letterSpacing: "-0.07px",
+                    paddingLeft: 12,
+                    paddingRight: 12,
+                    paddingTop: 4,
+                    paddingBottom: 4,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {row.pill}
+                </div>
+                <IntroBusinessRow
+                  title={row.title}
+                  lineSrc={row.lineSrc}
+                  bodyLine1={row.bodyLine1}
+                  bodyLine2={row.bodyLine2}
+                />
+              </div>
             ))}
           </div>
         </div>

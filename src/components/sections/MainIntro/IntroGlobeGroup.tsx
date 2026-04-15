@@ -14,7 +14,8 @@ import vec7Src from "@/assets/main-intro/connector-vec7.svg";
  */
 export function IntroGlobeGroup() {
   return (
-    <div className="relative flex-none" style={{ width: 640, height: 633 }}>
+    <div className="w-full xl:w-auto flex justify-start xl:block" data-globe-wrap="true">
+    <div className="relative flex-none" style={{ width: 640, height: 633 }} data-globe-group="true">
       {/* 라벨 4개 */}
       <IntroGlobeLabel
         title="교육"
@@ -104,6 +105,7 @@ export function IntroGlobeGroup() {
           <img src={vec6Src} alt="" aria-hidden="true" className="block max-w-none w-full h-full" />
         </div>
       </div>
+    </div>
     </div>
   );
 }

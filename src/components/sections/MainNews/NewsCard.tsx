@@ -19,8 +19,8 @@ export function NewsCard({ item, cardNodeId }: NewsCardProps) {
     >
       <div className="flex flex-1 flex-col gap-[12px] items-start min-h-px min-w-px">
         <div className="flex flex-col gap-[8px] items-start w-full">
-          <div className="flex flex-col justify-center text-[20px] text-[#1d2623] tracking-[-0.4px] whitespace-nowrap font-bold">
-            <p className="leading-[1.4]">{item.title}</p>
+          <div className="flex flex-col justify-center text-[20px] text-[#1d2623] tracking-[-0.4px] xl:whitespace-nowrap font-bold w-full min-w-0">
+            <p className="leading-[1.4] line-clamp-2 xl:line-clamp-none">{item.title}</p>
           </div>
           <div className="flex flex-col justify-center min-w-full overflow-hidden text-[15px] text-[#5d6a66] text-ellipsis tracking-[-0.1125px] w-[min-content] max-h-[45px]">
             <p className="leading-[1.5] mb-0 line-clamp-2">{item.body}</p>

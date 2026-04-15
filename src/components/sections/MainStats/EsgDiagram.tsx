@@ -78,12 +78,18 @@ const ESG_CIRCLES = [
 ] as const;
 
 export function EsgDiagram() {
+  // 좁은 뷰포트에서는 proportional scale로 줄임 (678→실제폭). xl에선 원본 복원.
   return (
-    <div
-      className="relative flex-none"
-      style={{ width: 678, height: 535 }}
-      data-node-id="29:351"
-    >
+    <div className="w-full xl:w-auto flex justify-start xl:block" data-esg-diagram-wrap="true">
+      <div
+        className="relative flex-none"
+        style={{
+          width: 678,
+          height: 535,
+        }}
+        data-node-id="29:351"
+        data-esg-diagram="true"
+      >
       {/* (1) ESG 3원 — ml=51 mt=0 */}
       <div
         className="absolute flex items-center"
@@ -297,6 +303,7 @@ export function EsgDiagram() {
             </p>
           </div>
         ))}
+      </div>
       </div>
     </div>
   );

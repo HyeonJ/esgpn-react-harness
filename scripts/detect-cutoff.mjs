@@ -126,9 +126,9 @@ for (const { vp, issues, doc } of reports) {
   }
   for (const [kind, items] of Object.entries(byKind)) {
     console.log(`[${kind}] ${items.length}건`);
-    for (const it of items.slice(0, 10)) {
+    for (const it of items.slice(0, 30)) {
       const snippet = it.text ? ` "${it.text.replace(/\s+/g, " ")}"` : "";
-      if (kind === "h-overflow") {
+      if (kind === "h-overflow" || kind === "h-overflow-clipped") {
         console.log(`  ${it.tag} w=${it.w} right=${it.right} .${it.cls}${snippet}`);
       } else if (kind === "text-clip-x") {
         console.log(`  ${it.tag} clientW=${it.clientW} scrollW=${it.scrollW} ws=${it.whiteSpace} .${it.cls}${snippet}`);
@@ -136,6 +136,7 @@ for (const { vp, issues, doc } of reports) {
         console.log(`  IMG rendered=${it.rendered} natural=${it.natural} ratio=${it.ratio} .${it.cls}`);
       }
     }
+    if (items.length > 30) console.log(`  ... (+${items.length - 30} more)`);
   }
   console.log();
 }

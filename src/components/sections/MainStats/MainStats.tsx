@@ -16,17 +16,14 @@ import { EsgDiagram } from "./EsgDiagram";
 export function MainStats() {
   return (
     <section
-      className="relative max-w-[1920px] w-full xl:h-[1040px] mx-auto bg-white overflow-hidden flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 px-6 md:px-12 xl:px-[252px] py-24 md:py-32 xl:py-[200px]"
+      className="relative max-w-[1920px] w-full xl:h-[1040px] mx-auto bg-white overflow-hidden flex flex-col xl:flex-row items-center justify-center gap-12 md:gap-16 px-6 md:px-12 xl:px-[252px] py-24 md:py-32 xl:py-[200px]"
       aria-label="ESG 중요성 스탯"
       data-node-id="26:273"
     >
-      {/* 좌측 컬럼: 인디케이터 + 텍스트 */}
-      <div
-        className="relative flex-none"
-        style={{ width: 675, height: 437 }}
-      >
-        {/* 인디케이터 점 (Ellipse2 6×6 상단, Ellipse1 16×16 하단) — main-intro R7과 동일 */}
-        <div className="absolute" style={{ left: 9, top: 199.5 }}>
+      {/* 좌측 컬럼: 인디케이터 + 텍스트. 좁은 뷰포트엔 relative+w-full로 decouple (§4-2). */}
+      <div className="relative w-full xl:flex-none xl:w-[675px] xl:h-[437px]">
+        {/* 인디케이터 점 (Ellipse2 6×6 상단, Ellipse1 16×16 하단) — main-intro R7과 동일. xl 전용 장식. */}
+        <div className="hidden xl:block absolute" style={{ left: 9, top: 199.5 }}>
           <div
             className="rounded-full"
             aria-hidden="true"
@@ -37,7 +34,7 @@ export function MainStats() {
             }}
           />
         </div>
-        <div className="absolute" style={{ left: 4, top: 221.5 }}>
+        <div className="hidden xl:block absolute" style={{ left: 4, top: 221.5 }}>
           <div
             className="rounded-full"
             aria-hidden="true"
@@ -50,17 +47,16 @@ export function MainStats() {
           />
         </div>
 
-        {/* 텍스트 컬럼: 인디케이터(24) + gap 72 → left 96, w 579 */}
+        {/* 텍스트 컬럼: xl에선 absolute left=96 w=579, 좁은 뷰포트엔 relative+w-full. */}
         <div
-          className="absolute flex flex-col"
-          style={{ left: 96, top: 0, width: 579, gap: 112 }}
+          className="relative xl:absolute flex flex-col w-full xl:w-[579px] gap-14 xl:gap-[112px] xl:left-[96px] xl:top-0"
         >
           {/* 헤딩 블록 (gap 24) */}
           <div className="flex flex-col" style={{ gap: 24 }}>
             {/* 헤딩 그룹 (gap 8) */}
             <div className="flex flex-col" style={{ gap: 8 }}>
               <p
-                className="font-['Pretendard_Variable'] font-normal whitespace-nowrap"
+                className="font-['Pretendard_Variable'] font-normal xl:whitespace-nowrap"
                 style={{
                   fontSize: 14,
                   lineHeight: 1.5,
@@ -100,10 +96,9 @@ export function MainStats() {
             </p>
           </div>
 
-          {/* stat 4개 — flex gap 32 items-center */}
+          {/* stat 4개 — flex gap 32 items-center. 좁은 뷰포트엔 wrap으로 2×2 배치. */}
           <div
-            className="flex items-center"
-            style={{ gap: 32 }}
+            className="flex flex-wrap xl:flex-nowrap items-center gap-y-6 gap-x-8 xl:gap-[32px]"
           >
             <StatItem
               value="97"

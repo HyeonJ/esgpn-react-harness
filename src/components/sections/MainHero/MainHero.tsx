@@ -140,7 +140,7 @@ export function MainHero() {
           {/* Cards + CTA */}
           <div className="flex flex-col items-center gap-12">
             {/* 3 cards */}
-            <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-12">
+            <div className="flex flex-col xl:flex-row justify-center gap-6 xl:gap-12">
               {CARDS.map((card) => (
                 <HeroIntroCard key={card.title} {...card} />
               ))}

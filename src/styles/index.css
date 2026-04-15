@@ -73,3 +73,110 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/*
+ * EsgDiagram 반응형 scaling — 좁은 뷰포트에서 678×535 다이어그램을 proportional scale.
+ * xl(1280+)부터는 원본 복원. 부모 wrapper는 스케일된 크기만큼만 차지하도록 height/width 재산출.
+ * scale() 값은 unitless여야 하므로 뷰포트 구간별 고정값 사용 (calc 길이 나눗셈 회피).
+ */
+[data-esg-diagram="true"] {
+  transform-origin: top left;
+  transform: scale(var(--esg-scale, 1));
+}
+@media (max-width: 540px) {
+  [data-esg-diagram="true"] { --esg-scale: 0.48; }
+  [data-esg-diagram-wrap="true"] { height: calc(535px * 0.48); width: calc(678px * 0.48); max-width: 100%; }
+}
+@media (min-width: 541px) and (max-width: 767px) {
+  [data-esg-diagram="true"] { --esg-scale: 0.72; }
+  [data-esg-diagram-wrap="true"] { height: calc(535px * 0.72); width: calc(678px * 0.72); max-width: 100%; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  [data-esg-diagram="true"] { --esg-scale: 0.88; }
+  [data-esg-diagram-wrap="true"] { height: calc(535px * 0.88); width: calc(678px * 0.88); max-width: 100%; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  [data-esg-diagram="true"] { --esg-scale: 1; }
+}
+
+/*
+ * IntroGlobeGroup 반응형 scaling — 640×633 globe + 4 labels + connectors. 동일 패턴.
+ */
+[data-globe-group="true"] {
+  transform-origin: top left;
+  transform: scale(var(--globe-scale, 1));
+}
+@media (max-width: 540px) {
+  [data-globe-group="true"] { --globe-scale: 0.5; }
+  [data-globe-wrap="true"] { height: calc(633px * 0.5); width: calc(640px * 0.5); max-width: 100%; }
+}
+@media (min-width: 541px) and (max-width: 767px) {
+  [data-globe-group="true"] { --globe-scale: 0.75; }
+  [data-globe-wrap="true"] { height: calc(633px * 0.75); width: calc(640px * 0.75); max-width: 100%; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  [data-globe-group="true"] { --globe-scale: 0.92; }
+  [data-globe-wrap="true"] { height: calc(633px * 0.92); width: calc(640px * 0.92); max-width: 100%; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  [data-globe-group="true"] { --globe-scale: 1; }
+}
+
+/*
+ * ProgramCard 반응형 — xl 미만에선 absolute에서 벗어나 부모 안에 fit.
+ * xl에선 원본 left=400 top=0 width=616 유지.
+ * 좁은 뷰포트 내부 고정폭(w-[520px], width:600 등)은 scale로 흡수.
+ */
+@media (max-width: 1279px) {
+  [data-program-card="true"] {
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 616px;
+    height: auto !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* 내부 inner white card, divider, CTA bar 고정폭 강제 → 부모 맞춤 */
+  [data-program-card="true"] > div {
+    width: 100% !important;
+    max-width: 600px;
+    height: auto !important;
+    box-sizing: border-box;
+  }
+  /* inner white card padding 축소 */
+  [data-program-card="true"] > div[data-node-id] {
+    padding: 24px !important;
+  }
+  /* header block fixed w-[520px] → full */
+  [data-program-card="true"] .w-\[520px\] {
+    width: 100% !important;
+  }
+  /* progress bar 이미지 520 고정 → full */
+  [data-program-card="true"] img[style*="width: 520px"],
+  [data-program-card="true"] img[width="520"] {
+    width: 100% !important;
+    max-width: 520px;
+    height: auto;
+  }
+  /* 내부 고정폭 inline style (iconsBlockWidth=236, bottomBlockWidth=456/520) → 부모 맞춤 */
+  [data-program-card="true"] [style*="width: 456px"],
+  [data-program-card="true"] [style*="width: 520px"],
+  [data-program-card="true"] [style*="width: 236px"],
+  [data-program-card="true"] [style*="width: 253px"] {
+    width: 100% !important;
+    max-width: 520px;
+  }
+}
+/* 섹션 자체 h-[805px] 고정 → narrow에선 auto */
+@media (max-width: 1279px) {
+  [data-node-id="252:1013"],
+  [data-node-id="252:1067"],
+  [data-node-id="252:1121"] {
+    height: auto !important;
+    min-height: unset !important;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}

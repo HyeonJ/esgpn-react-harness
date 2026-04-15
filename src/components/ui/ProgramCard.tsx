@@ -87,12 +87,8 @@ export function ProgramCard({
   const n = nodeIds ?? {};
   return (
     <div
-      className="absolute flex flex-col rounded-[48px]"
+      className="absolute xl:left-[400px] xl:top-0 xl:w-[616px] xl:h-[732px] flex flex-col rounded-[48px]"
       style={{
-        left: 400,
-        top: 0,
-        width: 616,
-        height: 732,
         backgroundColor: outerBg,
         paddingTop: 8,
         paddingBottom: 16,
@@ -101,6 +97,7 @@ export function ProgramCard({
         gap: 12,
       }}
       data-node-id={dataNodeId}
+      data-program-card="true"
     >
       {/* inner white card */}
       <div
