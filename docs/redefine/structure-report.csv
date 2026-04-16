@@ -16,6 +16,8 @@ CertificationSubjects,1,0,0,11,6,0.353,1,3,section|article|h3,0,0,0,0
 ContestAbout,2,0,0,18,12,0.4,0,3,article|h3|section,0,9,38,0
 ContestBenefits,3,0,1,28,13,0.317,0,5,article|h3|section|aside|button,0,11,57,0
 ContestHero,2,0,3,8,22,0.733,1,3,section|h1|button,0,27,130,0
+GalleryAgreements,3,0,1,14,9,0.391,0,3,section|h2|article,0,2,5,0
+GalleryTitle,1,0,0,4,9,0.692,0,2,section|h1,0,22,95,0
 MainGallery,6,0,7,57,34,0.374,8,5,article|figure|h3|h2|section,0,1,17,0
 MainHero,3,0,2,44,26,0.371,4,5,button|article|h3|section|h1,0,23,112,0
 MainIntro,5,0,7,64,41,0.39,1,6,article|h3|header|h2|nav|section,0,93,443,61
@@ -26,7 +28,9 @@ MainProgramsCard3,1,0,7,34,37,0.521,7,3,section|article|h3,0,14,79,23
 MainProgramsHeader,1,0,0,12,12,0.5,1,2,section|h2,0,26,108,16
 MainStats,3,0,0,81,54,0.4,4,3,section|header|h2,0,73,321,0
 NewsDetailArticle,1,0,2,26,16,0.381,1,5,section|article|figure|header|h1,0,378,1838,49
+NewsDetailBack,1,0,0,4,11,0.733,0,1,nav,0,2,9,10
 NewsDetailBreadcrumb,1,0,0,4,10,0.714,0,1,nav,0,1,4,10
+NewsDetailRelated,1,0,2,7,25,0.781,1,4,section|h2|article|h3,0,6,21,0
 NewsFeatured,4,0,7,12,15,0.556,2,6,nav|button|section|h2|article|h3,0,2,5,24
 NewsList,4,0,8,16,43,0.729,1,6,section|h2|article|h3|nav|button,0,4,7,36
 NewsTabs,1,0,0,4,14,0.778,0,2,section|nav,0,2,5,18
