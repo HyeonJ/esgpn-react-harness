@@ -1,0 +1,8 @@
+{
+  "section": "about-mission",
+  "dir": "src/components/sections/AboutMission",
+  "G5_semantic_html": "PASS",
+  "G6_text_image_ratio": "PASS",
+  "G7_lighthouse": "SKIP",
+  "G8_i18n": "PASS"
+}
