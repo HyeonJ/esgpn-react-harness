@@ -77,13 +77,26 @@
 - **현 G1**: 8.28% (⚠ 완화)
 - **수용 근거**: 사용자 승인 [A] "ESPGN → ESGPN" 교정. 폰트 AA 서브픽셀 잔여. contest-hero/benefits 선례 연장
 
+### T-008 `certification-flatten-bottom` 단일 raster 안티패턴
+- **상태**: `RESOLVED` (2026-04-16 v4)
+- **파일**: `src/components/sections/CertificationFlattenBottom/{CertificationFlattenBottom,ProcessBlock,ScheduleBlock,CtaBlock}.tsx`
+- **해결**: v1~v3에서는 `get_metadata`가 Figma Frame 299:4002를 "자식 0"으로 반환한 것에 근거하여 단일 raster + alt 12자 placeholder로 완화 (ACCEPTED로 처리). v4에서 **전략 (b) 노드 재탐색**으로 `get_design_context(299:4002)` 호출 시 **완전한 노드 트리가 반환**됨을 확인 — Process/Schedule/CTA 3 서브블록이 모두 살아있는 구조. HTML 재구성 가능.
+  1. `get_design_context(299:4002)` 전체 트리 확보 (~17K 토큰)
+  2. 섹션을 4 파일로 분할: `CertificationFlattenBottom` (루트 + 배경 4 overlay), `ProcessBlock` (heading + 4단계 ol/li), `ScheduleBlock` (table 5행 + pagination nav), `CtaBlock` (aside + h2 + a)
+  3. 에셋은 MCP asset URL을 curl로 직접 다운로드 → PNG 압축 (bg-noise 3.9MB→746K JPG, cta-city 7.8MB→329K WebP)
+  4. chevron은 인라인 SVG (lucide 미사용, 기존 컨벤션 일치)
+- **G1 변화**: (T-008 이전 v1~v3: 자기 자신 단일 raster 0.00%) → v4 HTML 재구성: 11.65% round 1 → **5.00% round 2** (table td `whitespace-nowrap` 추가로 회차 줄바꿈 수정)
+- **G6 변화**: 이전 text-raster-flag 1 (alt에 긴 placeholder 박제) → **0** (JSX 텍스트 1143자 / img alt 51자, ratio 22.41 ≥ 임계 3)
+- **구조 지표**: token_ratio 0.23 (≥0.2), absolute 16/4 files = 4.0/file (≤5), semantic_score 6 (section/h2/h3/ol/ul/li/button/aside/table)
+- **교훈**: `get_metadata`만 신뢰하지 말 것. `get_design_context`가 자식 트리 반환 여부가 진짜 판정 기준. 향후 "flatten" 의심 노드는 design_context 호출 한 번 더 시도.
+
 ---
 
 ## 카운트 (Phase 0 차단 체크용)
 
-- `OPEN` 부채: **0건** (T-001, T-002 RESOLVED 2026-04-15)
+- `OPEN` 부채: **0건** (T-001, T-002, T-008 RESOLVED 2026-04-15~16)
 - `ACCEPTED`: 4건 (T-003, T-004, T-005, T-012)
-- `RESOLVED`: 2건 (T-001, T-002)
+- `RESOLVED`: 3건 (T-001, T-002, T-008)
 - 차단 임계: 3건 → 충분히 여유
 
 ## 신규 부채 등록 규칙

@@ -37,6 +37,7 @@
 ## 자격검정 (/certification)
 - [x] certification-intro (G1 5.24% ref / G5-G8 PASS / structure: token_ratio=0.25, abs=0, sem=1)
 - [x] certification-benefits (G1 5.08% ref / G5-G8 PASS / structure: token_ratio=0.21, abs=4, sem=2)
+- [x] certification-flatten-bottom (G1 5.00% ref / G5-G8 PASS / structure: token_ratio=0.23, abs=16 per 4 files (avg 4.0), sem=6) — v1~v3 T-008 단일 raster 안티패턴 해소. get_design_context 전체 트리로 HTML 재구성
 
 ## 뉴스 목록 (/news)
 
