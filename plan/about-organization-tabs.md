@@ -138,9 +138,29 @@ export function AboutOrganizationTabsPreview() {
 
 ---
 
-## 측정 섹션 (단계 5·6) — 1회차 통과
+## 측정 섹션 (단계 5·6) — v4 실행 통과
 
-### 회차 1 — 2026-04-14
+### v4 회차 (2026-04-16)
+
+**단계 4.5 차단 게이트**:
+- G5 eslint jsx-a11y: **PASS** (0 error)
+- G6 text ratio: **PASS** (ratio 3.93, rasterHeavy false)
+- G8 i18n literal: **PASS** (JSX korean literals present)
+- Tailwind antipatterns: **PASS** (없음)
+- Baked-in PNG: **PASS** (없음)
+
+**v4 구조 지표** (`check-structure-quality.mjs --section=AboutOrganizationTabs`):
+- magic=2, token=1, **token_ratio=0.333 (≥0.2 ✓)**
+- **absolute=0 (≤5 ✓)**
+- semantic=1 (`section`)
+- raster flag: 0
+- 구조 게이트 **PASS**
+
+**G1 시각** (`scripts/compare-section.sh about-organization-tabs`):
+- DIFF: **0.72%** (1,415 / 195,840 px) — **PASS** (<15% v4 목표)
+- 예상치 2~3% 대비 훨씬 우수 (텍스트 전용, serif 없음)
+
+### 회차 1 — 2026-04-14 (구버전)
 
 **G1 시각** (`scripts/compare-section.sh about-organization-tabs`):
 - DIFF: **0.71%** (1,399 / 195,840 px) — **PASS** (<5%)
@@ -175,6 +195,19 @@ export function AboutOrganizationTabsPreview() {
 - DIFF: **3.40%** (이전과 동일) — **regression 0 확인**
 
 **4 게이트 + 육안 모두 PASS (1회차)** → 단계 7 진입 가능.
+
+---
+
+**v4 육안 semantic 검증**:
+- baseline/capture: 3 탭 순서 (개요 & 철학 / 조직도 / 운영계획) 일치
+- active("조직도") Bold + 2px underline 정확 (조직도 라벨 폭에만)
+- inactive 2개 Medium + gray-500 정확
+- diff 이미지: 글리프 anti-aliasing 잔차만 (semantic 오류 0)
+- **육안 PASS**
+
+**about-header regression**: 3.40% → 3.44% (+0.04%p 측정 노이즈, SectionTabs 미수정 확인).
+
+**v4 차단 게이트 + 참고 지표 전부 PASS.** 자동 커밋 진입.
 
 ---
 
