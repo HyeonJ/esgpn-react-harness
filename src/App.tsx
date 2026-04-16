@@ -34,6 +34,7 @@ import { NewsDetailBreadcrumbPreview } from "@/routes/NewsDetailBreadcrumbPrevie
 import { NewsDetailArticlePreview } from "@/routes/NewsDetailArticlePreview";
 import { NewsDetailRelatedPreview } from "@/routes/NewsDetailRelatedPreview";
 import { NewsDetailBackPreview } from "@/routes/NewsDetailBackPreview";
+import { GalleryTitlePreview } from "@/routes/GalleryTitlePreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -69,6 +70,7 @@ import { NewsDetailBreadcrumb } from "@/components/sections/NewsDetailBreadcrumb
 import { NewsDetailArticle } from "@/components/sections/NewsDetailArticle";
 import { NewsDetailRelated } from "@/components/sections/NewsDetailRelated";
 import { NewsDetailBack } from "@/components/sections/NewsDetailBack";
+import { GalleryTitle } from "@/components/sections/GalleryTitle";
 
 export function App() {
   return (
@@ -109,6 +111,7 @@ export function App() {
       <Route path="/__preview/news-detail-article" element={<NewsDetailArticlePreview />} />
       <Route path="/__preview/news-detail-related" element={<NewsDetailRelatedPreview />} />
       <Route path="/__preview/news-detail-back" element={<NewsDetailBackPreview />} />
+      <Route path="/__preview/gallery-title" element={<GalleryTitlePreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header/Footer 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -117,7 +120,7 @@ export function App() {
         <Route path="/about/organization" element={<><AboutOrganizationTabs /><AboutOrganizationLogos /><AboutOrganizationChart /><AboutOrganizationPanorama /></>} />
         <Route path="/contact" element={<div>고객센터 — 섹션 구현 대기</div>} />
         <Route path="/contest" element={<><ContestHero /><ContestAbout /><ContestBenefits /></>} />
-        <Route path="/gallery" element={<div>갤러리 — 섹션 구현 대기</div>} />
+        <Route path="/gallery" element={<div className="pt-[180px]"><GalleryTitle /></div>} />
         <Route path="/certification" element={<><CertificationHero /><CertificationIntro /><CertificationStats /><CertificationSubjects /><CertificationBenefits /><CertificationFlattenBottom /></>} />
         <Route path="/news" element={<div className="pt-[140px]"><NewsTabs /><NewsTitle /><NewsFeatured /><NewsList /></div>} />
         <Route path="/news/:id" element={<div className="pt-[140px]"><NewsDetailBreadcrumb /><NewsDetailArticle /><NewsDetailRelated /><NewsDetailBack /></div>} />

@@ -51,6 +51,7 @@
 - [x] news-detail-back (G1 1.38% ref / G5-G8 PASS / structure: token_ratio=0.2+, abs=0, sem=3) — "목록으로 이동하기" pill 버튼. 에셋 0, 완전 HTML. Figma typo "으도" → "으로" 의도 정정
 
 ## 갤러리 (/gallery)
+- [x] gallery-title (G1 9.86% ref / G5-G8 PASS / structure: token_ratio=0.64, abs=0, sem=3) — ESPGN→ESGPN 브랜드 교정. NewsTitle 전례 답습, 48/Bold h1 + Regular 15 p 2열 flex items-end.
 
 ## 고객센터 (/contact)
 
