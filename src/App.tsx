@@ -20,6 +20,7 @@ import { AboutOrganizationPanoramaPreview } from "@/routes/AboutOrganizationPano
 import { ContestHeroPreview } from "@/routes/ContestHeroPreview";
 import { ContestAboutPreview } from "@/routes/ContestAboutPreview";
 import { ContestBenefitsPreview } from "@/routes/ContestBenefitsPreview";
+import { CertificationHeroPreview } from "@/routes/CertificationHeroPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -41,6 +42,7 @@ import { AboutOrganizationPanorama } from "@/components/sections/AboutOrganizati
 import { ContestHero } from "@/components/sections/ContestHero";
 import { ContestAbout } from "@/components/sections/ContestAbout";
 import { ContestBenefits } from "@/components/sections/ContestBenefits";
+import { CertificationHero } from "@/components/sections/CertificationHero";
 
 export function App() {
   return (
@@ -67,6 +69,7 @@ export function App() {
       <Route path="/__preview/contest-hero" element={<ContestHeroPreview />} />
       <Route path="/__preview/contest-about" element={<ContestAboutPreview />} />
       <Route path="/__preview/contest-benefits" element={<ContestBenefitsPreview />} />
+      <Route path="/__preview/certification-hero" element={<CertificationHeroPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header/Footer 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -76,7 +79,7 @@ export function App() {
         <Route path="/contact" element={<div>고객센터 — 섹션 구현 대기</div>} />
         <Route path="/contest" element={<><ContestHero /><ContestAbout /><ContestBenefits /></>} />
         <Route path="/gallery" element={<div>갤러리 — 섹션 구현 대기</div>} />
-        <Route path="/certification" element={<div>자격검정 — 섹션 구현 대기</div>} />
+        <Route path="/certification" element={<><CertificationHero /></>} />
         <Route path="/news" element={<div>뉴스 목록 — 섹션 구현 대기</div>} />
         <Route path="/news/:id" element={<div>뉴스 상세 — 섹션 구현 대기</div>} />
       </Route>
