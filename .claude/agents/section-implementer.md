@@ -105,6 +105,15 @@ bash scripts/measure-quality.sh {섹션명} {섹션 디렉토리}
 ```
 
 - **G5~G8은 완화 금지.** G5 FAIL → eslint 에러 수정. G6 FAIL → 텍스트 baked-in raster 의심 → HTML 재구성. G7 FAIL → Lighthouse audit 수정. G8 FAIL → JSX literal text 추가
+- **v4 구조 게이트 (차단)** — G5~G8 통과 후 실행:
+  ```bash
+  node scripts/check-structure-quality.mjs --section={섹션명}
+  ```
+  차단 기준: `token_ratio < 0.2` 또는 `absolute_count / files > 5` → **FAIL → 단계 4로 반송**.
+  - token_ratio FAIL: magic number를 디자인 토큰(`brand-*`, `gray-*`, `var(--*)`)으로 교체
+  - absolute/file FAIL: absolute 레이아웃을 flex/grid로 의미 복원
+  - `semantic_score < 2` → 경고만 (차단은 아님, 개선 권고)
+
 - **자동 가드 체크 동시 실행** (경고만):
   - `bash scripts/check-tailwind-antipatterns.sh {섹션 디렉토리}` — 음수 width·정수 반올림
   - `bash scripts/check-baked-in-png.sh {섹션명}` — Framelink PNG 위에 CSS 재적용
