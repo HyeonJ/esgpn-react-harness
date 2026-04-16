@@ -52,7 +52,8 @@
 
 ## 갤러리 (/gallery)
 - [x] gallery-title (G1 9.86% ref / G5-G8 PASS / structure: token_ratio=0.64, abs=0, sem=3) — ESPGN→ESGPN 브랜드 교정. NewsTitle 전례 답습, 48/Bold h1 + Regular 15 p 2열 flex items-end.
-- [x] gallery-agreements (G1 5.61% ref / G5-G8 PASS / structure: token_ratio=0.39, abs=0, sem=3) — v1~v3 T-006 ACCEPTED 5.72% → v4 5.61%로 소폭 개선. U+2028 Line Separator를 `<br>` + `institutionLine1`/`line2Prefix` prop 분할로 Figma 강제 줄바꿈 정확 재현. MouCard 로컬 유지 (activities 구현 시 공통 승격 검토). 2×2 grid, 이미지 2장(mou-1/mou-2) 카드 4개에 재사용 (Figma 더미 중복).
+- [x] gallery-agreements (G1 5.61% → 5.62% ref / G5-G8 PASS / structure: token_ratio=0.39, abs=0, sem=3) — v1~v3 T-006 ACCEPTED 5.72% → v4 5.61% 개선. U+2028 Line Separator를 `<br>` + `institutionLine1`/`line2Prefix` prop 분할로 Figma 강제 줄바꿈 정확 재현. activities 구현 시 MouCard 공통 승격 (`src/components/ui/MouCard.tsx`) + rounded-24 추가. 2×2 grid, 이미지 2장(mou-1/mou-2) 카드 4개에 재사용 (Figma 더미 중복).
+- [x] gallery-activities (G1 1.15% ref / G5-G8 PASS / structure: token_ratio=0.40, abs=0, sem=6) — 공통 승격된 `ui/MouCard` 1회 사용 (Rule of Three 5/3: agreements 4 + activities 1). composite fill 이미지(blur BG+사진 2-fill) 단일 leaf nodeId(314:7128) export. `HatchedInlineDecor`는 GalleryAgreements에서 cross-import (2회 사용 → 공통 승격 보류).
 
 ## 고객센터 (/contact)
 

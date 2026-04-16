@@ -1,5 +1,5 @@
+import { MouCard } from "@/components/ui/MouCard";
 import { HatchedInlineDecor } from "./HatchedInlineDecor";
-import { MouCard } from "./MouCard";
 import mou1 from "@/assets/gallery-agreements/mou-1.png";
 import mou2 from "@/assets/gallery-agreements/mou-2.png";
 
