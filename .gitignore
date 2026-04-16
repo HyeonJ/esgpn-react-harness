@@ -38,3 +38,14 @@ dev-captures/
 
 # v3: G1 회차 history (로컬 측정 기록)
 tests/visual/history/
+
+# v4: 워커 1회성 임시 산출물
+.tmp/
+.claude/settings.local.json
+src/assets/*/raw/
+tests/visual/capture-only/
+tests/visual/capture-*.mjs
+tests/visual/measure-*.mjs
+tests/visual/measure-*.ts
+tests/visual/quality/
+mcp-error.log
