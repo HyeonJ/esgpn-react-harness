@@ -1,0 +1,1 @@
+export { AboutOrganizationChart } from "./AboutOrganizationChart";
