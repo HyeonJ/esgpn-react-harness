@@ -35,6 +35,7 @@
 - [x] contest-benefits (G1 12.32% ref / G5-G8 PASS / structure: token_ratio=0.32, abs=0, sem=5)
 
 ## 자격검정 (/certification)
+- [x] certification-intro (G1 5.24% ref / G5-G8 PASS / structure: token_ratio=0.25, abs=0, sem=1)
 
 ## 뉴스 목록 (/news)
 

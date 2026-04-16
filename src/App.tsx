@@ -21,6 +21,7 @@ import { ContestHeroPreview } from "@/routes/ContestHeroPreview";
 import { ContestAboutPreview } from "@/routes/ContestAboutPreview";
 import { ContestBenefitsPreview } from "@/routes/ContestBenefitsPreview";
 import { CertificationHeroPreview } from "@/routes/CertificationHeroPreview";
+import { CertificationIntroPreview } from "@/routes/CertificationIntroPreview";
 import { CertificationStatsPreview } from "@/routes/CertificationStatsPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
@@ -44,6 +45,7 @@ import { ContestHero } from "@/components/sections/ContestHero";
 import { ContestAbout } from "@/components/sections/ContestAbout";
 import { ContestBenefits } from "@/components/sections/ContestBenefits";
 import { CertificationHero } from "@/components/sections/CertificationHero";
+import { CertificationIntro } from "@/components/sections/CertificationIntro";
 import { CertificationStats } from "@/components/sections/CertificationStats";
 
 export function App() {
@@ -72,6 +74,7 @@ export function App() {
       <Route path="/__preview/contest-about" element={<ContestAboutPreview />} />
       <Route path="/__preview/contest-benefits" element={<ContestBenefitsPreview />} />
       <Route path="/__preview/certification-hero" element={<CertificationHeroPreview />} />
+      <Route path="/__preview/certification-intro" element={<CertificationIntroPreview />} />
       <Route path="/__preview/certification-stats" element={<CertificationStatsPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header/Footer 전역 장착 */}
@@ -82,7 +85,7 @@ export function App() {
         <Route path="/contact" element={<div>고객센터 — 섹션 구현 대기</div>} />
         <Route path="/contest" element={<><ContestHero /><ContestAbout /><ContestBenefits /></>} />
         <Route path="/gallery" element={<div>갤러리 — 섹션 구현 대기</div>} />
-        <Route path="/certification" element={<><CertificationHero /><CertificationStats /></>} />
+        <Route path="/certification" element={<><CertificationHero /><CertificationIntro /><CertificationStats /></>} />
         <Route path="/news" element={<div>뉴스 목록 — 섹션 구현 대기</div>} />
         <Route path="/news/:id" element={<div>뉴스 상세 — 섹션 구현 대기</div>} />
       </Route>

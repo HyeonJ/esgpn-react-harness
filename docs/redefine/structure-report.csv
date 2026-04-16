@@ -1,2 +1,2 @@
 section,files,text_raster_flag,img_count,magic_number_count,token_ref_count,token_ratio,absolute_count,semantic_score,semantic_tags_list,alt_over_80_count,literal_korean_count,jsx_text_chars,total_alt_chars
-CertificationStats,1,0,0,2,10,0.833,1,2,section|h2,0,2,7,0
+CertificationIntro,1,0,0,6,2,0.25,0,1,section,0,0,0,0
