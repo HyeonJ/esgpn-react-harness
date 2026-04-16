@@ -30,6 +30,7 @@
 - [x] about-organization-panorama (G1 1.18% ref / G5-G8 PASS / structure: token_ratio=0.44, abs=2, sem=3)
 
 ## 경진대회 (/contest)
+- [x] contest-about (G1 2.87% ref / G5-G8 PASS / structure: token_ratio=0.36, abs=0, sem=4)
 
 ## 자격검정 (/certification)
 
