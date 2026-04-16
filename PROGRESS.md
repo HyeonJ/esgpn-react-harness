@@ -21,7 +21,9 @@
 - [x] main-hero (G1 5.46% ref / G5-G8 PASS / structure: token_ratio=0.40, abs=4, sem=5)
 
 ## About - 개요 (/about)
+- [x] about-header (G1 3.40% ref / G5-G8 PASS / structure: token_ratio=0.64, abs=0)
 - [x] about-mission (G1 4.23% ref / G5-G8 PASS / structure: token_ratio=0.50, abs=3, sem=3)
+- [x] about-values (G1 4.16% ref / G5-G8 PASS / structure: token_ratio=0.54, abs=2, sem=4)
 
 ## About - 조직도 (/about/organization)
 

@@ -275,3 +275,36 @@ floating 요소 없음 (풀폭 1920). `--clip-*` 불필요.
 ## 멈춤 지점
 
 **단계 2 완료. 단계 3~7은 사용자 승인 후 별도 지시를 기다림.**
+
+---
+
+## v4 재구현 (2026-04-16)
+
+### 변경 포인트
+- `ValueCard.tsx` 신설 — article 시맨틱 + flex-col items-center (absolute 금지)
+- `AboutValues.tsx` 재작성 — grid 2행, 각 행은 flex-row gap 기반 (absolute 배치 제거)
+- 아이콘 crop을 10px padding 없는 **exact bbox**로 재생성: 124x122, 118x122, 111x131, 131x131
+- `pt-[85px] pb-[64px] gap-[53px]` 조합 — baseline y 매칭
+
+### v4 게이트 결과
+- **G1 시각 diff: 4.16%** (목표 ≤15%, v3 대비 -0.12%p)
+- **G2 치수**: section 1920x725 (baseline 722, +3px), icons row1 top=95 ✓, row2 top=395 ✓, titles row1 top=250 ✓, row2 top=559 (baseline 555, +4px)
+- **G3 에셋**: 4/4 naturalWidth > 0 (124/118/111/131)
+- **G4 색상**: `rgb(29, 38, 35)` = #1d2623 ✓, font 22/16 Bold/Regular ✓
+- **G5 eslint**: 0 errors
+- **G6/G8**: PASS (rasterHeavy=false, jsx literal text)
+- **구조 지표**: token_ratio 0.538, absolute 2 (1.0/file), semantic_score 4, text_raster_flag 0
+
+### 육안 semantic 검증
+- 2x2 레이아웃 ✓, 4 카드 매핑 (톱니바퀴/캡슐/화살표/지구본) 정확
+- 방향 반전, 색 반전, 텍스트 줄바꿈 오류 없음
+- 상/하 HatchedDivider 정상
+- 페이지 통합 (/about = Header + Mission + Values) 구조 정상
+
+### v1~v3 vs v4 구조 비교
+| 지표 | v3 (abs 배치) | v4 (flex/grid) |
+|------|--------------|---------------|
+| absolute count | 5 | 2 |
+| token_ratio | ~0.3 추정 | 0.538 |
+| semantic_score | 2 | 4 |
+| G1 diff | 4.28% | 4.16% |

@@ -1,2 +1,2 @@
 section,files,text_raster_flag,img_count,magic_number_count,token_ref_count,token_ratio,absolute_count,semantic_score,semantic_tags_list,alt_over_80_count,literal_korean_count,jsx_text_chars,total_alt_chars
-AboutMission,1,0,2,26,26,0.5,3,3,section|h2|figure,0,80,346,39
+AboutValues,2,0,1,12,14,0.538,2,4,section|h2|article|h3,0,65,288,0
