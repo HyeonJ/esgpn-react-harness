@@ -1,8 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import { FontCalibration } from "@/routes/FontCalibration";
 import { MainHeroPreview } from "@/routes/MainHeroPreview";
+import { MainIntroPreview } from "@/routes/MainIntroPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
+import { MainIntro } from "@/components/sections/MainIntro";
 
 export function App() {
   return (
@@ -10,10 +12,11 @@ export function App() {
       {/* 격리 라우트 — 시각 회귀 캡처용 */}
       <Route path="/__calibration" element={<FontCalibration />} />
       <Route path="/__preview/main-hero" element={<MainHeroPreview />} />
+      <Route path="/__preview/main-intro" element={<MainIntroPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header/Footer 전역 장착 */}
       <Route element={<RootLayout />}>
-        <Route path="/" element={<MainHero />} />
+        <Route path="/" element={<><MainHero /><MainIntro /></>} />
         <Route path="/about" element={<div>About 개요 — 섹션 구현 대기</div>} />
         <Route path="/about/organization" element={<div>About 조직도 — 섹션 구현 대기</div>} />
         <Route path="/contact" element={<div>고객센터 — 섹션 구현 대기</div>} />
