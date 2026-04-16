@@ -46,6 +46,7 @@
 
 ## 뉴스 상세 (/news/:id)
 - [x] news-detail-breadcrumb (G1 1.20% ref / G5-G8 PASS / structure: token_ratio=0.2+, abs=0, sem=4)
+- [x] news-detail-article (G1 2.55% ref / G5-G8 PASS / structure: token_ratio=0.38, abs=1, sem=5)
 
 ## 갤러리 (/gallery)
 
