@@ -9,6 +9,7 @@ import { MainProgramsCard2Preview } from "@/routes/MainProgramsCard2Preview";
 import { MainProgramsCard3Preview } from "@/routes/MainProgramsCard3Preview";
 import { MainNewsPreview } from "@/routes/MainNewsPreview";
 import { MainGalleryPreview } from "@/routes/MainGalleryPreview";
+import { AboutHeaderPreview } from "@/routes/AboutHeaderPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -19,6 +20,7 @@ import { MainProgramsCard2 } from "@/components/sections/MainProgramsCard2";
 import { MainProgramsCard3 } from "@/components/sections/MainProgramsCard3";
 import { MainNews } from "@/components/sections/MainNews";
 import { MainGallery } from "@/components/sections/MainGallery";
+import { AboutHeader } from "@/components/sections/AboutHeader";
 
 export function App() {
   return (
@@ -34,11 +36,12 @@ export function App() {
       <Route path="/__preview/main-programs-card3" element={<MainProgramsCard3Preview />} />
       <Route path="/__preview/main-news" element={<MainNewsPreview />} />
       <Route path="/__preview/main-gallery" element={<MainGalleryPreview />} />
+      <Route path="/__preview/about-header" element={<AboutHeaderPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header/Footer 전역 장착 */}
       <Route element={<RootLayout />}>
         <Route path="/" element={<><MainHero /><MainIntro /><MainStats /><MainProgramsHeader /><MainProgramsCard1 /><MainProgramsCard2 /><MainProgramsCard3 /><MainNews /><MainGallery /></>} />
-        <Route path="/about" element={<div>About 개요 — 섹션 구현 대기</div>} />
+        <Route path="/about" element={<AboutHeader />} />
         <Route path="/about/organization" element={<div>About 조직도 — 섹션 구현 대기</div>} />
         <Route path="/contact" element={<div>고객센터 — 섹션 구현 대기</div>} />
         <Route path="/contest" element={<div>경진대회 — 섹션 구현 대기</div>} />
