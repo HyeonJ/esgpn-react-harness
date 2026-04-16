@@ -40,6 +40,7 @@
 - [x] certification-flatten-bottom (G1 5.00% ref / G5-G8 PASS / structure: token_ratio=0.23, abs=16 per 4 files (avg 4.0), sem=6) — v1~v3 T-008 단일 raster 안티패턴 해소. get_design_context 전체 트리로 HTML 재구성
 
 ## 뉴스 목록 (/news)
+- [x] news-tabs (G1 1.07% ref / G5-G8 PASS / structure: token_ratio=0.78, abs=0, sem=2)
 
 ## 뉴스 상세 (/news/:id)
 
