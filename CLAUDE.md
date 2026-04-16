@@ -1,9 +1,9 @@
 # ESGPN 프로젝트 — Figma → React 하네스
 
-**핵심 원칙: 내가 직접 계획을 검토하고 승인하기 전까지 절대 코드를 쓰지 마라.**
+**핵심 원칙 (v4 자율 모드): 모든 페이지를 사용자 개입 없이 끝까지 완주한다. 사용자는 완주 후 검수.**
 
-작업은 항상 다음 5단계로 진행: **리서치 → 계획 → 주석 반영 → 구현 → 피드백**
-각 단계는 명확히 분리되며, 사용자 승인 없이 임의로 다음 단계로 진행하지 않는다.
+작업은 항상 다음 5단계로 진행: **리서치 → 계획 → 에셋 → 구현 → 측정**
+각 단계는 명확히 분리되며, **자율 모드에서는 멈추지 않고 연속 진행**. 3회 실패 시에도 AI가 자체 판단 (완화는 최후).
 
 ---
 
@@ -35,17 +35,32 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 - **섹션이 이질적 에셋 3+ / 반복 자식 3+ / 예상 토큰 >10K 중 하나라도 해당하면 서브섹션으로 쪼갠다** (Phase 2 분할 시 강제. `docs/figma-workflow.md §3` 참조)
 - **섹션은 자기 정렬 책임을 진다** — 섹션 루트에 `mx-auto` 내장. Preview wrapper 의존 금지. 페이지 통합 육안 게이트(docs §6.5) 통과 필수
 
-### 품질 게이트 (8 게이트 — 모두 통과해야 섹션 완료)
+### 품질 게이트 (v4 — 차단/참고 위계)
+
+> North star: `docs/redefine/philosophy.md` — "편집 가능한 고충실도". 구조가 합격 기준, 픽셀은 증빙.
+
+**차단 게이트 (FAIL이면 섹션 미완료)**:
 | G | 항목 | 기준 | 자동화 |
 |---|---|---|---|
-| G1 | 시각 diff | < 5% | `scripts/compare-section.sh` |
-| G2 | 치수 | font±1, 나머지±2 | Playwright computed style |
-| G3 | 에셋 | naturalWidth > 0 | Playwright DOM |
-| G4 | 색상 | hex 일치 | Playwright computed style |
 | G5 | 시맨틱 HTML | eslint jsx-a11y error 0 | `npm run lint` |
-| G6 | 텍스트:이미지 비율 | text/alt ≥ 3:1 (alt≥80자일 때만 적용) | `scripts/check-text-ratio.mjs` |
-| G7 | a11y/SEO | Lighthouse a11y≥95, SEO≥90 | `scripts/measure-quality.sh` (lhci 설치 시) |
+| G6 | 텍스트:이미지 비율 | text-bearing raster 0 | `scripts/check-text-ratio.mjs` |
 | G8 | i18n 가능성 | JSX에 literal text 존재 | `scripts/check-text-ratio.mjs` |
+| G2 | 치수 | font±2, 나머지±4 | Playwright computed style |
+| G4 | 색상 토큰 일치 | 디자인 토큰 참조 (hex 직접 사용 최소화) | Playwright computed style |
+
+**참고 지표 (수치만 기록, 차단 아님)**:
+| G | 항목 | 목표 | 자동화 |
+|---|---|---|---|
+| G1 | 시각 diff | ≤ 15% | `scripts/compare-section.sh` |
+| G3 | 에셋 존재 | naturalWidth > 0 | Playwright DOM |
+| G7 | a11y/SEO | Lighthouse a11y≥95, SEO≥90 | `scripts/measure-quality.sh` |
+
+**v4 구조 지표 (1차 목표)**:
+| 지표 | 목표 |
+|---|---|
+| token_ratio | ≥ 0.2 |
+| semantic_score | ≥ 2 |
+| absolute/file | ≤ 5 |
 
 - **G5~G8은 단계 4.5에서 G1~G4보다 먼저 측정** — 구조가 망가진 코드는 픽셀 측정에 도달하지 말 것
 - **측정값은 숫자로 plan에 기록.** 눈대중 금지. "괜찮아 보임" 금지
@@ -105,21 +120,24 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 
 ---
 
-## 사용자 개입 지점 (축소판 — 섹션당 1회)
+## v4 자율 모드 — 사용자 개입 0
 
-| 지점 | 당신이 할 일 |
-|------|-----------|
-| Phase 1 plan 완료 | plan/phase1-setup.md 검토 후 승인 |
-| Phase 2 페이지 분할 완료 | research/{페이지명}.md 검토 후 승인 또는 재분할 |
-| **섹션 단계 2 (plan) 완료** | plan/{섹션명}.md 검토 후 승인 또는 메모 (real gate, 섹션당 1회) |
-| 게이트 3회 실패 | 선택지 중 결정 |
-| 페이지 통합 검증 완료 | 페이지 완료 처리 |
+**모든 지점이 자동.** 멈추는 곳 없음. 완주 후 사용자가 검수.
 
-**자동화된 지점 (통보만, 개입 불필요)**:
-- 섹션 단계 1 (리서치) 완료 → 요약 통보만, 자동으로 단계 2 진행
-- 단계 5 게이트 전체 PASS → 자동 커밋 (메시지에 diff % 포함) + PROGRESS.md 갱신
+| 지점 | 동작 |
+|------|------|
+| Phase 2 페이지 분할 | 자동 진행, 로그만 |
+| 섹션 단계 1~2 (리서치/계획) | 자동 진행, 로그만 |
+| 섹션 단계 3~7 (에셋~커밋) | 자동 진행, 게이트 자체 판정 |
+| 차단 게이트 3회 실패 | AI 자체 판단 (재분할→다른접근→엔진차이 수용→되돌리기→완화 순) |
+| 페이지 통합 검증 | 자동, 스크린샷 dump |
+| **완주 후** | 9페이지 스크린샷 + 게이트 CSV + 시간 리포트 → **사용자 검수** |
 
-각 real gate에서 오케스트레이터가 `approval-gate-format` 스킬의 표준 포맷으로 출력한다.
+### 시간 측정
+- 세션 시작 시 `date +%s` 기록 → PROGRESS.md "시작" 필드
+- 각 섹션 완료 시 소요 시간(초) 기록
+- 완주 시 총 소요 시간 계산 → PROGRESS.md "종료" + "총 소요"
+- 완주 보고에 섹션별 breakdown 포함
 
 ---
 
