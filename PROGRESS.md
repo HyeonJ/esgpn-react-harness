@@ -36,6 +36,7 @@
 
 ## 자격검정 (/certification)
 - [x] certification-intro (G1 5.24% ref / G5-G8 PASS / structure: token_ratio=0.25, abs=0, sem=1)
+- [x] certification-benefits (G1 5.08% ref / G5-G8 PASS / structure: token_ratio=0.21, abs=4, sem=2)
 
 ## 뉴스 목록 (/news)
 
