@@ -16,6 +16,7 @@
 
 ## 공통 컴포넌트
 (Rule of Three 기반 승격 시 기록)
+- [x] `HatchedSectionHeading` (`src/components/ui/HatchedSectionHeading.tsx`) — contest-about + contest-benefits (2/3). 40px 아이콘 + 32B 제목 + HatchedDivider. Rule of Three 2/3 승격.
 
 ## 메인페이지 (/)
 - [x] main-hero (G1 5.46% ref / G5-G8 PASS / structure: token_ratio=0.40, abs=4, sem=5)
@@ -31,6 +32,7 @@
 
 ## 경진대회 (/contest)
 - [x] contest-about (G1 2.87% ref / G5-G8 PASS / structure: token_ratio=0.36, abs=0, sem=4)
+- [x] contest-benefits (G1 12.32% ref / G5-G8 PASS / structure: token_ratio=0.32, abs=0, sem=5)
 
 ## 자격검정 (/certification)
 

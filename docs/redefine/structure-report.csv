@@ -1,2 +1,2 @@
 section,files,text_raster_flag,img_count,magic_number_count,token_ref_count,token_ratio,absolute_count,semantic_score,semantic_tags_list,alt_over_80_count,literal_korean_count,jsx_text_chars,total_alt_chars
-ContestAbout,3,0,1,23,13,0.361,0,4,article|h3|section|h2,0,9,38,0
+ContestBenefits,3,0,1,28,13,0.317,0,5,article|h3|section|aside|button,0,11,57,0

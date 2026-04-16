@@ -1,14 +1,19 @@
-import { HatchedDivider } from "@/components/ui/HatchedDivider";
+import { HatchedDivider } from "./HatchedDivider";
 
 /**
- * HeadingWithIcon — 40px 아이콘 + 32B 제목 + HatchedDivider.
+ * HatchedSectionHeading — 40px 아이콘 + 32B 제목 + HatchedDivider.
  *
- * v4: Rule of Three 2/3. contest-about + contest-benefits (302:5068) 예정 사용.
- * Benefits 섹션 구현 시 동일 구조 확인 후 `ui/HatchedSectionHeading.tsx`로 승격.
+ * v4 공통 컴포넌트 (Rule of Three 2/3 승격).
+ * 사용처:
+ *   - contest-about (302:4977) — 지구본 아이콘 + "ESG 실천 아이디어 경진대회란?"
+ *   - contest-benefits (302:5068) — 지구본 아이콘 + "ESG 실천 아이디어 경진대회의 특별한 혜택"
+ * 향후 페이지에서 동일 구조 재등장 시 그대로 사용.
  *
- * a11y: iconAlt=""이면 데코 아이콘으로 aria-hidden 처리.
+ * a11y: iconAlt=""이면 데코 아이콘 → aria-hidden.
+ * 폰트: Pretendard Bold 32 / 1.3em / -3% (letterSpacing -0.96px).
+ * 색: near-black #0A0A0A (토큰 없음, 프로젝트 합의).
  */
-export function HeadingWithIcon({
+export function HatchedSectionHeading({
   iconSrc,
   iconAlt = "",
   title,

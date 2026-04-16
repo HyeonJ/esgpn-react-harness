@@ -1,4 +1,4 @@
-import { HeadingWithIcon } from "./HeadingWithIcon";
+import { HatchedSectionHeading } from "@/components/ui/HatchedSectionHeading";
 import { BulletCard } from "./BulletCard";
 import headingIcon from "@/assets/contest-about/heading-icon.png";
 
@@ -32,7 +32,7 @@ export function ContestAbout() {
       aria-labelledby="contest-about-title"
       className="mx-auto flex w-full max-w-[1416px] flex-col gap-5 px-[240px] py-[64px]"
     >
-      <HeadingWithIcon
+      <HatchedSectionHeading
         iconSrc={headingIcon}
         iconAlt=""
         title="ESG 실천 아이디어 경진대회란?"
