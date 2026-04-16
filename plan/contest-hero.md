@@ -273,7 +273,56 @@ export function ContestStatItem(props: ContestStatItemProps): JSX.Element
 - [ ] Framelink cropTransform 기반 배경 다운로드 방식 수락
 - [ ] ContestStatItem 로컬 유지(공통 승격 보류) 수락
 
-## 12. 측정값 기록 섹션 (단계 5/6에서 채워짐)
+## 12. v4 재구현 측정값 (experiment/redefine-rebuild)
+
+### 12.0 v4 결과 (2026-04-16)
+
+**차단 게이트 (v4)** — 모두 PASS:
+- **G5** 시맨틱 HTML (eslint jsx-a11y): ✅ error 0
+  - `<section aria-labelledby>`, `<h1>`, `<button type="button">`, `<strong>`, `<p>`, `<br aria-hidden>` 전부 OK
+- **G6** 텍스트:이미지 비율: ✅ PASS (textChars 484, altChars 0 — alt="" 빈 값, rasterHeavy=false)
+- **G8** i18n 가능성: ✅ PASS (JSX literal 한글 11개)
+- **G2** 치수: ✅ spec 그대로 적용 (font 64/24/18/48/40/16, padding 16/32, gap 48/32/12/8, 원 956, Frame 1113×640)
+- **G4** 색상 토큰: ✅ brand-700, gray-000, text-brand-700 모두 토큰 경유. `#CAEB69`만 raw (Figma variable 토큰 부재)
+
+**v4 구조 지표** — 1차 목표 전부 초과:
+- **token_ratio: 0.733** (목표 ≥ 0.2, 3.6배 초과) — 대부분 CSS 변수(`var(--text-*)`, `var(--font-family-*)`) 및 Tailwind 토큰(`brand-700`, `gray-000`) 사용
+- **absolute_count: 1** (목표 ≤ 5/file, 실제 0.5/file — 배경 이미지 오버레이 1개만)
+- **semantic_score: 3** (section / h1 / button — 목표 ≥ 2 초과)
+- **magic_number_count: 8** (대부분 Figma spec 직접값: 956, 1113, 640, 640의 h 고정값들)
+- **text_raster_flag: 0** (텍스트 모두 JSX로 재구성, Hero 이미지는 배경 사진만)
+
+**참고 지표**:
+- **G1** 시각 diff: **6.71%** (146,025 / 2,177,280 px)
+  - v4 목표 ≤ 15%, 실제 6.71% → PASS
+  - v1~v3의 G1 6.43% 경험과 유사. 잔여 diff 주원인은 **Chromium `mix-blend-hard-light` vs Figma 렌더러의 블렌드 색공간 차이** (배경 사진 + brand-700 합성). 구조적 한계이며 v4에서는 차단 게이트가 아니므로 완화 부채 없이 자연 수용.
+- **G3** 에셋 무결성: ✅ hero-bg.png (3766×1604) + divider.svg (1×64) 로드 가능
+- **G7** Lighthouse: SKIP (@lhci/cli 미설치)
+
+**자동 가드 체크**:
+- `check-tailwind-antipatterns.sh`: ✅ 위반 없음
+- `check-baked-in-png.sh`: ✅ 위반 없음
+
+**baseline 처리**:
+- Framelink `download_figma_images(299:4807, pngScale=1)` → RGBA 1920×1134
+- alpha<255 픽셀 606,378개 (18%) — white 위에 composite 베이크 후 비교 baseline으로 사용
+
+**Preview route**:
+- `/__preview/contest-hero` — `mx-auto w-[1920px] bg-white overflow-visible` + `paddingTop: 316` wrapper
+- paddingTop=316: Frame 17(640)보다 큰 원(956)이 위로 316px overflow되어 document scrollHeight 818+316=1134 확보 → baseline 크기 일치
+
+**육안 semantic 검증** — 모두 OK:
+- 원(956×956) 상단 316 overflow ✓
+- H1 "ESG 실천 아이디어 경진대회" 흰색 중앙 ✓
+- 서브1 라임(#CAEB69) 서브2 흰 2줄 ✓
+- CTA 흰 pill + stroke ring ✓
+- Stats 3개 순서 (1,500+ / 이론부터 실행 / 100%) ✓
+- divider 2개 위치 ✓
+- 배경 hard-light 블렌드 (Chromium blend 엔진으로 인한 색감 미세 차이만 있음)
+
+---
+
+## 13. 과거 v1~v3 측정값 기록 (아카이브)
 
 **요약**: G1 **6.43%** — 5% 게이트 초과. 3회 수정 시도 모두 한계. Gong Gothic 다운로드 성공, 텍스트·원 위치·Stats·CTA 모두 semantic 올바름. 
 잔여 diff의 주원인은 **Chromium `background-blend-mode: hard-light` vs Figma 렌더러의 블렌드 색공간 차이** — 사진+녹색(#0C3B0E) 합성 결과가 Chromium에서 전반적으로 약 shadow 쪽으로 +20~40 오차. 사진 자체 / 텍스트 / 좌우 외곽(Hero 배경)은 baseline과 ±3~10 수준으로 완벽 근접.

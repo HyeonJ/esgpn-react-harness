@@ -17,6 +17,7 @@ import { AboutOrganizationTabsPreview } from "@/routes/AboutOrganizationTabsPrev
 import { AboutOrganizationLogosPreview } from "@/routes/AboutOrganizationLogosPreview";
 import { AboutOrganizationChartPreview } from "@/routes/AboutOrganizationChartPreview";
 import { AboutOrganizationPanoramaPreview } from "@/routes/AboutOrganizationPanoramaPreview";
+import { ContestHeroPreview } from "@/routes/ContestHeroPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -35,6 +36,7 @@ import { AboutOrganizationTabs } from "@/components/sections/AboutOrganizationTa
 import { AboutOrganizationLogos } from "@/components/sections/AboutOrganizationLogos";
 import { AboutOrganizationChart } from "@/components/sections/AboutOrganizationChart";
 import { AboutOrganizationPanorama } from "@/components/sections/AboutOrganizationPanorama";
+import { ContestHero } from "@/components/sections/ContestHero";
 
 export function App() {
   return (
@@ -58,6 +60,7 @@ export function App() {
       <Route path="/__preview/about-organization-logos" element={<AboutOrganizationLogosPreview />} />
       <Route path="/__preview/about-organization-chart" element={<AboutOrganizationChartPreview />} />
       <Route path="/__preview/about-organization-panorama" element={<AboutOrganizationPanoramaPreview />} />
+      <Route path="/__preview/contest-hero" element={<ContestHeroPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header/Footer 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -65,7 +68,7 @@ export function App() {
         <Route path="/about" element={<><AboutHeader /><AboutMission /><AboutValues /><AboutVision /></>} />
         <Route path="/about/organization" element={<><AboutOrganizationTabs /><AboutOrganizationLogos /><AboutOrganizationChart /><AboutOrganizationPanorama /></>} />
         <Route path="/contact" element={<div>고객센터 — 섹션 구현 대기</div>} />
-        <Route path="/contest" element={<div>경진대회 — 섹션 구현 대기</div>} />
+        <Route path="/contest" element={<ContestHero />} />
         <Route path="/gallery" element={<div>갤러리 — 섹션 구현 대기</div>} />
         <Route path="/certification" element={<div>자격검정 — 섹션 구현 대기</div>} />
         <Route path="/news" element={<div>뉴스 목록 — 섹션 구현 대기</div>} />
