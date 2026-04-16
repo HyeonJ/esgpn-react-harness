@@ -1,4 +1,3 @@
-import { HatchedDivider } from "@/components/ui/HatchedDivider";
 import espgnLogo from "@/assets/about-organization-logos/espgn.png";
 import coliveLogo from "@/assets/about-organization-logos/colive.png";
 import assocLogo from "@/assets/about-organization-logos/assoc.png";
@@ -30,9 +29,66 @@ export function AboutOrganizationLogos() {
         ESGPN 운영주체
       </h2>
 
-      {/* 상단 padding 84px → divider row */}
-      <div className="mt-[84px]">
-        <HatchedDivider label="운영주체" />
+      {/* 상단 padding 84px → divider row with "운영주체" label */}
+      <div
+        className="mt-[84px] flex items-center justify-center"
+        role="presentation"
+      >
+        {/* 좌측 hatched + solid line */}
+        <svg
+          width="434"
+          height="10"
+          viewBox="0 0 434 10"
+          fill="none"
+          aria-hidden="true"
+        >
+          <g stroke="var(--color-gray-500)" strokeWidth="1">
+            <line x1="0" y1="10" x2="7" y2="0" />
+            <line x1="8" y1="10" x2="15" y2="0" />
+            <line x1="16" y1="10" x2="23" y2="0" />
+            <line x1="24" y1="10" x2="31" y2="0" />
+          </g>
+          <line
+            x1="44"
+            y1="5"
+            x2="434"
+            y2="5"
+            stroke="var(--color-gray-400)"
+            strokeWidth="1"
+          />
+        </svg>
+
+        {/* 중앙 라벨 */}
+        <span
+          className="px-[8px] text-[12px] font-medium leading-none text-[var(--color-gray-500)]"
+          style={{ fontFamily: "var(--font-family-pretendard)" }}
+        >
+          운영주체
+        </span>
+
+        {/* 우측 solid line + hatched */}
+        <svg
+          width="434"
+          height="10"
+          viewBox="0 0 434 10"
+          fill="none"
+          aria-hidden="true"
+        >
+          <line
+            x1="0"
+            y1="5"
+            x2="390"
+            y2="5"
+            stroke="var(--color-gray-400)"
+            strokeWidth="1"
+          />
+          <g stroke="var(--color-gray-500)" strokeWidth="1">
+            <line x1="402" y1="10" x2="409" y2="0" />
+            <line x1="410" y1="10" x2="417" y2="0" />
+            <line x1="418" y1="10" x2="425" y2="0" />
+            <line x1="426" y1="10" x2="433" y2="0" />
+          </g>
+        </svg>
       </div>
 
       {/* divider → logo row gap 40px */}
