@@ -27,6 +27,7 @@ import { CertificationSubjectsPreview } from "@/routes/CertificationSubjectsPrev
 import { CertificationBenefitsPreview } from "@/routes/CertificationBenefitsPreview";
 import { CertificationFlattenBottomPreview } from "@/routes/CertificationFlattenBottomPreview";
 import { NewsTabsPreview } from "@/routes/NewsTabsPreview";
+import { NewsTitlePreview } from "@/routes/NewsTitlePreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -55,6 +56,7 @@ import { CertificationSubjects } from "@/components/sections/CertificationSubjec
 import { CertificationBenefits } from "@/components/sections/CertificationBenefits";
 import { CertificationFlattenBottom } from "@/components/sections/CertificationFlattenBottom";
 import { NewsTabs } from "@/components/sections/NewsTabs";
+import { NewsTitle } from "@/components/sections/NewsTitle";
 
 export function App() {
   return (
@@ -88,6 +90,7 @@ export function App() {
       <Route path="/__preview/certification-benefits" element={<CertificationBenefitsPreview />} />
       <Route path="/__preview/certification-flatten-bottom" element={<CertificationFlattenBottomPreview />} />
       <Route path="/__preview/news-tabs" element={<NewsTabsPreview />} />
+      <Route path="/__preview/news-title" element={<NewsTitlePreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header/Footer 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -98,7 +101,7 @@ export function App() {
         <Route path="/contest" element={<><ContestHero /><ContestAbout /><ContestBenefits /></>} />
         <Route path="/gallery" element={<div>갤러리 — 섹션 구현 대기</div>} />
         <Route path="/certification" element={<><CertificationHero /><CertificationIntro /><CertificationStats /><CertificationSubjects /><CertificationBenefits /><CertificationFlattenBottom /></>} />
-        <Route path="/news" element={<div className="pt-[140px]"><NewsTabs /></div>} />
+        <Route path="/news" element={<div className="pt-[140px]"><NewsTabs /><NewsTitle /></div>} />
         <Route path="/news/:id" element={<div>뉴스 상세 — 섹션 구현 대기</div>} />
       </Route>
     </Routes>

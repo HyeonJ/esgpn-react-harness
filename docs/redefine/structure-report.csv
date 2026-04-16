@@ -1,2 +1,2 @@
 section,files,text_raster_flag,img_count,magic_number_count,token_ref_count,token_ratio,absolute_count,semantic_score,semantic_tags_list,alt_over_80_count,literal_korean_count,jsx_text_chars,total_alt_chars
-NewsTabs,1,0,0,4,14,0.778,0,2,section|nav,0,2,5,18
+NewsTitle,1,0,0,4,9,0.692,1,2,section|h1,0,17,65,0
