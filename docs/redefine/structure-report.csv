@@ -1,2 +1,2 @@
 section,files,text_raster_flag,img_count,magic_number_count,token_ref_count,token_ratio,absolute_count,semantic_score,semantic_tags_list,alt_over_80_count,literal_korean_count,jsx_text_chars,total_alt_chars
-MainIntro,5,0,7,64,41,0.39,1,6,article|h3|header|h2|nav|section,0,93,443,61
+MainStats,3,0,0,81,54,0.4,4,3,section|header|h2,0,73,321,0
