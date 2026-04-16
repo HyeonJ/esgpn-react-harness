@@ -56,6 +56,7 @@
 - [x] gallery-activities (G1 1.15% ref / G5-G8 PASS / structure: token_ratio=0.40, abs=0, sem=6) — 공통 승격된 `ui/MouCard` 1회 사용 (Rule of Three 5/3: agreements 4 + activities 1). composite fill 이미지(blur BG+사진 2-fill) 단일 leaf nodeId(314:7128) export. `HatchedInlineDecor`는 GalleryAgreements에서 cross-import (2회 사용 → 공통 승격 보류).
 
 ## 고객센터 (/contact)
+- [x] contact-form (G1 4.01% ref / G5-G8 PASS / structure: token_ratio=0.64, abs=0, sem=8) — v4 자율 재실행 완주 섹션. 시맨틱 form (fieldset/legend/label htmlFor/button submit) + Figma 오타 ESPGN→ESGPN + 버튼 "Button Sample"→"문의 남기기" 교정. HatchedDivider 공통 재사용, FormInput 로컬. 에셋 0 (좌측 이미지는 CSS placeholder).
 
 ---
 

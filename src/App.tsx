@@ -37,6 +37,7 @@ import { NewsDetailBackPreview } from "@/routes/NewsDetailBackPreview";
 import { GalleryTitlePreview } from "@/routes/GalleryTitlePreview";
 import { GalleryAgreementsPreview } from "@/routes/GalleryAgreementsPreview";
 import { GalleryActivitiesPreview } from "@/routes/GalleryActivitiesPreview";
+import { ContactFormPreview } from "@/routes/ContactFormPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -75,6 +76,7 @@ import { NewsDetailBack } from "@/components/sections/NewsDetailBack";
 import { GalleryTitle } from "@/components/sections/GalleryTitle";
 import { GalleryAgreements } from "@/components/sections/GalleryAgreements";
 import { GalleryActivities } from "@/components/sections/GalleryActivities";
+import { ContactForm } from "@/components/sections/ContactForm";
 
 export function App() {
   return (
@@ -118,13 +120,14 @@ export function App() {
       <Route path="/__preview/gallery-title" element={<GalleryTitlePreview />} />
       <Route path="/__preview/gallery-agreements" element={<GalleryAgreementsPreview />} />
       <Route path="/__preview/gallery-activities" element={<GalleryActivitiesPreview />} />
+      <Route path="/__preview/contact-form" element={<ContactFormPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header/Footer 전역 장착 */}
       <Route element={<RootLayout />}>
         <Route path="/" element={<><MainHero /><MainIntro /><MainStats /><MainProgramsHeader /><MainProgramsCard1 /><MainProgramsCard2 /><MainProgramsCard3 /><MainNews /><MainGallery /></>} />
         <Route path="/about" element={<><AboutHeader /><AboutMission /><AboutValues /><AboutVision /></>} />
         <Route path="/about/organization" element={<><AboutOrganizationTabs /><AboutOrganizationLogos /><AboutOrganizationChart /><AboutOrganizationPanorama /></>} />
-        <Route path="/contact" element={<div>고객센터 — 섹션 구현 대기</div>} />
+        <Route path="/contact" element={<div className="pt-[180px]"><ContactForm /></div>} />
         <Route path="/contest" element={<><ContestHero /><ContestAbout /><ContestBenefits /></>} />
         <Route path="/gallery" element={<div className="pt-[180px]"><GalleryTitle /><GalleryAgreements /><GalleryActivities /></div>} />
         <Route path="/certification" element={<><CertificationHero /><CertificationIntro /><CertificationStats /><CertificationSubjects /><CertificationBenefits /><CertificationFlattenBottom /></>} />
