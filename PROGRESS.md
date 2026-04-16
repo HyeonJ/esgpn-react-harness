@@ -48,6 +48,7 @@
 - [x] news-detail-breadcrumb (G1 1.20% ref / G5-G8 PASS / structure: token_ratio=0.2+, abs=0, sem=4)
 - [x] news-detail-article (G1 2.55% ref / G5-G8 PASS / structure: token_ratio=0.38, abs=1, sem=5)
 - [x] news-detail-related (G1 10.97% ref / G5-G8 PASS / structure: token_ratio=0.95, abs=1, sem=7) — v1~v3 T-011 composite raster 부채 해소. heading+3 items 완전 HTML 재구성, NewsListItem과 패턴 공유하되 로컬 격리
+- [x] news-detail-back (G1 1.38% ref / G5-G8 PASS / structure: token_ratio=0.2+, abs=0, sem=3) — "목록으로 이동하기" pill 버튼. 에셋 0, 완전 HTML. Figma typo "으도" → "으로" 의도 정정
 
 ## 갤러리 (/gallery)
 

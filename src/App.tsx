@@ -33,6 +33,7 @@ import { NewsListPreview } from "@/routes/NewsListPreview";
 import { NewsDetailBreadcrumbPreview } from "@/routes/NewsDetailBreadcrumbPreview";
 import { NewsDetailArticlePreview } from "@/routes/NewsDetailArticlePreview";
 import { NewsDetailRelatedPreview } from "@/routes/NewsDetailRelatedPreview";
+import { NewsDetailBackPreview } from "@/routes/NewsDetailBackPreview";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
@@ -67,6 +68,7 @@ import { NewsList } from "@/components/sections/NewsList";
 import { NewsDetailBreadcrumb } from "@/components/sections/NewsDetailBreadcrumb";
 import { NewsDetailArticle } from "@/components/sections/NewsDetailArticle";
 import { NewsDetailRelated } from "@/components/sections/NewsDetailRelated";
+import { NewsDetailBack } from "@/components/sections/NewsDetailBack";
 
 export function App() {
   return (
@@ -106,6 +108,7 @@ export function App() {
       <Route path="/__preview/news-detail-breadcrumb" element={<NewsDetailBreadcrumbPreview />} />
       <Route path="/__preview/news-detail-article" element={<NewsDetailArticlePreview />} />
       <Route path="/__preview/news-detail-related" element={<NewsDetailRelatedPreview />} />
+      <Route path="/__preview/news-detail-back" element={<NewsDetailBackPreview />} />
 
       {/* 사용자 라우트 — RootLayout으로 Header/Footer 전역 장착 */}
       <Route element={<RootLayout />}>
@@ -117,7 +120,7 @@ export function App() {
         <Route path="/gallery" element={<div>갤러리 — 섹션 구현 대기</div>} />
         <Route path="/certification" element={<><CertificationHero /><CertificationIntro /><CertificationStats /><CertificationSubjects /><CertificationBenefits /><CertificationFlattenBottom /></>} />
         <Route path="/news" element={<div className="pt-[140px]"><NewsTabs /><NewsTitle /><NewsFeatured /><NewsList /></div>} />
-        <Route path="/news/:id" element={<div className="pt-[140px]"><NewsDetailBreadcrumb /><NewsDetailArticle /><NewsDetailRelated /></div>} />
+        <Route path="/news/:id" element={<div className="pt-[140px]"><NewsDetailBreadcrumb /><NewsDetailArticle /><NewsDetailRelated /><NewsDetailBack /></div>} />
       </Route>
     </Routes>
   );
