@@ -45,6 +45,7 @@
 - [x] news-list (G1 12.64% ref / G5-G8 PASS / structure: token_ratio=0.83, abs=0, sem=9) — v1~v3 20.37% ACCEPTED 개선. line-clamp-3→2 교정으로 섹션 높이 매칭. NewsListItem/Pagination/ListHeader 모두 HTML 재구성
 
 ## 뉴스 상세 (/news/:id)
+- [x] news-detail-breadcrumb (G1 1.20% ref / G5-G8 PASS / structure: token_ratio=0.2+, abs=0, sem=4)
 
 ## 갤러리 (/gallery)
 
