@@ -1,1 +1,0 @@
-export { AboutValues } from "./AboutValues";

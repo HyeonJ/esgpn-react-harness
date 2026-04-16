@@ -1,1 +1,0 @@
-export { AboutVision } from "./AboutVision";

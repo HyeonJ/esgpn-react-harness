@@ -1,1 +1,0 @@
-export { NewsFeatured } from "./NewsFeatured";

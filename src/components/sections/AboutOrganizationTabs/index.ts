@@ -1,1 +1,0 @@
-export { AboutOrganizationTabs } from "./AboutOrganizationTabs";

@@ -1,1 +1,0 @@
-export { NewsTabs } from "./NewsTabs";

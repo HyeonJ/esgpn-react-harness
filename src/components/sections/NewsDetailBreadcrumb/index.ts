@@ -1,1 +1,0 @@
-export { NewsDetailBreadcrumb } from "./NewsDetailBreadcrumb";

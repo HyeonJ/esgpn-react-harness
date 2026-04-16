@@ -1,1 +1,0 @@
-export { AboutOrganizationPanorama } from "./AboutOrganizationPanorama";

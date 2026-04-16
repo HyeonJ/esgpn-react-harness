@@ -1,1 +1,0 @@
-export { GalleryTitle } from "./GalleryTitle";
