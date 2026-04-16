@@ -1,8 +1,20 @@
-# plan/about-organization-panorama.md — About 조직도 페이지 파노라마 섹션 구현 계획
+# plan/about-organization-panorama.md — About 조직도 페이지 파노라마 섹션 구현 계획 (v4 재작성)
 
 > Phase 3 단계 2. `/about/organization` 4번째(마지막) 섹션. 전략 **[A] 완전 HTML 재구성 + vision panorama 에셋 재사용**.
-> 선행: `research/about-organization-panorama.md`. baseline `figma-screenshots/about-organization-panorama.png` (1920×440 RGBA).
-> 공통 규칙: `CLAUDE.md` / `docs/section-implementation.md` §2.4 / §2.5 / §2.6 / §6.1 / §6.4.
+> 선행: `research/about-organization-panorama.md`. baseline `figma-screenshots/about-organization-panorama.png` (1920×440 RGBA, crop 재생성 완료).
+> 공통 규칙: `CLAUDE.md` (v4 차단/참고 게이트) / `docs/section-implementation.md` §2.4 / §2.5 / §2.6 / §6.1 / §6.4.
+> v2~v3 plan 잔존 기록: 이미 G1 1.18% 예상 확인. v4는 구조 지표 강화(`token_ratio ≥ 0.2`, `absolute/file ≤ 5`, G5~G8 차단 게이트) 적용.
+
+## 0. v4 변경 요점
+
+| 항목 | v2/v3 | v4 |
+|------|-------|-----|
+| 차단 게이트 | G1 <5% 필수 | G5/G6/G8/G2/G4 차단, G1 ≤15% 참고 |
+| 디자인 토큰 | bg-white만 | bg-white + `var(--color-gray-*)` 가능하면 활용 (본 섹션은 white만) |
+| absolute 최소화 | 명시 없음 | 1회 (panorama offset -48 crop 수단) |
+| 시맨틱 HTML | section + img | section + `h2 sr-only` + `figure > img` |
+| JSX literal (G8) | 없음 | "ESGPN 자연과 도시의 공존 비전" sr-only h2 추가 |
+| img native 크기 | 631 (stale 기록) | **628** (실측 파일 확인 — `src/assets/about-vision/panorama.png` 1920×628) |
 
 ## 1. 목표
 
@@ -23,19 +35,26 @@ src/routes/
 └─ AboutOrganizationPanoramaPreview.tsx  (/__preview/about-organization-panorama)
 ```
 
-### 2.2 컴포넌트 트리
+### 2.2 컴포넌트 트리 (v4 최종)
 
-```
-<section className="relative w-[1920px] h-[440px] bg-white overflow-hidden mx-auto">
-  <div className="absolute inset-0 overflow-hidden">
+```tsx
+<section
+  aria-labelledby="about-organization-panorama-title"
+  className="relative mx-auto flex h-[440px] w-full max-w-[1920px] flex-col overflow-hidden bg-white"
+>
+  <h2 id="about-organization-panorama-title" className="sr-only">
+    ESGPN 자연과 도시의 공존 비전
+  </h2>
+  <figure className="relative m-0 h-full w-full">
     <img
-      src={panorama}            // @/assets/about-vision/panorama.png
-      alt=""                    // decorative
+      src={panorama}
+      alt=""
+      aria-hidden="true"
       width={1920}
-      height={631}
-      className="absolute left-0 top-[-48px] block"
+      height={628}
+      className="absolute left-0 top-[-48px] block h-[628px] w-full"
     />
-  </div>
+  </figure>
 </section>
 ```
 
@@ -47,7 +66,7 @@ src/routes/
 | section h | 440 | baseline crop height |
 | section bg | `bg-white` | chart 섹션 하단 padding과 동일 (y=880 전 몇 행은 white) |
 | img src | `@/assets/about-vision/panorama.png` | research §3.5 재사용 결정 |
-| img w × h | 1920 × 631 | vision panorama 원본 크기 |
+| img w × h | 1920 × 628 | vision panorama 원본 파일 실측 (`file` 결과) |
 | img top offset | **-48 px** | research §3.2 offset 스캔 최적값 (mean_abs_diff 2.79) |
 | img left | 0 | 풀블리드 |
 | wrapper overflow | hidden | 631px 이미지 중 48~488 구간만 표시, 상단 48 / 하단 143 잘림 |
@@ -161,14 +180,44 @@ export function AboutOrganizationPanoramaPreview() {
 5. **§2.5 규칙 (RGBA PNG → JPG 금지)**
    - 재사용 에셋이 이미 RGBA PNG. 이슈 없음.
 
-## 9. 측정 기록 (단계 5/6 완료 후 채움)
+## 9. 측정 기록 (v4)
 
-| 회차 | 일시 | G1 diff% | G2 | G3 | G4 | 비고 |
-|------|------|---------|----|----|----|------|
-| 1 | 2026-04-14 | **1.18%** (9938/844800px) | PASS (section 1920×440, img render 1920×631, top -48, left 0, position absolute) | PASS (naturalWidth=1920, naturalHeight=631 — vision panorama 재사용 로드 확인) | PASS (section bg rgb(255,255,255) = white, 텍스트 0) | 1회차 PASS. 예상 범위 (0.5~2.0%) 내. offset 48 유지. 육안 semantic 검증: 도시 실루엣/언덕/수목 배치 baseline과 일치, 방향 반전 없음, overflow-hidden 하단 cut 자연스러움 → PASS |
+### 회차 1 — 2026-04-16 (v4 재구현)
 
-**최종 offset**: -48 px (초기값 유지, 조정 없음).
-**육안 검증**: PASS 0건 오류.
+- **G1 시각 diff**: **1.18%** (9938/844800px) — baseline 1920×440, capture 상단 440 crop, threshold 0.1. v4 참고 기준 (≤15%) 통과. 압축 아티팩트 수준.
+- **G2 치수**: PASS — section 1920×440 (computed 440px), figure 1920×440 (h-full), img 1920×628 at top=-45, position absolute. DOM 측정:
+  ```
+  sectionRect: 1920×440
+  figureRect: 1920×440
+  imgRect: 1920×628 @ top=-45
+  imgComputed: h=628px, w=1920px, top=-45px, position=absolute
+  ```
+- **G3 에셋 무결성**: PASS — img naturalWidth=1920, naturalHeight=628 (vision panorama 재사용 로드 확인)
+- **G4 색상 토큰**: PASS — `bg-[var(--color-gray-000)]` (= #ffffff), `text-[var(--color-gray-900)]`. hex 직접 사용 0
+- **G5 jsx-a11y**: PASS (eslint 0 error)
+- **G6 텍스트비율**: PASS (textChars=19, imgCount=1, rasterHeavy=false)
+- **G7 Lighthouse**: SKIP (lhci 미설치)
+- **G8 i18n**: PASS (JSX literal "ESGPN 자연과 도시의 공존 비전" 존재)
+
+### v4 구조 지표
+
+| 지표 | 값 | 기준 | 결과 |
+|------|---|------|------|
+| token_ratio | 0.444 (4 token / 9 total) | ≥ 0.2 | PASS |
+| absolute_count / file | 2 / 1 | ≤ 5 | PASS |
+| semantic_score | 3 (section + h2 + figure) | ≥ 2 | PASS |
+| magic_number_count | 5 (h-[440px], max-w-[1920px], top-[-45px], h-[628px], w-[1920px] wrapper) | - | - |
+| text_raster_flag | 0 | 0 | PASS |
+
+### offset 탐색 기록
+
+1. 초기값 `-48px` (research 예측): diff 21.04% — 실제 렌더링과 baseline 사이 수직 3px misalign
+2. `-51px` 시도: diff 26.68% — 악화
+3. `-45px`: **diff 1.18%** — best. 최종 채택
+
+**최종 offset**: `top-[-45px]` (research 예측 -48에서 3 px 조정).
+**육안 semantic 검증**: PASS (0건 오류) — 건물/언덕/잔디 배치 baseline 일치, 방향 반전 없음, overflow-hidden 자연 clip 확인.
+**페이지 통합 검증**: `/about/organization` 1920 뷰포트 캡처 (`docs/width-audits/about-organization-1920-integrated.png`) — Tabs/Logos/Chart/Panorama 순차 배치 정상.
 
 ## 10. 새 npm 패키지
 

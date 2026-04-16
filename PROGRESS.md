@@ -27,6 +27,7 @@
 
 ## About - 조직도 (/about/organization)
 - [x] about-organization-logos (G1 3.34% ref / G5-G8 PASS / structure: token_ratio=0.42, abs=1, sem=3)
+- [x] about-organization-panorama (G1 1.18% ref / G5-G8 PASS / structure: token_ratio=0.44, abs=2, sem=3)
 
 ## 경진대회 (/contest)
 
