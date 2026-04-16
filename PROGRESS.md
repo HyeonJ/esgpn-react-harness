@@ -41,6 +41,7 @@
 
 ## 뉴스 목록 (/news)
 - [x] news-tabs (G1 1.07% ref / G5-G8 PASS / structure: token_ratio=0.78, abs=0, sem=2)
+- [x] news-featured (G1 10.38% ref / G5-G8 PASS / structure: token_ratio=0.56, abs=0, sem=6)
 
 ## 뉴스 상세 (/news/:id)
 
