@@ -123,7 +123,7 @@ export function AboutValues() {
         ))}
       </div>
 
-      <HatchedDivider className="pb-[var(--spacing-0)]" />
+      {/* 하단 divider 제거 — 다음 섹션의 top divider와 중복 (F-010). top-only 규칙 */}
     </section>
   );
 }

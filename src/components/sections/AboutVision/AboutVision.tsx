@@ -1,3 +1,4 @@
+import { HatchedDivider } from "@/components/ui/HatchedDivider";
 import panorama from "@/assets/about-vision/panorama.png";
 
 /**
@@ -25,6 +26,9 @@ export function AboutVision() {
       className="mx-auto flex w-full max-w-[1920px] flex-col bg-white"
       aria-labelledby="about-vision-title"
     >
+      {/* 상단 divider (F-010 top-only 규칙) */}
+      <HatchedDivider className="pt-[var(--spacing-0)]" />
+
       {/* sr-only 제목 — semantic 구조 확보 */}
       <h2 id="about-vision-title" className="sr-only">
         ESGPN 비전 선언

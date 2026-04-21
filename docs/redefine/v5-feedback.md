@@ -67,6 +67,18 @@
 - **원인**: page-researcher가 탭 구조 없다고 판단 (MainProgramsHeader 내부에서 탭 노드 발견 못함). 실제로는 별도 노드(252:993)에 탭 존재
 - **v5 개선**: page-researcher가 "탭/슬라이더 키워드" 감지 시 하위 노드 전수 탐색. 섹션 분할 시 interactive UI 요소 체크리스트
 
+### F-010 (I, S) — 섹션 독립 구현 시 divider 중복
+- **섹션**: AboutMission, AboutValues (하단 divider + 다음 섹션 top divider = 2개 겹침)
+- **증상**: 섹션 경계에 HatchedDivider가 2줄 겹쳐서 렌더
+- **원인**: 섹션마다 독립적으로 "top divider + content + bottom divider" 패턴 구현. 인접 섹션 합쳐지면 boundary에 2개 divider
+- **v5 규칙 (V5-8 신규)**: **top-only 규칙 채택**
+  - 각 섹션은 **상단 divider만** 가짐 (필요 시)
+  - 첫 섹션(페이지 header 직후)은 divider 생략 가능
+  - 마지막 섹션도 top 유지 (페이지 하단 자연 종료)
+  - 예외: 단일 섹션 페이지거나 명확한 "외곽선" 필요한 경우만 양쪽
+- **대상**: `section-implementer` prompt에 V5-8 추가
+- **실증 해결**: AboutMission/Values bottom divider 제거, AboutVision top divider 추가 → 모든 경계 1개
+
 ### F-009 (I, S) — Figma 복잡 compositing 이미지 재현 한계
 - **섹션**: AboutValues (4개 아이콘)
 - **증상**: rounded frame은 맞지만 아이콘 내부가 왜곡돼 "green blob"으로 보임

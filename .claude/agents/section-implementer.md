@@ -156,6 +156,15 @@ Figma `cropTransform` 행렬을 CSS로 직접 번역 시 우선순위:
 - 가운데 빈 공간 > 200px 예상되면 `gap-[N]` + `justify-start/center` 사용 권장
 - 흔한 오류: 좌측 텍스트 + 우측 이미지를 `justify-between`으로 처리 → 가운데 400px+ 빈 공간
 
+**v5-8: Divider top-only 규칙 (F-010)**
+섹션 경계 divider (HatchedDivider 등) 배치 시:
+- 각 섹션은 **상단 divider만** 가짐 (하단 divider 금지)
+- 첫 섹션(페이지 header 직후)은 divider 생략 가능
+- 마지막 섹션도 top 유지
+- 예외: 단일 섹션 페이지 또는 명확한 외곽선 목적
+
+이유: 섹션 독립 구현 + 페이지 통합 시 인접 섹션 경계에 top(다음) + bottom(이전) 2개 divider 중복됨. top-only 규칙으로 경계당 1개 보장.
+
 **v5-5: SVG marker orient (F-002)**
 `<marker>` 요소 사용 시:
 - 수직/수평 고정 방향 선 (대부분 connector diagram) → `orient="0"` (회전 없음)
