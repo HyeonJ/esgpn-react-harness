@@ -90,13 +90,52 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 - `any`/`unknown` 금지
 - 빌드/린트/타입체크 통과 확인
 
-#### v5 CSS/레이아웃 규칙 (F-002/003/004/005/006 반영)
+#### v5 CSS/레이아웃 규칙 (F-002/003/004/005/006/008/009 반영)
 
-**v5-1: Image crop 패턴 (F-003)**
-Figma `cropTransform` 행렬 발견 시 번역 우선순위:
-1. **1순위**: `object-fit: cover/contain` + `object-position` — 대부분 케이스
-2. **2순위**: `background-image` + `background-size/position` — 장식 bg
-3. **금지**: `position: absolute; left: -X%; width: >100%;` negative-offset 패턴 (에셋 크기 바뀌면 깨짐)
+**v5-0: 에셋 획득 전략 — Framelink vs REST API (F-008/F-009 핵심)**
+
+Figma 이미지 에셋 획득 시 **반드시** 아래 판별:
+
+| 케이스 | 도구 |
+|---|---|
+| Leaf raw image (단순 1장 이미지, cropTransform·flip·multi-layer 없음) | Framelink `download_figma_images` |
+| **composed frame** (rounded corners + cropTransform / 음수 width/height / 여러 이미지 overlay) | **Figma REST Images API 직접 사용** |
+
+**composed frame 판별 기준** (design_context에서 하나라도 발견 시):
+- `cropTransform` 행렬 존재 (`h:N% left:N% top:N%` 같은 퍼센트 offset)
+- 음수 width/height (`w-[-126%]` = scaleX(-1) 수평 flip)
+- 부모 frame 안에 여러 이미지 overlay (multi-layer composite)
+
+**REST API 사용법**:
+```bash
+# 1. FIGMA_TOKEN 환경변수 확보 (user scope env var)
+TOKEN=$(powershell -Command "[Environment]::GetEnvironmentVariable('FIGMA_TOKEN', 'User')" | tr -d '\r\n')
+
+# 2. frame node PNG URL 받기 (scale=2 권장)
+curl "https://api.figma.com/v1/images/{fileKey}?ids={nodeId1},{nodeId2}&format=png&scale=2" \
+  -H "X-Figma-Token: $TOKEN"
+# 반환: { "images": { "nodeId": "https://figma-alpha-api..." } }
+
+# 3. S3 URL에서 PNG 다운로드
+curl "$s3_url" -o src/assets/{section}/{name}.png
+```
+
+**특징**:
+- Figma가 직접 rendering → cropTransform·flip·multi-layer 모두 **baked**
+- alpha 채널에 `rounded-[N]` 포함 → **wrapper div 불필요**
+- 코드 1줄: `<img src={asset} className="size-[N]" />`
+- scale=2로 retina 해상도 확보 (frame 141 → PNG 282×282)
+
+**실증 케이스**:
+- AboutValues 4 아이콘: Framelink 124×122 잘린 에셋 → REST 282×282 완성 composition
+- AboutMission 2 사진: Framelink 357×359 잘못된 crop → REST 720×720 완성 composition
+
+**v5-1: Image crop 패턴 (F-003) — 레거시 Framelink 에셋만 대상**
+위 v5-0 REST API로 해결 불가한 경우(예: 외부 이미지 URL)에만 적용.
+Figma `cropTransform` 행렬을 CSS로 직접 번역 시 우선순위:
+1. **1순위**: `object-fit: cover/contain` + `object-position`
+2. **2순위**: `background-image` + `background-size/position`
+3. **금지**: `position: absolute; left: -X%; width: >100%;` negative-offset 패턴
 
 예: `class="absolute left-[-22%] top-[-6%] w-[162%] h-[113%]"` ❌ → `class="w-full h-full object-cover object-[center_top]"` ✅
 

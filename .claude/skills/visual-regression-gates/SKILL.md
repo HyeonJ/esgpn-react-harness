@@ -68,6 +68,21 @@ node scripts/check-structure-quality.mjs --section={섹션명}
 - 권장 대안: `class="w-full h-full object-cover object-[center_top]"`
 - `cropTransform` 행렬을 1:1 CSS 좌표로 번역하지 말 것
 
+### Figma composed frame (F-008/F-009) — REST API 사용
+design_context에 아래 발견 시 Framelink 대신 **Figma REST Images API** 사용:
+- `cropTransform` 행렬 (h/w/top/left 퍼센트 offset)
+- 음수 width/height (`w-[-126%]` = 수평 flip)
+- 여러 이미지 overlay (multi-layer composite)
+
+```bash
+TOKEN=$(powershell -Command "[Environment]::GetEnvironmentVariable('FIGMA_TOKEN', 'User')")
+curl "https://api.figma.com/v1/images/{fileKey}?ids={nodeId}&format=png&scale=2" \
+  -H "X-Figma-Token: $TOKEN"
+```
+
+반환 PNG는 Figma rendering (crop/flip/overlay 모두 baked, alpha에 rounded 포함).
+코드 1줄: `<img src={asset} className="size-[N]" />`
+
 ### Grid cell 같은 레이어에 items-center (F-004)
 - `grid` + `col-start-N row-start-N` 같은 cell에 여러 형제 요소 있을 때 `items-center`는 침범 유발
 - 기본 `items-start` 사용
