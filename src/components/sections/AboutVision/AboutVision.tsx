@@ -35,10 +35,8 @@ export function AboutVision() {
       </h2>
 
       {/* 텍스트 블록 — 중앙정렬, gap 16px (Figma layout_KRZ5I8).
-          leading은 Figma spec(1.5/1.4) 그대로 유지하되, 감사합니다의 line-box
-          descender 공간이 baseline 파노라마 위치(y=155)를 밀어내지 않도록
-          감사 p에 leading-[18px] 적용 (cap 15 + 1px 상하 buffer). */}
-      <div className="flex flex-col items-center gap-[var(--spacing-4)] pt-[65px] pb-[8px]">
+          V5-9 적용: pt-65/pb-8 시각 추정 제거. divider my-56 + parent 구조로 spacing 처리. */}
+      <div className="flex flex-col items-center gap-[var(--spacing-4)]">
         <p
           className="whitespace-nowrap text-center text-[16px] font-normal leading-[1.5] tracking-[-0.16px] text-[var(--color-gray-900)]"
           style={{ fontFamily: "var(--font-family-pretendard)" }}

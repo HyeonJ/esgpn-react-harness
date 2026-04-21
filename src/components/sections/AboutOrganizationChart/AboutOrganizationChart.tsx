@@ -28,12 +28,13 @@ const TIER2_PILL = `${TIER2_BOX} rounded-full bg-[var(--color-brand-500)] text-w
 const TIER2_PRIMARY = `${TIER2_BOX} rounded-[10px] bg-[var(--color-brand-700)] text-white`;
 const TIER3_GHOST = "w-[302px] h-[57px] flex items-center justify-center text-[15px] font-medium tracking-[-0.3px] rounded-[6px] bg-[var(--color-gray-100)] text-[var(--color-gray-900)]";
 
-/** Connector line + end dot. flow layout (absolute 없음). */
+/** Connector line + end dot. flow layout (absolute 없음).
+ *  Figma 91:1592/1593 h=64 (Tier2 ↔ Tier3 parent gap). V5-9 적용. */
 function Connector() {
   return (
     <div
       aria-hidden="true"
-      className="h-[61px] w-[2px] bg-[var(--color-brand-700)] relative after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-[-3px] after:h-[5px] after:w-[5px] after:rounded-full after:bg-[var(--color-brand-700)]"
+      className="h-[64px] w-[2px] bg-[var(--color-brand-700)] relative after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-[-3px] after:h-[5px] after:w-[5px] after:rounded-full after:bg-[var(--color-brand-700)]"
     />
   );
 }
@@ -52,12 +53,17 @@ export function AboutOrganizationChart() {
       {/* 상단 divider with label */}
       <HatchedDivider label="실행 구조" />
 
-      {/* 트리 — Tier 2 가로 + Tier 3 parent→children 중첩 */}
+      {/* 트리 — Tier 2 가로 + Tier 3 parent→children 중첩.
+          V5-9 적용: Figma 89:1295 spec 실측 (mt/gap 시각 추정 → Figma 정확값)
+          - nav mt: Figma 299:2611 `gap-[24px]` (divider label group → tree)
+          - Tier2 ul gap: Figma 91:1596 `gap-[16px]`
+          - Tier3 ul gap: Figma 91:1578/1585 `gap-[19px]` (유지)
+          - Connector: Figma 91:1592 `h-[64px]` (mt-10 제거) */}
       <nav
         aria-label="ESGPN 실행 구조 트리"
-        className="mt-[31px] mb-[17px]"
+        className="mt-[24px]"
       >
-        <ul className="flex items-start gap-[17px]">
+        <ul className="flex items-start gap-[16px]">
           {/* Tier 2-1: standalone pill (no connector, no children) */}
           <li>
             <div className={TIER2_PILL}>COLiVE, ESG마인드 자격검정</div>
@@ -67,7 +73,7 @@ export function AboutOrganizationChart() {
           <li className="flex flex-col items-center">
             <div className={TIER2_PRIMARY}>ESG실천 아이디어 경진대회</div>
             <Connector />
-            <ul className="flex flex-col gap-[19px] mt-[10px]">
+            <ul className="flex flex-col gap-[19px]">
               <li className={TIER3_GHOST}>ESG 대학생 부문</li>
               <li className={TIER3_GHOST}>기업 실전사례 부문</li>
               <li className={TIER3_GHOST}>지역사회 부문</li>
@@ -78,7 +84,7 @@ export function AboutOrganizationChart() {
           <li className="flex flex-col items-center">
             <div className={TIER2_PRIMARY}>사회공헌활동</div>
             <Connector />
-            <ul className="flex flex-col gap-[19px] mt-[10px]">
+            <ul className="flex flex-col gap-[19px]">
               <li className={TIER3_GHOST}>ESG 실천 캠페인</li>
               <li className={TIER3_GHOST}>봉사활동(프로보노)</li>
               <li className={TIER3_GHOST}>기업 협력</li>
