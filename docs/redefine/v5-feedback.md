@@ -115,6 +115,41 @@ _TBD — F 엔트리 20+ 누적 후 패턴 기반으로 작성_
 
 ---
 
+## F-008/F-009 실전 해결책 (2026-04-21)
+
+### 근본 해결: Figma REST Images API로 frame composition 직접 export
+
+Pre-cropped Framelink 에셋의 문제 (잘못된 crop 영역 / 복잡 compositing 재현 불가)를 근본 해결.
+
+**방법**:
+```bash
+TOKEN=$(powershell -Command "[Environment]::GetEnvironmentVariable('FIGMA_TOKEN', 'User')")
+# 1. 노드 id들로 rendered PNG URL 받기
+curl "https://api.figma.com/v1/images/{fileKey}?ids={n1,n2,n3}&format=png&scale=2" \
+  -H "X-Figma-Token: $TOKEN"
+# 2. 반환 JSON의 images.{nodeId} S3 URL에서 PNG 다운로드
+curl "$s3_url" -o src/assets/.../icon.png
+```
+
+**특징**:
+- `scale=2` 권장 (retina/고해상도). 141 frame → 282×282 PNG
+- Figma가 직접 rendering해서 반환 — **cropTransform/flip/multi-layer 모두 baked**
+- alpha 채널에 `rounded-[N]` 포함 (wrapper 불필요)
+- 코드 단순화: `<img src={asset} className="size-[141px]" />` 한 줄
+
+**실증 케이스**:
+- AboutValues 4 아이콘 (89:1236/1241/1247/1252): pre-cropped 124×122 잘린 → REST export 282×282 완성 composition
+- AboutMission 2 사진 (86:1157/1165): pre-cropped 357×359/145×161 잘못된 영역 → REST export 720×720/324×324 완성 composition
+
+**v5-3-c 권고 (section-implementer prompt)**:
+- Framelink `download_figma_images`는 **leaf asset 용도만** (raw Rectangle image 등)
+- **composed frame** (rounded + crop transform + flip 포함된 경우)은 **Figma REST Images API 직접 사용**
+  - endpoint: `https://api.figma.com/v1/images/{fileKey}?ids={nodeId}&format=png&scale=2`
+  - 결과: cropTransform/flip/multi-layer 모두 baked된 flat PNG
+- 판별 기준: Figma design_context에 `cropTransform` 또는 **음수 width/height** 발견 시 REST API 우선
+
+---
+
 ## V5 MVP 검증 결과 (2026-04-21)
 
 ### V5-1 Flatten 재탐색 검증 — **PASS 🎯**

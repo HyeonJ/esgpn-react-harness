@@ -71,14 +71,16 @@ export function AboutMission() {
           </div>
         </div>
 
-        {/* 이미지 그룹 (하단) — 대 우측 / 소 중앙, 소가 대의 좌측 아래 겹침 */}
+        {/* 이미지 그룹 (하단) — 대 우측 / 소 중앙, 소가 대의 좌측 아래 겹침
+            Figma 완성 composition (86:1157, 86:1165) REST API export.
+            rounded-[32px] alpha 포함, 단순 <img> 1개로 충분 (F-008 해결) */}
         <div className="flex flex-col pb-[87px] w-[936px]">
           {/* 대 이미지 — 우측 정렬, 아래로 -87px overlap */}
           <figure className="flex items-center justify-end w-full mb-[-87px]">
             <img
               src={photoLarge}
               alt="ESGPN 활동 현장 — 도시 전경"
-              className="size-[360px] rounded-[32px] object-cover"
+              className="size-[360px] shrink-0"
             />
           </figure>
           {/* 소 이미지 — 중앙 정렬 */}
@@ -86,7 +88,7 @@ export function AboutMission() {
             <img
               src={photoSmall}
               alt="ESGPN 활동 현장 — 자연 속 손"
-              className="size-[162px] rounded-[32px] object-cover"
+              className="size-[162px] shrink-0"
             />
           </figure>
         </div>

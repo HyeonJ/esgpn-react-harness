@@ -93,15 +93,14 @@ export function AboutValues() {
                 key={v.title}
                 className="flex flex-1 flex-col items-center justify-center gap-[20px] min-w-0"
               >
-                {/* Icon frame: 141×141 rounded-[24px] — 아이콘은 natural 크기 중앙 배치
-                    (pre-cropped 에셋이라 object-cover로 강제 스케일하면 왜곡. F-008 참조) */}
-                <div className="flex size-[141px] items-center justify-center overflow-hidden rounded-[24px] shrink-0">
-                  <img
-                    src={v.icon}
-                    alt={v.iconAlt}
-                    className="max-w-full max-h-full"
-                  />
-                </div>
+                {/* 141×141 icon — Figma 완성 composition (89:1236/1241/1247/1252) REST API export.
+                    rounded-[24px] alpha 포함, 단순 <img> 1개로 충분 (F-008/F-009 해결) */}
+                <img
+                  src={v.icon}
+                  alt={v.iconAlt}
+                  className="size-[141px] shrink-0"
+                />
+
 
                 {/* Text block */}
                 <div className="flex w-full flex-col items-center gap-[12px] text-center">
