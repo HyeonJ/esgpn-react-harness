@@ -156,6 +156,35 @@ Figma `cropTransform` 행렬을 CSS로 직접 번역 시 우선순위:
 - 가운데 빈 공간 > 200px 예상되면 `gap-[N]` + `justify-start/center` 사용 권장
 - 흔한 오류: 좌측 텍스트 + 우측 이미지를 `justify-between`으로 처리 → 가운데 400px+ 빈 공간
 
+**v5-9: Figma spacing 값 명시적 추출 (F-011, 가장 자주 발생)**
+
+섹션 전반의 padding/gap/margin 값은 **반드시 design_context에서 명시적 추출**. 시각 추정 금지.
+
+- 단계 2 plan 작성 시 **모든 spacing 값을 numbered list로 명시**:
+  ```
+  - section padding: {top/right/bottom/left}
+  - wrapper gap: {N}
+  - heading to body: {N}
+  - body to CTA: {N}
+  - card internal padding: {N}
+  ```
+- 각 값은 Figma auto-layout object의 `padding-*` / `gap` 그대로
+- 의심 시 design_context **재fetch 후 확인**
+- 구현 완료 후 브라우저 `getComputedStyle`로 각 요소 padding 실측 → Figma spec과 ±1px 이내 일치 검증
+
+**흔한 오류 패턴 (F-011)**:
+- Figma spec 56 → 코드 66 (시각 추정)
+- padding-top만 적용, padding-bottom 누락 (한쪽만)
+- 부모 padding + 자식 padding 중복 (nested 해석 오류)
+- 섹션 경계 spacing이 이전/현재 섹션에 분리 구현 → 값 불일치
+
+**v5-10: Component 기본 spacing (F-011 연장)**
+
+반복 등장하는 UI element (divider, heading, card 등)는 **component 자체가 기본 spacing 보유**:
+- 예: `<HatchedDivider />` 기본 `my-[56px]`
+- 호출 측에서 `className` override 가능
+- 이유: 섹션별로 spacing 외부 주입 시 값 불일치 → component 기본으로 통일
+
 **v5-8: Divider top-only 규칙 (F-010)**
 섹션 경계 divider (HatchedDivider 등) 배치 시:
 - 각 섹션은 **상단 divider만** 가짐 (하단 divider 금지)

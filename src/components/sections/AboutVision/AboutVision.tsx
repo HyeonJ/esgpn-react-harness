@@ -27,7 +27,7 @@ export function AboutVision() {
       aria-labelledby="about-vision-title"
     >
       {/* 상단 divider (F-010 top-only 규칙) */}
-      <HatchedDivider className="pt-[var(--spacing-0)]" />
+      <HatchedDivider className="my-[56px]" />
 
       {/* sr-only 제목 — semantic 구조 확보 */}
       <h2 id="about-vision-title" className="sr-only">

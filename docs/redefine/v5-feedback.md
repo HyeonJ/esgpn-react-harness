@@ -67,6 +67,30 @@
 - **원인**: page-researcher가 탭 구조 없다고 판단 (MainProgramsHeader 내부에서 탭 노드 발견 못함). 실제로는 별도 노드(252:993)에 탭 존재
 - **v5 개선**: page-researcher가 "탭/슬라이더 키워드" 감지 시 하위 노드 전수 탐색. 섹션 분할 시 interactive UI 요소 체크리스트
 
+### F-011 (I, S) — Figma padding/spacing 값 번역 부정확 (범용 패턴, 가장 자주 발생)
+- **범위**: **섹션 전반.** divider 주변만이 아니라 카드 내부, section content 상하/좌우, 요소 간 gap 등 **모든 spacing** 해당
+- **증상**:
+  - Figma spec 값과 코드 값이 어긋남 (예: Figma 56, 우리 66)
+  - padding이 있어야 할 쪽이 누락 (pt만 있고 pb 없음, 또는 그 반대)
+  - 중복 padding (부모 + 자식 모두 padding → 누적)
+  - 시각 추정으로 부정확 (baseline PNG 눈대중)
+- **원인**:
+  1. Figma design_context의 auto-layout padding이 CSS로 1:1 번역 시 손실
+  2. nested padding 구조 (wrapper + inner + content) 해석 오류로 중복/누락
+  3. 시각 추정 의존 (design_context 값 확인 안 하고 픽셀 추측)
+  4. 섹션 경계 spacing이 "이전 섹션 bottom vs 현 섹션 top" 분리 구현돼 일관성 깨짐
+- **v5 규칙 (V5-9 신규)**: **모든 spacing은 design_context에서 명시적 확보**
+  - Figma design_context fetch 시 각 layout object의 `padding-top/right/bottom/left`, `gap` 값 **숫자로 기록**
+  - 시각 추정 (baseline PNG 눈대중) **금지** — 반드시 design_context 값 사용
+  - 의심 시 design_context 재fetch로 확인
+  - 구현 후 DOM 측정(`getComputedStyle`)으로 각 요소 padding 값이 Figma spec과 일치하는지 검증
+- **v5 규칙 (V5-10 신규)**: **component-level 기본 spacing**
+  - 반복 등장하는 element (divider, heading 등)는 **component가 자체 기본 spacing 보유**
+  - 예: `<HatchedDivider />` 기본 `my-[56px]`, override 가능
+  - 이유: 섹션별로 값을 외부에서 주입하면 불일치 발생. component 기본 spacing으로 통일
+- **실증 해결 1**: AboutMission/Values/Vision HatchedDivider를 `my-[56px]`로 통일 + 섹션 content의 `pt-[66px] pb-[71px]` 제거 (spacing 책임을 divider에 위임)
+- **실증 해결 2 (권장)**: section-implementer prompt에 "단계 2 plan 작성 시 모든 spacing 값을 design_context에서 추출한 numbered list로 명시" 추가
+
 ### F-010 (I, S) — 섹션 독립 구현 시 divider 중복
 - **섹션**: AboutMission, AboutValues (하단 divider + 다음 섹션 top divider = 2개 겹침)
 - **증상**: 섹션 경계에 HatchedDivider가 2줄 겹쳐서 렌더

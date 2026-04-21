@@ -22,11 +22,12 @@ export function AboutMission() {
       className="mx-auto flex flex-col w-full max-w-[1920px] bg-gray-000"
       aria-labelledby="about-mission-title"
     >
-      {/* 상단 divider */}
-      <HatchedDivider className="pt-[var(--spacing-0)]" />
+      {/* 상단 divider — 위아래 56px 여백 (F-010/divider spacing) */}
+      <HatchedDivider className="my-[56px]" />
 
-      {/* 본문: 텍스트 → 대 이미지 → 소 이미지 세로 스택 (Figma 86:1163 구조) */}
-      <div className="flex flex-col px-[492px] pt-[66px] pb-[71px]">
+      {/* 본문: 텍스트 → 대 이미지 → 소 이미지 세로 스택 (Figma 86:1163 구조)
+          padding 없음 — 위아래 spacing은 divider my-56가 담당 */}
+      <div className="flex flex-col px-[492px]">
         {/* 텍스트 블록 (상단) */}
         <div className="flex flex-col gap-[32px] w-[936px] mb-[-71px]">
           <h2

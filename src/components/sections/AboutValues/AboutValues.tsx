@@ -74,7 +74,7 @@ export function AboutValues() {
       className="mx-auto flex w-full max-w-[1920px] flex-col bg-[var(--color-gray-000)]"
       aria-labelledby="about-values-title"
     >
-      <HatchedDivider className="pt-[var(--spacing-0)]" />
+      <HatchedDivider className="my-[56px]" />
 
       <h2 id="about-values-title" className="sr-only">
         ESG실천네트워크 4가지 핵심 가치
