@@ -178,6 +178,14 @@ Figma `cropTransform` 행렬을 CSS로 직접 번역 시 우선순위:
 - 부모 padding + 자식 padding 중복 (nested 해석 오류)
 - 섹션 경계 spacing이 이전/현재 섹션에 분리 구현 → 값 불일치
 
+**자동 검출 도구 (F-011 차단 게이트)**:
+단계 5 구현 완료 후 **반드시** 실행:
+```bash
+npm run check:spacing /{라우트}
+```
+검출: NON_STANDARD (4배수 외), ASYMMETRIC_PADDING (한쪽만), LR_MISMATCH (좌우 불균형).
+FAIL 시 단계 4로 반송. 각 flag를 Figma design_context 값과 대조 후 수정.
+
 **v5-10: Component 기본 spacing (F-011 연장)**
 
 반복 등장하는 UI element (divider, heading, card 등)는 **component 자체가 기본 spacing 보유**:

@@ -68,6 +68,25 @@ node scripts/check-structure-quality.mjs --section={섹션명}
 - 권장 대안: `class="w-full h-full object-cover object-[center_top]"`
 - `cropTransform` 행렬을 1:1 CSS 좌표로 번역하지 말 것
 
+### Spacing audit (F-011) — 자동 검출 도구
+```bash
+# 단일 페이지
+npm run check:spacing /about
+
+# 뷰포트 지정
+node scripts/check-spacing-audit.mjs /about --viewport=1440
+
+# JSON 출력 (CI/자동화)
+node scripts/check-spacing-audit.mjs / --json
+```
+
+검출 패턴:
+- **NON_STANDARD**: 4의 배수 아닌 값 (65, 66, 71 등) — 시각 추정 의심
+- **ASYMMETRIC_PADDING**: 한쪽만 padding (pt-160이고 pb-0 같은) — F-011 대표 증상
+- **LR_MISMATCH**: 좌우 padding 16+ 차이
+
+Dev server 실행 상태에서 동작. 섹션 구현 후 필수 실행 (수동 확인 가능).
+
 ### Figma composed frame (F-008/F-009) — REST API 사용
 design_context에 아래 발견 시 Framelink 대신 **Figma REST Images API** 사용:
 - `cropTransform` 행렬 (h/w/top/left 퍼센트 offset)

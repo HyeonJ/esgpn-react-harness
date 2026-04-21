@@ -18,6 +18,7 @@
     "check:composite": "node scripts/check-composite-diff.mjs",
     "check:placeholder": "node scripts/detect-placeholder-text.mjs",
     "check:export-targets": "node scripts/check-figma-export-targets.mjs",
+    "check:spacing": "node scripts/check-spacing-audit.mjs",
     "rembg:icon": "python scripts/rembg-icon.py"
   },
   "dependencies": {
