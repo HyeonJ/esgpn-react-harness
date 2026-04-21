@@ -91,6 +91,20 @@
 - **실증 해결 1**: AboutMission/Values/Vision HatchedDivider를 `my-[56px]`로 통일 + 섹션 content의 `pt-[66px] pb-[71px]` 제거 (spacing 책임을 divider에 위임)
 - **실증 해결 2 (권장)**: section-implementer prompt에 "단계 2 plan 작성 시 모든 spacing 값을 design_context에서 추출한 numbered list로 명시" 추가
 
+### F-012 (I, S) — Figma negative margin overlap 패턴 CSS 1:1 번역 오류 (누적 발생)
+- **섹션**: AboutMission 이미지 그룹
+- **증상**: Figma의 `pb-[87px]` + last child `mb-[-87px]` 패턴을 그대로 번역하면, CSS flex에서는 상쇄되지 않고 **87px 잔여 공간** 발생. 다음 섹션 divider의 `my-[56px]`와 **누적되어 87+56=143px의 예상 밖 공간** 생성
+- **원인**:
+  - Figma auto-layout의 abstract 모델: parent pb-N + last child mb-(-N) 이 서로 **상쇄** (overlap 의도 표현)
+  - CSS flex의 실제 동작: parent `padding-bottom`은 항상 실재. last child `margin-bottom`은 parent 내부 공간에 영향 X
+  - 결과: Figma에서는 0이던 공간이 CSS에서는 N px 실재
+- **v5 규칙 (V5-11 신규)**: **Figma auto-layout overlap 패턴 CSS-aware 번역**
+  - Figma에서 `cropTransform` 없이 `pb-[N]` + last child `mb-[-N]` 발견 시:
+    - 둘 중 **하나만 CSS에 옮김** (pb-[N] 제거 권장, mb-(-N)만 유지하여 overlap 효과 보존)
+    - 둘 다 옮기면 N px 잔여 공간 누적 → 인접 섹션과 충돌
+  - 특히 마지막 자식의 `mb-[-N]` + 부모 `pb-[N]` 조합 주의
+- **실증 해결**: AboutMission image group wrapper `pb-[87px]` 제거 → big figure의 `mb-[-87px]` overlap 효과만 유지 → 87px 잔여 공간 사라짐
+
 ### F-010 (I, S) — 섹션 독립 구현 시 divider 중복
 - **섹션**: AboutMission, AboutValues (하단 divider + 다음 섹션 top divider = 2개 겹침)
 - **증상**: 섹션 경계에 HatchedDivider가 2줄 겹쳐서 렌더

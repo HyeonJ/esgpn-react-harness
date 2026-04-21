@@ -74,8 +74,12 @@ export function AboutMission() {
 
         {/* 이미지 그룹 (하단) — 대 우측 / 소 중앙, 소가 대의 좌측 아래 겹침
             Figma 완성 composition (86:1157, 86:1165) REST API export.
-            rounded-[32px] alpha 포함, 단순 <img> 1개로 충분 (F-008 해결) */}
-        <div className="flex flex-col pb-[87px] w-[936px]">
+            rounded-[32px] alpha 포함, 단순 <img> 1개로 충분 (F-008 해결)
+
+            F-012: Figma 원본에 pb-[87px] + last child mb-[-87px] 패턴 있으나
+            CSS flex에서는 상쇄되지 않아 87px 잔여 공간 발생. pb-[87px] 제거하여
+            big figure의 mb-[-87px] overlap 효과만 유지 (다음 section divider my-56과 누적 방지). */}
+        <div className="flex flex-col w-[936px]">
           {/* 대 이미지 — 우측 정렬, 아래로 -87px overlap */}
           <figure className="flex items-center justify-end w-full mb-[-87px]">
             <img

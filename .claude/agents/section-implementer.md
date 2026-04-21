@@ -178,6 +178,18 @@ Figma `cropTransform` 행렬을 CSS로 직접 번역 시 우선순위:
 - 부모 padding + 자식 padding 중복 (nested 해석 오류)
 - 섹션 경계 spacing이 이전/현재 섹션에 분리 구현 → 값 불일치
 
+**v5-11: Figma negative margin overlap 패턴 CSS 번역 (F-012)**
+
+Figma에서 **parent `pb-[N]` + last child `mb-[-N]`** 조합 발견 시 주의:
+- Figma 추상 모델: 서로 **상쇄** (overlap 의도)
+- CSS flex 실제: parent padding은 실재, child negative margin은 영향 X → **N px 잔여 공간**
+- 결과: 인접 섹션 spacing과 누적 (예: 87 + 56 divider = 143px 의도 외 공간)
+
+**번역 규칙**:
+- `pb-[N]` **제거** 권장 (생략), `mb-[-N]`만 유지하여 overlap 효과 보존
+- 또는 `pb-[N]` 유지하고 `mb-[-N]` 제거 (단순 padding 효과)
+- **절대 둘 다 옮기지 말 것**
+
 **자동 검출 도구 (F-011 차단 게이트)**:
 단계 5 구현 완료 후 **반드시** 실행:
 ```bash
