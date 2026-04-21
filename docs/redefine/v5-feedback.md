@@ -67,6 +67,20 @@
 - **원인**: page-researcher가 탭 구조 없다고 판단 (MainProgramsHeader 내부에서 탭 노드 발견 못함). 실제로는 별도 노드(252:993)에 탭 존재
 - **v5 개선**: page-researcher가 "탭/슬라이더 키워드" 감지 시 하위 노드 전수 탐색. 섹션 분할 시 interactive UI 요소 체크리스트
 
+### F-009 (I, S) — Figma 복잡 compositing 이미지 재현 한계
+- **섹션**: AboutValues (4개 아이콘)
+- **증상**: rounded frame은 맞지만 아이콘 내부가 왜곡돼 "green blob"으로 보임
+- **원인**: Figma가 단순 crop이 아닌 **복합 compositing** 사용
+  - 예: Card 1 icon = `h:91%, left:105.93%, w:-126.33%` (**음수 width = 수평 flip**)
+  - 예: Card 2 icon = Rectangle22 원본 1개 + 축소·flip된 복사본 1개 overlay (2-layer composite)
+- **원천적 한계**: 단일 `<img object-fit>` CSS로 재현 **구조적 불가**. Figma는 이미지를 "조립 요소"로 사용
+- **임시 해결**: pre-cropped 아이콘을 natural 크기로 frame에 중앙 배치 (object-cover 포기). 시각 diff 있지만 왜곡은 방지
+- **근본 해결 옵션**:
+  1. Framelink로 141×141 rendered composition을 flat PNG로 export (v1~v3 방식, 단순하지만 text-bearing raster 위험)
+  2. Figma SVG export 후 CSS 재구성 (복잡 compositing이면 어려움)
+  3. 원본 이미지 + 정확한 flip/scale transform CSS 재구성 (가장 정확, 가장 복잡)
+- **v5-3-b 권고**: section-implementer prompt에 "Figma image transform 중 음수 width/height (flip) 발견 시 복합 compositing 판정. 단일 img+object-fit 금지. Framelink flat PNG export 권장"
+
 ### F-008 (I, S) — Figma cropTransform 영역 불일치 (V5-3 강화 필요)
 - **섹션**: AboutMission (photoLarge, photoSmall)
 - **증상**: 이미지 자체는 정상이지만 Figma 의도된 crop 영역이 아닌 다른 부분만 보임

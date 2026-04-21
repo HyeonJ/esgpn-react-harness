@@ -93,12 +93,13 @@ export function AboutValues() {
                 key={v.title}
                 className="flex flex-1 flex-col items-center justify-center gap-[20px] min-w-0"
               >
-                {/* Icon frame: 141×141 rounded-[24px], overflow hidden */}
-                <div className="relative size-[141px] overflow-hidden rounded-[24px] shrink-0">
+                {/* Icon frame: 141×141 rounded-[24px] — 아이콘은 natural 크기 중앙 배치
+                    (pre-cropped 에셋이라 object-cover로 강제 스케일하면 왜곡. F-008 참조) */}
+                <div className="flex size-[141px] items-center justify-center overflow-hidden rounded-[24px] shrink-0">
                   <img
                     src={v.icon}
                     alt={v.iconAlt}
-                    className="w-full h-full object-cover"
+                    className="max-w-full max-h-full"
                   />
                 </div>
 
