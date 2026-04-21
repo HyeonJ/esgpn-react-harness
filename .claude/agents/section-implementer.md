@@ -90,6 +90,39 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 - `any`/`unknown` 금지
 - 빌드/린트/타입체크 통과 확인
 
+#### v5 CSS/레이아웃 규칙 (F-002/003/004/005/006 반영)
+
+**v5-1: Image crop 패턴 (F-003)**
+Figma `cropTransform` 행렬 발견 시 번역 우선순위:
+1. **1순위**: `object-fit: cover/contain` + `object-position` — 대부분 케이스
+2. **2순위**: `background-image` + `background-size/position` — 장식 bg
+3. **금지**: `position: absolute; left: -X%; width: >100%;` negative-offset 패턴 (에셋 크기 바뀌면 깨짐)
+
+예: `class="absolute left-[-22%] top-[-6%] w-[162%] h-[113%]"` ❌ → `class="w-full h-full object-cover object-[center_top]"` ✅
+
+**v5-2: Grid cell에 형제 요소 있을 때 items-start (F-004)**
+`grid` 컨테이너 + `col-start-N row-start-N` 같은 cell에 overlay 형제 있는 경우:
+- 기본: `items-start` (cell 맨 위에 붙음)
+- `items-center` 사용 시: **다른 레이어 침범 확인 필수**. 단일 레이어일 때만 사용
+- 흔한 함정: 시각적으로 중앙에 있어 보여서 items-center 선택 → 형제 레이어(화살표/장식) 영역 침범
+
+**v5-3: 고정 height 금지, min-height 우선 (F-006)**
+- `<section>` root 또는 주요 wrapper에 `h-[Npx]` / `style={{ height: N }}` 금지
+- `min-h-[Npx]` 사용 ("최소 N 보장, content 늘어나면 같이 늘어남")
+- **예외**: Hero 섹션의 "풀 배경 이미지 cover" 같은 **명확한 고정 높이 의도**일 때만 허용
+- 위반 시: content 변경 시 다음 섹션 침범 발생
+
+**v5-4: justify-between 의도 검증 (F-005)**
+- `justify-between`은 **의도적 양 끝 배치** 전용 (header logo + nav, footer copyright + links 등)
+- 가운데 빈 공간 > 200px 예상되면 `gap-[N]` + `justify-start/center` 사용 권장
+- 흔한 오류: 좌측 텍스트 + 우측 이미지를 `justify-between`으로 처리 → 가운데 400px+ 빈 공간
+
+**v5-5: SVG marker orient (F-002)**
+`<marker>` 요소 사용 시:
+- 수직/수평 고정 방향 선 (대부분 connector diagram) → `orient="0"` (회전 없음)
+- 사선/곡선 (path 방향 따라 회전 필요) → `orient="auto"` + path는 "오른쪽 향함" 기준으로 그림
+- 기본값 `auto`가 세로선에 적용되면 marker가 90° 회전해 `<` 모양 됨
+
 ### 단계 4.5: 품질 게이트 (G5~G8) — 단계 5 진입 전 필수
 구조가 망가진 코드는 픽셀 측정에 도달하지 말 것. 다음 3개 명령을 순차 실행:
 

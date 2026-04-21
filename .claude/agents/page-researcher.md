@@ -22,9 +22,12 @@ model: opus
 
 ## 작업 절차
 1. 공식 Figma MCP `get_metadata`로 페이지의 자식 노드 트리 추출 (페이지 전체 `get_design_context` 금지)
-   - **자식 0 (flatten) 노드 발견 시 research에 WARNING 표시**: "자식 0 노드는 단일 raster fallback 외 선택지 없음. OCR 또는 디자이너 원본 재요청 권장. tech-debt 선제 등록 후보"
+   - **자식 0 (flatten) 노드 발견 시 v5 규칙: 즉시 flatten 판정 금지** — 반드시 `get_design_context(nodeId, depth=3)` **재탐색 1회 실행**. `get_metadata`와 `get_design_context`는 응답 깊이가 다를 수 있음 (실제 cert-flatten-bottom, About-Mission 케이스에서 확인)
+     - 재탐색 결과 subnode 트리 살아있으면 → 섹션별 subnode ID 기록 + 표준 절차 진행
+     - 재탐색도 진짜 flatten이면 → "자식 0 단일 raster fallback" WARNING. OCR 또는 디자이너 원본 재요청 권장. tech-debt 선제 등록 후보
    - 특히 2000px 이상 flatten 노드는 여러 sub-section이 baked-in 상태일 확률 높음 → plan 단계에서 서브섹션 분할 재논의
    - **영문 placeholder 감지**: get_design_context 결과에서 영문 Lorem-style 텍스트 발견 시 research 리스크 메모에 "실제 카피 확정 필요" 항목 추가. `scripts/detect-placeholder-text.mjs`로 자동 검출 가능
+   - **v5 규칙 (F-007)**: 섹션 이름/design_context에 **"탭/tab/슬라이더/slider/carousel"** 키워드 감지 시 해당 subnode 전수 탐색 필수. 상태 보유 wrapper 컴포넌트 설계 힌트 research에 기록 (`useState` 기반 activeTab 패턴 등)
 2. 각 섹션 후보의 예상 토큰 크기 판단, 12K 초과 시 더 작게 분할
 3. **서브섹션 분할 판단** — 각 후보 섹션에 대해 아래 3조건 중 하나라도 해당하면 서브섹션으로 쪼갠다 (필수):
    - **이질적 에셋 3+ 혼재** — 텍스트·raster·SVG·interactive 중 3종 이상 한 섹션에 섞임 (예: 텍스트 블록 + 카드 raster + 인터랙티브 CTA → 3종)

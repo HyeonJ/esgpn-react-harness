@@ -1,9 +1,9 @@
 # ESGPN 프로젝트 — Figma → React 하네스
 
-> **✅ v4 Rebuild 완주 — 반응형 범위 외 확정 (2026-04-21)**
-> `experiment/redefine-rebuild` 브랜치: **38/43 섹션 구현 완료**. 구조 품질 v1~v3 대비 3.8× 개선.
-> **반응형 폴리시는 하네스 범위 밖** — 375/768은 디자이너 영역, 1440 overflow는 개발자 수동 수정.
-> 전체 현황: `PROGRESS.md` / 완주 리포트: `docs/redefine/v4-completion-report.md` / 최종 인수인계: `docs/redefine/HANDOFF-v3.md`
+> **🔧 v5 MVP 적용 — 수동 refinement 기반 개선 반영 (2026-04-21)**
+> v4 완주 후 ESGPN 수동 refinement 중 발견된 4개 확신 패턴(flatten 재탐색 / image crop→object-fit / grid items-start / min-height) 반영.
+> 설계: `docs/redefine/v5-design.md` · 피드백 로그: `docs/redefine/v5-feedback.md`
+> 이전: `docs/redefine/v4-completion-report.md` · `HANDOFF-v3.md`
 
 **핵심 원칙 (v4 자율 모드): 모든 페이지를 사용자 개입 없이 끝까지 완주한다. 사용자는 완주 후 검수.**
 

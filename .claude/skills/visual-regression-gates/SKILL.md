@@ -54,6 +54,32 @@ node scripts/check-structure-quality.mjs --section={섹션명}
 
 **G8은 i18n 예비 방어**: 다국어 확장 시 Figma 재export 강제되는 raster 접근 차단.
 
+## v5 CSS 안티패턴 체크리스트 (수동 감사)
+
+구조 게이트 자동 검출 한계 보완용. 섹션 구현 완료 후 육안 검증 시 아래 항목 확인:
+
+### SVG marker orient 오용 (F-002)
+- `<marker orient="auto">`가 수직선(세로↓)에 적용되면 90° 회전 → `<` 모양 됨
+- 수직/수평 고정 방향 선 → `orient="0"`
+- 사선·곡선 path → `orient="auto"` + path를 "오른쪽 향함"으로 그림
+
+### Image crop negative-offset 패턴 (F-003)
+- 금지 패턴: `class="absolute left-[-22%] top-[-6%] w-[162%] h-[113%]"`
+- 권장 대안: `class="w-full h-full object-cover object-[center_top]"`
+- `cropTransform` 행렬을 1:1 CSS 좌표로 번역하지 말 것
+
+### Grid cell 같은 레이어에 items-center (F-004)
+- `grid` + `col-start-N row-start-N` 같은 cell에 여러 형제 요소 있을 때 `items-center`는 침범 유발
+- 기본 `items-start` 사용
+
+### 고정 height 남용 (F-006)
+- `<section>` root에 `h-[Npx]`는 Hero 풀 배경 같은 명확한 예외일 때만
+- 기본 `min-h-[Npx]` — content 변경 시 다음 섹션 침범 방지
+
+### justify-between 남용 (F-005)
+- 가운데 빈 공간 200px+ 생길 가능성 있으면 `gap-[N]`으로 교체
+- `justify-between`은 의도적 양 끝 배치 (header, footer bar 등)에만
+
 ## baseline PNG 확보
 
 **Framelink MCP** `mcp__figma-framelink__download_figma_images` 로 섹션 노드를 파일 저장. 공식 MCP `get_screenshot`은 inline 전용이라 사용 금지. Framelink 미등록 상태면 `docs/figma-workflow.md` Phase 0 먼저 수행.
