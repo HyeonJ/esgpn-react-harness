@@ -58,7 +58,7 @@ const CARDS = [
 export function MainHero() {
   return (
     <section
-      className="relative w-full h-[1040px] bg-[#f3f3f3] overflow-hidden"
+      className="relative w-full max-w-[1920px] mx-auto h-[1040px] bg-[#f3f3f3] overflow-hidden"
     >
       {/* BG layer: city+tree panorama */}
       <div aria-hidden="true" className="absolute inset-0 opacity-[0.96] overflow-hidden pointer-events-none">

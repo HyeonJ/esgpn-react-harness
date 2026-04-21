@@ -1,0 +1,229 @@
+=== / ===
+=== mobile-375 (375×900) @ / ===
+document: scrollWidth=1599 clientWidth=375
+[h-overflow-clipped-content] 23건
+  DIV w=818 right=818 .relative flex flex-col gap-[86px] items-start pt-[160px] pb- "세상을 아름답게 만드는 힘, ESGPNEnvironmental대학·기업·"
+  P w=271 right=545 .text-[length:var(--text-xl-20sb-size)] font-semibold leading "세상을 아름답게 만드는 힘, ESGPN"
+  H1 w=753 right=786 .text-[100px] leading-none text-[var(--color-brand-700)] text "Environmental"
+  DIV w=1102 right=960 .flex gap-[var(--spacing-12)] items-start justify-center "ESG마인드 자격검정기본 개념부터 실무 적용까지,체계적인 교육으로 차세대"
+  ARTICLE w=320 right=569 .flex flex-col items-center justify-end gap-6 w-[320px] h-[34 "ESG실천 아이디어 경진대회청년과 지역사회의 협력으로 현장 문제를해결하며"
+  DIV w=272 right=545 .flex flex-col gap-3 w-full text-center text-white "ESG실천 아이디어 경진대회청년과 지역사회의 협력으로 현장 문제를해결하며"
+  H3 w=272 right=545 .text-[length:var(--text-heading-01-size)] font-bold leading- "ESG실천 아이디어 경진대회"
+  P w=272 right=545 .text-[15px] font-normal leading-[24px] "청년과 지역사회의 협력으로 현장 문제를해결하며, 지속가능한 변화를 만드는"
+  SPAN w=235 right=527 . "청년과 지역사회의 협력으로 현장 문제를"
+  SPAN w=210 right=514 . "해결하며, 지속가능한 변화를 만드는"
+  SPAN w=199 right=508 . "실질적인 ESG 성과를 도출합니다."
+  DIV w=343 right=960 .flex items-center justify-center w-[342.938px] h-[361.494px] "사회공헌 및 재능나눔산업체·지자체 파트너십을 통해 ESG 가치를지역 일자"
+  DIV w=343 right=960 .flex-none "사회공헌 및 재능나눔산업체·지자체 파트너십을 통해 ESG 가치를지역 일자"
+  ARTICLE w=343 right=960 .flex flex-col items-center justify-end gap-6 w-[320px] h-[34 "사회공헌 및 재능나눔산업체·지자체 파트너십을 통해 ESG 가치를지역 일자"
+  DIV w=279 right=922 .flex flex-col gap-3 w-full text-center text-white "사회공헌 및 재능나눔산업체·지자체 파트너십을 통해 ESG 가치를지역 일자"
+  H3 w=274 right=922 .text-[length:var(--text-heading-01-size)] font-bold leading- "사회공헌 및 재능나눔"
+  P w=276 right=919 .text-[15px] font-normal leading-[24px] "산업체·지자체 파트너십을 통해 ESG 가치를지역 일자리와 서비스로 연결하"
+  SPAN w=255 right=910 . "산업체·지자체 파트너십을 통해 ESG 가치를"
+  SPAN w=194 right=878 . "지역 일자리와 서비스로 연결하며"
+  SPAN w=155 right=857 . "상생의 가치를 창출합니다."
+  DIV w=568 right=693 .flex gap-[var(--spacing-3)] items-center "ESG 실천 아이디어 경진대회 참여하기ESG 마인드 자격검정 신청하기"
+  A w=300 right=425 .inline-flex items-center justify-center px-[var(--spacing-8) "ESG 실천 아이디어 경진대회 참여하기"
+  A w=256 right=693 .inline-flex items-center justify-center px-[var(--spacing-8) "ESG 마인드 자격검정 신청하기"
+[h-overflow-clipped-deco] 8건
+  DIV w=286 right=552 .absolute left-1/2 -translate-x-1/2 top-px w-[286px] h-[27px]
+  DIV w=140 right=479 .shrink-0 w-[140px] h-[140px] mix-blend-lighten
+  IMG w=140 right=479 .w-full h-full object-cover
+  DIV w=149 right=868 .shrink-0 w-[140px] h-[140px] mix-blend-screen
+  IMG w=149 right=868 .w-full h-full object-cover
+  BR w=1 right=910 .
+  BR w=1 right=878 .
+  IMG w=682 right=1130 .absolute max-w-none
+[h-overflow] 29건
+  SECTION w=504 right=504 .flex gap-[63px] items-center justify-center px-[252px] py-[2 "ESGPN이란?ESG 실천을 위한 연대 플랫폼ESG실천네트워크(ESGPN"
+  DIV w=640 right=962 .grid shrink-0 "교육ESG 개념부터 실무까지 체계적인교육 프로그램을 제공합니다자격실천할 "
+  DIV w=420 right=961 .col-start-1 row-start-1 self-start justify-self-start overfl
+  DIV w=182 right=584 .col-start-1 row-start-1 self-start justify-self-start "교육ESG 개념부터 실무까지 체계적인교육 프로그램을 제공합니다"
+  DIV w=182 right=584 .flex flex-col gap-[var(--spacing-2)] items-end justify-cente "교육ESG 개념부터 실무까지 체계적인교육 프로그램을 제공합니다"
+  DIV w=62 right=584 .flex gap-[var(--spacing-1)] items-center "교육"
+  SPAN w=34 right=556 .font-bold text-[20px] leading-[1.4] tracking-[-0.4px] text-[ "교육"
+  DIV w=24 right=584 .flex items-center justify-center size-[24px]
+  IMG w=16 right=580 .w-[16px] h-[20.88px]
+  P w=181 right=584 .font-normal text-[14px] leading-[1.5] tracking-[-0.07px] tex "ESG 개념부터 실무까지 체계적인교육 프로그램을 제공합니다"
+  DIV w=182 right=503 .col-start-1 row-start-1 self-start justify-self-start "자격실천할 수 있는 사람을 인증하는ESG마인드 자격검정"
+  DIV w=182 right=503 .flex flex-col gap-[var(--spacing-2)] items-end justify-cente "자격실천할 수 있는 사람을 인증하는ESG마인드 자격검정"
+  DIV w=62 right=503 .flex gap-[var(--spacing-1)] items-center "자격"
+  SPAN w=34 right=475 .font-bold text-[20px] leading-[1.4] tracking-[-0.4px] text-[ "자격"
+  DIV w=24 right=503 .flex items-center justify-center size-[24px]
+  IMG w=16 right=499 .w-[16px] h-[20.88px]
+  P w=170 right=503 .font-normal text-[14px] leading-[1.5] tracking-[-0.07px] tex "실천할 수 있는 사람을 인증하는ESG마인드 자격검정"
+  DIV w=182 right=503 .col-start-1 row-start-1 self-start justify-self-start "참여대학, 청년, 기업이 함께하는ESG프로젝트 플랫폼"
+  DIV w=182 right=503 .flex flex-col gap-[var(--spacing-2)] items-end justify-cente "참여대학, 청년, 기업이 함께하는ESG프로젝트 플랫폼"
+  DIV w=62 right=503 .flex gap-[var(--spacing-1)] items-center "참여"
+  SPAN w=34 right=475 .font-bold text-[20px] leading-[1.4] tracking-[-0.4px] text-[ "참여"
+  DIV w=24 right=503 .flex items-center justify-center size-[24px]
+  IMG w=16 right=499 .w-[16px] h-[20.88px]
+  P w=150 right=503 .font-normal text-[14px] leading-[1.5] tracking-[-0.07px] tex "대학, 청년, 기업이 함께하는ESG프로젝트 플랫폼"
+  DIV w=182 right=584 .col-start-1 row-start-1 self-start justify-self-start "사회공헌일회성이 아닌 지속가능한사회공헌 활동 실천"
+  DIV w=182 right=584 .flex flex-col gap-[var(--spacing-2)] items-end justify-cente "사회공헌일회성이 아닌 지속가능한사회공헌 활동 실천"
+  DIV w=96 right=584 .flex gap-[var(--spacing-1)] items-center "사회공헌"
+  SPAN w=68 right=556 .font-bold text-[20px] leading-[1.4] tracking-[-0.4px] text-[ "사회공헌"
+  DIV w=24 right=584 .flex items-center justify-center size-[24px]
+
+=== tablet-768 (768×1000) @ / ===
+document: scrollWidth=1599 clientWidth=768
+[h-overflow-clipped-content] 12건
+  DIV w=818 right=818 .relative flex flex-col gap-[86px] items-start pt-[160px] pb- "세상을 아름답게 만드는 힘, ESGPNEnvironmental대학·기업·"
+  H1 w=753 right=786 .text-[100px] leading-none text-[var(--color-brand-700)] text "Environmental"
+  DIV w=1102 right=960 .flex gap-[var(--spacing-12)] items-start justify-center "ESG마인드 자격검정기본 개념부터 실무 적용까지,체계적인 교육으로 차세대"
+  DIV w=343 right=960 .flex items-center justify-center w-[342.938px] h-[361.494px] "사회공헌 및 재능나눔산업체·지자체 파트너십을 통해 ESG 가치를지역 일자"
+  DIV w=343 right=960 .flex-none "사회공헌 및 재능나눔산업체·지자체 파트너십을 통해 ESG 가치를지역 일자"
+  ARTICLE w=343 right=960 .flex flex-col items-center justify-end gap-6 w-[320px] h-[34 "사회공헌 및 재능나눔산업체·지자체 파트너십을 통해 ESG 가치를지역 일자"
+  DIV w=279 right=922 .flex flex-col gap-3 w-full text-center text-white "사회공헌 및 재능나눔산업체·지자체 파트너십을 통해 ESG 가치를지역 일자"
+  H3 w=274 right=922 .text-[length:var(--text-heading-01-size)] font-bold leading- "사회공헌 및 재능나눔"
+  P w=276 right=919 .text-[15px] font-normal leading-[24px] "산업체·지자체 파트너십을 통해 ESG 가치를지역 일자리와 서비스로 연결하"
+  SPAN w=255 right=910 . "산업체·지자체 파트너십을 통해 ESG 가치를"
+  SPAN w=194 right=878 . "지역 일자리와 서비스로 연결하며"
+  SPAN w=155 right=857 . "상생의 가치를 창출합니다."
+[h-overflow-clipped-deco] 9건
+  DIV w=149 right=868 .shrink-0 w-[140px] h-[140px] mix-blend-screen
+  IMG w=149 right=868 .w-full h-full object-cover
+  BR w=1 right=910 .
+  BR w=1 right=878 .
+  IMG w=682 right=1262 .absolute max-w-none
+  path w=188 right=1259 .[object SVGAnimatedString]
+  path w=189 right=1448 .[object SVGAnimatedString]
+  path w=231 right=1259 .[object SVGAnimatedString]
+  path w=231 right=1490 .[object SVGAnimatedString]
+[h-overflow] 39건
+  DIV w=640 right=1094 .grid shrink-0 "교육ESG 개념부터 실무까지 체계적인교육 프로그램을 제공합니다자격실천할 "
+  DIV w=420 right=1093 .col-start-1 row-start-1 self-start justify-self-start overfl
+  DIV w=200 right=932 .col-start-1 row-start-1 self-start justify-self-start
+  IMG w=206 right=933 .block max-w-none
+  DIV w=152 right=884 .col-start-1 row-start-1 self-start justify-self-start
+  IMG w=159 right=885 .block max-w-none
+  DIV w=606 right=858 .flex gap-[72px] items-start shrink-0 "ESG가 왜 중요할까?단순한 트렌드를 넘어,모두의 새로운 생존 문법이제 "
+  DIV w=510 right=858 .flex flex-col gap-[112px] items-start "ESG가 왜 중요할까?단순한 트렌드를 넘어,모두의 새로운 생존 문법이제 "
+  HEADER w=448 right=796 .flex flex-col gap-[var(--spacing-6)] items-start "ESG가 왜 중요할까?단순한 트렌드를 넘어,모두의 새로운 생존 문법이제 "
+  DIV w=448 right=796 .flex flex-col gap-[var(--spacing-2)] items-start "ESG가 왜 중요할까?단순한 트렌드를 넘어,모두의 새로운 생존 문법"
+  H2 w=448 right=796 .font-bold text-[length:var(--text-display-01-size)] leading- "단순한 트렌드를 넘어,모두의 새로운 생존 문법"
+  DIV w=510 right=858 .flex gap-[var(--spacing-8)] items-center "97%ESG를 고려하는글로벌 투자자85%ESG를 중시하는 소비자70%구직"
+  DIV w=114 right=858 .flex flex-col gap-[var(--spacing-2)] items-start justify-cen "2028ESG 공시의무화 시작"
+  P w=114 right=858 .font-bold leading-[1.3] text-[length:var(--text-display-01-s "2028"
+  P w=64 right=808 .font-normal leading-[1.5] text-[14px] text-[var(--color-gray "ESG 공시의무화 시작"
+  DIV w=677 right=1598 .grid relative shrink-0 "Environmental환경Social사회Governance지배구조WHY"
+  DIV w=626 right=1598 .col-start-1 row-start-1 flex items-center ml-[51px] mt-0 pr- "Environmental환경Social사회Governance지배구조"
+  DIV w=200 right=1172 .flex flex-col items-center justify-center gap-[var(--spacing "Environmental환경"
+  SPAN w=155 right=1149 .font-bold text-[length:var(--text-2xl-24b-size)] leading-[va "Environmental"
+  SPAN w=31 right=1087 .font-normal text-[18px] leading-[1.5] tracking-[-0.27px] tex "환경"
+  DIV w=200 right=1360 .flex flex-col items-center justify-center gap-[var(--spacing "Social사회"
+  SPAN w=65 right=1292 .font-bold text-[length:var(--text-2xl-24b-size)] leading-[va "Social"
+  SPAN w=31 right=1275 .font-normal text-[18px] leading-[1.5] tracking-[-0.27px] tex "사회"
+  DIV w=200 right=1548 .flex flex-col items-center justify-center gap-[var(--spacing "Governance지배구조"
+  SPAN w=131 right=1513 .font-bold text-[length:var(--text-2xl-24b-size)] leading-[va "Governance"
+  SPAN w=61 right=1478 .font-normal text-[18px] leading-[1.5] tracking-[-0.27px] tex "지배구조"
+  DIV w=98 right=1308 .col-start-1 row-start-1 flex items-center justify-center ml- "WHY?"
+  SPAN w=57 right=1288 .font-bold text-[length:var(--text-xl-20b-size)] leading-[var "WHY?"
+  DIV w=677 right=1598 .col-start-1 row-start-1 flex gap-[var(--spacing-4)] items-st "자본시장의 필수 요건이제 ESG는 투자자의 의사결정 시기업 가치에 영향을"
+  DIV w=215 right=1136 .w-[215px] flex flex-col gap-[var(--spacing-1)] items-start p "자본시장의 필수 요건이제 ESG는 투자자의 의사결정 시기업 가치에 영향을"
+  ... (+9 more)
+
+=== laptop-1440 (1440×1000) @ / ===
+document: scrollWidth=1671 clientWidth=1440
+[h-overflow-clipped-deco] 19건
+  IMG w=682 right=1598 .absolute max-w-none
+  path w=189 right=1448 .[object SVGAnimatedString]
+  path w=231 right=1490 .[object SVGAnimatedString]
+  IMG w=612 right=1767 .absolute max-w-none h-[59.16%] w-[42.53%] top-[61.94%] left-
+  SPAN w=21 right=1520 .font-medium text-[15px] leading-[1.5] tracking-[-0.1125px] t "1/4"
+  BUTTON w=24 right=1548 .w-[24px] h-[24px] flex items-center justify-center
+  IMG w=11 right=1542 .w-[6px] h-[11px] -rotate-90
+  BUTTON w=24 right=1576 .w-[24px] h-[24px] flex items-center justify-center
+  IMG w=11 right=1570 .w-[6px] h-[11px] rotate-90
+  DIV w=140 right=1576 .w-[140px] h-[100px] rounded-[16px] overflow-hidden shrink-0
+  IMG w=140 right=1576 .w-full h-full object-cover
+  DIV w=140 right=1576 .w-[140px] h-[100px] rounded-[16px] overflow-hidden shrink-0
+  IMG w=140 right=1576 .w-full h-full object-cover
+  DIV w=140 right=1576 .w-[140px] h-[100px] rounded-[16px] overflow-hidden shrink-0
+  IMG w=140 right=1576 .w-full h-full object-cover
+  DIV w=140 right=1576 .w-[140px] h-[100px] rounded-[16px] overflow-hidden shrink-0
+  IMG w=140 right=1576 .w-full h-full object-cover
+  DIV w=140 right=1576 .w-[140px] h-[100px] rounded-[16px] overflow-hidden shrink-0
+  IMG w=140 right=1576 .w-full h-full object-cover
+[h-overflow] 12건
+  DIV w=677 right=1598 .grid relative shrink-0 "Environmental환경Social사회Governance지배구조WHY"
+  DIV w=626 right=1598 .col-start-1 row-start-1 flex items-center ml-[51px] mt-0 pr- "Environmental환경Social사회Governance지배구조"
+  DIV w=200 right=1548 .flex flex-col items-center justify-center gap-[var(--spacing "Governance지배구조"
+  SPAN w=131 right=1513 .font-bold text-[length:var(--text-2xl-24b-size)] leading-[va "Governance"
+  SPAN w=61 right=1478 .font-normal text-[18px] leading-[1.5] tracking-[-0.27px] tex "지배구조"
+  DIV w=677 right=1598 .col-start-1 row-start-1 flex gap-[var(--spacing-4)] items-st "자본시장의 필수 요건이제 ESG는 투자자의 의사결정 시기업 가치에 영향을"
+  DIV w=215 right=1598 .w-[215px] flex flex-col gap-[var(--spacing-1)] items-start p "법적 공시 의무화2030년부터 모든 코스피 상장사는ESG 정보를 의무적으"
+  P w=215 right=1598 .font-bold text-[length:var(--text-xl-20b-size)] leading-[var "법적 공시 의무화"
+  P w=215 right=1598 .font-normal text-[14px] leading-[1.5] tracking-[-0.07px] tex "2030년부터 모든 코스피 상장사는ESG 정보를 의무적으로 공시해야하는 "
+  svg w=678 right=1599 .[object SVGAnimatedString]
+  IMG w=657 right=1670 .flex-1 h-[2px]
+  IMG w=628 right=1671 .flex-1 h-[2px]
+[h-overflow-clipped-content] 10건
+  DIV w=748 right=1576 .flex flex-col gap-[var(--spacing-2)] items-start justify-cen "총 24개1/4[진단과 제언] SDGs와 ESG, 실천이 관건이다2015"
+  DIV w=748 right=1576 .flex items-center justify-between w-full h-[24px] "총 24개1/4"
+  DIV w=77 right=1576 .flex gap-[var(--spacing-1)] items-center "1/4"
+  DIV w=52 right=1576 .flex gap-[4px] items-center
+  DIV w=748 right=1576 .flex flex-col items-start flex-1 w-full "[진단과 제언] SDGs와 ESG, 실천이 관건이다2015년 유엔 총회에"
+  ARTICLE w=748 right=1576 .flex gap-[var(--spacing-5)] items-center py-[var(--spacing-6 "[진단과 제언] SDGs와 ESG, 실천이 관건이다2015년 유엔 총회에"
+  ARTICLE w=748 right=1576 .flex gap-[var(--spacing-5)] items-center py-[var(--spacing-6 "[수요논단] ESG 정착은 우리의 새로운 미래ESG 바람이 4차 산업혁명"
+  ARTICLE w=748 right=1576 .flex gap-[var(--spacing-5)] items-center py-[var(--spacing-6 "[수요논단] 정부차원에서 ESG창업 붐(boom) 조성해야ESG 이슈가 "
+  ARTICLE w=748 right=1576 .flex gap-[var(--spacing-5)] items-center py-[var(--spacing-6 "[수요논단] 지자체(광역·기초) 중심의 ESG 스타트업 생태계 조성 필요"
+  ARTICLE w=748 right=1576 .flex gap-[var(--spacing-5)] items-center py-[var(--spacing-6 "[수요논단] 지자체(광역·기초) 중심의 ESG 스타트업 생태계 조성 필요"
+[img-shrink] 19건
+  IMG rendered=20 natural=300 ratio=0.07 .size-[20px] shrink-0
+  IMG rendered=20 natural=300 ratio=0.07 .size-[20px] shrink-0
+  IMG rendered=20 natural=300 ratio=0.07 .size-[20px] shrink-0
+  IMG rendered=11 natural=300 ratio=0.04 .w-[6px] h-[11px] -rotate-90
+  IMG rendered=11 natural=300 ratio=0.04 .w-[6px] h-[11px] rotate-90
+  IMG rendered=3 natural=300 ratio=0.01 .w-[3px] h-[3px] shrink-0
+  IMG rendered=140 natural=1080 ratio=0.13 .w-full h-full object-cover
+  IMG rendered=3 natural=300 ratio=0.01 .w-[3px] h-[3px] shrink-0
+  IMG rendered=3 natural=300 ratio=0.01 .w-[3px] h-[3px] shrink-0
+  IMG rendered=140 natural=1080 ratio=0.13 .w-full h-full object-cover
+  IMG rendered=3 natural=300 ratio=0.01 .w-[3px] h-[3px] shrink-0
+  IMG rendered=140 natural=1080 ratio=0.13 .w-full h-full object-cover
+  IMG rendered=3 natural=300 ratio=0.01 .w-[3px] h-[3px] shrink-0
+  IMG rendered=140 natural=1080 ratio=0.13 .w-full h-full object-cover
+  IMG rendered=296 natural=1008 ratio=0.29 .absolute inset-0 object-cover size-full
+  IMG rendered=296 natural=1008 ratio=0.29 .absolute inset-0 object-cover size-full
+  IMG rendered=456 natural=1559 ratio=0.29 .absolute inset-0 object-cover size-full
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+
+=== desktop-1920 (1920×1080) @ / ===
+document: scrollWidth=1920 clientWidth=1920
+[h-overflow-clipped-deco] 1건
+  IMG w=817 right=2356 .absolute max-w-none h-[59.16%] w-[42.53%] top-[61.94%] left-
+[img-shrink] 21건
+  IMG rendered=20 natural=300 ratio=0.07 .size-[20px] shrink-0
+  IMG rendered=20 natural=300 ratio=0.07 .size-[20px] shrink-0
+  IMG rendered=20 natural=300 ratio=0.07 .size-[20px] shrink-0
+  IMG rendered=11 natural=300 ratio=0.04 .w-[6px] h-[11px] -rotate-90
+  IMG rendered=11 natural=300 ratio=0.04 .w-[6px] h-[11px] rotate-90
+  IMG rendered=3 natural=300 ratio=0.01 .w-[3px] h-[3px] shrink-0
+  IMG rendered=140 natural=1080 ratio=0.13 .w-full h-full object-cover
+  IMG rendered=3 natural=300 ratio=0.01 .w-[3px] h-[3px] shrink-0
+  IMG rendered=3 natural=300 ratio=0.01 .w-[3px] h-[3px] shrink-0
+  IMG rendered=140 natural=1080 ratio=0.13 .w-full h-full object-cover
+  IMG rendered=3 natural=300 ratio=0.01 .w-[3px] h-[3px] shrink-0
+  IMG rendered=140 natural=1080 ratio=0.13 .w-full h-full object-cover
+  IMG rendered=3 natural=300 ratio=0.01 .w-[3px] h-[3px] shrink-0
+  IMG rendered=140 natural=1080 ratio=0.13 .w-full h-full object-cover
+  IMG rendered=456 natural=1559 ratio=0.29 .absolute inset-0 object-cover size-full
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+
+HINT — 패턴 매칭:
+  h-overflow (UNCLIPPED — 실제 가로스크롤 유발) → patterns.md §1
+    - 섹션 루트 w-[1920px] → max-w-[1920px] w-full mx-auto
+    - 큰 px-[252px] → px-6 md:px-12 xl:px-[252px]
+  h-overflow-clipped-content (본문 포함, clip됨) — 실제 UX 문제. 반드시 수정
+    → patterns.md §4-2 absolute decouple (relative xl:absolute)
+    → §2-4 equal-weight cards stacking (flex-col xl:flex-row)
+  h-overflow-clipped-deco (장식/blob/배경만, clip됨) — OK, 손대지 말 것
+  img-shrink → card-resize.md §2-1 (aspect-ratio + max-w)
+    - natural 대비 30% 미만은 해상도 낭비 — 반응형 `w-full max-w-[Npx]`

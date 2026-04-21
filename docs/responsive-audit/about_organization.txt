@@ -1,0 +1,106 @@
+=== /about/organization ===
+=== mobile-375 (375×900) @ /about/organization ===
+document: scrollWidth=658 clientWidth=375
+[h-overflow] 13건
+  DIV w=894 right=635 .mt-[84px] flex items-center justify-center "운영주체"
+  svg w=419 right=635 .[object SVGAnimatedString]
+  IMG w=218 right=461 .block
+  FIGCAPTION w=1 right=477 .sr-only "사단법인 전문대학평생직업교육협회 (Council for Lifelong "
+  NAV w=940 right=658 .mt-[31px] mb-[17px] "COLiVE, ESG마인드 자격검정ESG실천 아이디어 경진대회ESG 대학"
+  UL w=940 right=658 .flex items-start gap-[17px] "COLiVE, ESG마인드 자격검정ESG실천 아이디어 경진대회ESG 대학"
+  LI w=302 right=658 .flex flex-col items-center "사회공헌활동ESG 실천 캠페인봉사활동(프로보노)기업 협력"
+  DIV w=302 right=658 .w-[302px] h-[50px] flex items-center justify-center font-bol "사회공헌활동"
+  DIV w=2 right=508 .h-[61px] w-[2px] bg-[var(--color-brand-700)] relative after:
+  UL w=302 right=658 .flex flex-col gap-[19px] mt-[10px] "ESG 실천 캠페인봉사활동(프로보노)기업 협력"
+  LI w=302 right=658 .w-[302px] h-[57px] flex items-center justify-center text-[15 "ESG 실천 캠페인"
+  LI w=302 right=658 .w-[302px] h-[57px] flex items-center justify-center text-[15 "봉사활동(프로보노)"
+  LI w=302 right=658 .w-[302px] h-[57px] flex items-center justify-center text-[15 "기업 협력"
+[h-overflow-clipped-deco] 5건
+  g w=30 right=634 .[object SVGAnimatedString]
+  line w=7 right=611 .[object SVGAnimatedString]
+  line w=7 right=618 .[object SVGAnimatedString]
+  line w=7 right=626 .[object SVGAnimatedString]
+  line w=7 right=634 .[object SVGAnimatedString]
+[text-clip-x] 3건
+  H2 clientW=1 scrollW=111 ws=nowrap .sr-only "ESGPN 운영주체"
+  H2 clientW=1 scrollW=115 ws=nowrap .sr-only "ESGPN 실행 구조"
+  H2 clientW=1 scrollW=206 ws=nowrap .sr-only text-[var(--color-gray-900)] "ESGPN 자연과 도시의 공존 비전"
+[img-shrink] 8건
+  IMG rendered=21 natural=300 ratio=0.07 .w-[21px] h-[8.75px] mix-blend-luminosity
+  IMG rendered=375 natural=1920 ratio=0.20 .absolute left-0 top-[-45px] block h-[628px] w-full
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+
+=== tablet-768 (768×1000) @ /about/organization ===
+document: scrollWidth=854 clientWidth=768
+[h-overflow] 10건
+  DIV w=894 right=831 .mt-[84px] flex items-center justify-center "운영주체"
+  svg w=419 right=831 .[object SVGAnimatedString]
+  NAV w=940 right=854 .mt-[31px] mb-[17px] "COLiVE, ESG마인드 자격검정ESG실천 아이디어 경진대회ESG 대학"
+  UL w=940 right=854 .flex items-start gap-[17px] "COLiVE, ESG마인드 자격검정ESG실천 아이디어 경진대회ESG 대학"
+  LI w=302 right=854 .flex flex-col items-center "사회공헌활동ESG 실천 캠페인봉사활동(프로보노)기업 협력"
+  DIV w=302 right=854 .w-[302px] h-[50px] flex items-center justify-center font-bol "사회공헌활동"
+  UL w=302 right=854 .flex flex-col gap-[19px] mt-[10px] "ESG 실천 캠페인봉사활동(프로보노)기업 협력"
+  LI w=302 right=854 .w-[302px] h-[57px] flex items-center justify-center text-[15 "ESG 실천 캠페인"
+  LI w=302 right=854 .w-[302px] h-[57px] flex items-center justify-center text-[15 "봉사활동(프로보노)"
+  LI w=302 right=854 .w-[302px] h-[57px] flex items-center justify-center text-[15 "기업 협력"
+[h-overflow-clipped-deco] 5건
+  g w=30 right=830 .[object SVGAnimatedString]
+  line w=7 right=807 .[object SVGAnimatedString]
+  line w=7 right=815 .[object SVGAnimatedString]
+  line w=7 right=822 .[object SVGAnimatedString]
+  line w=7 right=830 .[object SVGAnimatedString]
+[text-clip-x] 3건
+  H2 clientW=1 scrollW=111 ws=nowrap .sr-only "ESGPN 운영주체"
+  H2 clientW=1 scrollW=115 ws=nowrap .sr-only "ESGPN 실행 구조"
+  H2 clientW=1 scrollW=206 ws=nowrap .sr-only text-[var(--color-gray-900)] "ESGPN 자연과 도시의 공존 비전"
+[img-shrink] 7건
+  IMG rendered=21 natural=300 ratio=0.07 .w-[21px] h-[8.75px] mix-blend-luminosity
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+
+=== laptop-1440 (1440×1000) @ /about/organization ===
+document: scrollWidth=1440 clientWidth=1440
+[text-clip-x] 3건
+  H2 clientW=1 scrollW=111 ws=nowrap .sr-only "ESGPN 운영주체"
+  H2 clientW=1 scrollW=115 ws=nowrap .sr-only "ESGPN 실행 구조"
+  H2 clientW=1 scrollW=206 ws=nowrap .sr-only text-[var(--color-gray-900)] "ESGPN 자연과 도시의 공존 비전"
+[img-shrink] 6건
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+
+=== desktop-1920 (1920×1080) @ /about/organization ===
+document: scrollWidth=1920 clientWidth=1920
+[text-clip-x] 3건
+  H2 clientW=1 scrollW=111 ws=nowrap .sr-only "ESGPN 운영주체"
+  H2 clientW=1 scrollW=115 ws=nowrap .sr-only "ESGPN 실행 구조"
+  H2 clientW=1 scrollW=206 ws=nowrap .sr-only text-[var(--color-gray-900)] "ESGPN 자연과 도시의 공존 비전"
+[img-shrink] 6건
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+
+HINT — 패턴 매칭:
+  h-overflow (UNCLIPPED — 실제 가로스크롤 유발) → patterns.md §1
+    - 섹션 루트 w-[1920px] → max-w-[1920px] w-full mx-auto
+    - 큰 px-[252px] → px-6 md:px-12 xl:px-[252px]
+  h-overflow-clipped-deco (장식/blob/배경만, clip됨) — OK, 손대지 말 것
+  text-clip-x → whitespace-nowrap 제거 또는 xl:whitespace-nowrap
+    - 긴 제목: line-clamp-2 xl:line-clamp-none
+  img-shrink → card-resize.md §2-1 (aspect-ratio + max-w)
+    - natural 대비 30% 미만은 해상도 낭비 — 반응형 `w-full max-w-[Npx]`

@@ -13,7 +13,7 @@ import { IntroGlobeGroup } from "./IntroGlobeGroup";
  */
 export function MainIntro() {
   return (
-    <section className="flex gap-[63px] items-center justify-center px-[252px] py-[200px] w-full bg-[var(--color-gray-000)]">
+    <section className="flex gap-[63px] items-center justify-center px-[252px] py-[200px] w-full max-w-[1920px] mx-auto bg-[var(--color-gray-000)]">
       <IntroLeftColumn />
       <IntroGlobeGroup />
     </section>

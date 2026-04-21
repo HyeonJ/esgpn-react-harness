@@ -1,0 +1,174 @@
+=== /certification ===
+=== mobile-375 (375×900) @ /certification ===
+document: scrollWidth=581 clientWidth=375
+[h-overflow-clipped-content] 10건
+  DIV w=956 right=1419 .absolute flex flex-col items-center justify-end rounded-full "ESG 마인드 자격검정관행에서 실천의 자격검정(단급 과정) 안내ESG를 "
+  DIV w=590 right=1236 .flex flex-col items-center gap-12 "ESG 마인드 자격검정관행에서 실천의 자격검정(단급 과정) 안내ESG를 "
+  DIV w=590 right=1236 .flex w-full flex-col items-stretch gap-8 text-center "ESG 마인드 자격검정관행에서 실천의 자격검정(단급 과정) 안내ESG를 "
+  H1 w=590 right=1236 .whitespace-nowrap font-bold text-gray-000 "ESG 마인드 자격검정"
+  DIV w=590 right=1236 .flex w-full flex-col items-center gap-2 "관행에서 실천의 자격검정(단급 과정) 안내ESG를 실천할 수 있는 역량을"
+  P w=407 right=1145 .font-medium "관행에서 실천의 자격검정(단급 과정) 안내"
+  P w=483 right=1183 .whitespace-nowrap text-gray-000 "ESG를 실천할 수 있는 역량을 갖춘 인재를 양성하는 자격검정 프로그램"
+  DIV w=262 right=1072 .inline-flex border-solid "ESG마인드 자격검정 신청하기"
+  BUTTON w=252 right=1067 .inline-flex items-center justify-center overflow-clip bg-gra "ESG마인드 자격검정 신청하기"
+  SPAN w=188 right=1035 .whitespace-nowrap font-semibold text-brand-700 "ESG마인드 자격검정 신청하기"
+[h-overflow] 40건
+  SECTION w=480 right=480 .mx-auto flex w-full max-w-[1416px] flex-col gap-5 px-[240px] "자격검정의 필요성지속가능한 미래를 위해 산업체가 요구하는 ESG 기본원칙"
+  LI w=30 right=382 .flex-1 "ESG 원칙을 실천하여 지속가능한미래를 위한 일에 참여할 수 있는 기회를"
+  P w=30 right=382 .text-base font-medium leading-normal tracking-[-0.16px] text "ESG 원칙을 실천하여 지속가능한미래를 위한 일에 참여할 수 있는 기회를"
+  SPAN w=30 right=382 . "ESG 원칙을 실천하여 지속가능한"
+  SPAN w=27 right=380 . "미래를 위한 일에 참여할 수 있는 기회를 만들고 다음세대에도 긍정적인 영"
+  UL w=786 right=581 .flex flex-row items-center justify-center gap-4 p-0 "1,500+자격 취득자이론부터 실행체계적 과정100%온라인 응시"
+  LI w=240 right=581 .flex w-[240px] shrink-0 list-none "100%온라인 응시"
+  DL w=240 right=581 .flex w-full flex-col items-center gap-3 text-center "100%온라인 응시"
+  DT w=240 right=581 .w-full font-bold text-gray-000 "100%"
+  DD w=240 right=581 .w-full font-medium text-gray-000 "온라인 응시"
+  SECTION w=480 right=480 .mx-auto flex w-full max-w-[1416px] flex-col gap-5 px-[240px] "자격검정 영역ESG 기본개념1-1. ESG 정의1-2. ESG 이슈와 필"
+  ARTICLE w=221 right=461 .flex flex-1 flex-col gap-5 rounded-[20px] bg-gray-100 p-6 "ESG 기본개념1-1. ESG 정의1-2. ESG 이슈와 필요성1-3. "
+  H3 w=173 right=437 .text-xl font-semibold leading-[1.4] tracking-[-0.4px] text-[ "ESG 기본개념"
+  UL w=173 right=437 .flex list-none flex-col gap-3 "1-1. ESG 정의1-2. ESG 이슈와 필요성1-3. ESG 발전과정"
+  LI w=173 right=437 .flex items-center gap-3 "1-1. ESG 정의"
+  SPAN w=88 right=376 .whitespace-nowrap text-base font-normal leading-normal track "1-1. ESG 정의"
+  LI w=173 right=437 .flex items-center gap-3 "1-2. ESG 이슈와 필요성"
+  SPAN w=149 right=437 .whitespace-nowrap text-base font-normal leading-normal track "1-2. ESG 이슈와 필요성"
+  LI w=173 right=437 .flex items-center gap-3 "1-3. ESG 발전과정"
+  SPAN w=119 right=407 .whitespace-nowrap text-base font-normal leading-normal track "1-3. ESG 발전과정"
+  ARTICLE w=165 right=417 .flex flex-1 flex-col gap-5 rounded-[20px] bg-gray-100 p-6 "ESG 기본 용어2-1. ESG 용어2-2. ESG 약자"
+  H3 w=117 right=393 .text-xl font-semibold leading-[1.4] tracking-[-0.4px] text-[ "ESG 기본 용어"
+  UL w=117 right=393 .flex list-none flex-col gap-3 "2-1. ESG 용어2-2. ESG 약자"
+  LI w=117 right=393 .flex items-center gap-3 "2-1. ESG 용어"
+  SPAN w=91 right=391 .whitespace-nowrap text-base font-normal leading-normal track "2-1. ESG 용어"
+  LI w=117 right=393 .flex items-center gap-3 "2-2. ESG 약자"
+  SPAN w=93 right=393 .whitespace-nowrap text-base font-normal leading-normal track "2-2. ESG 약자"
+  ARTICLE w=283 right=547 .flex flex-1 flex-col gap-5 rounded-[20px] bg-gray-100 p-6 "ESG 실행 및 실천3-1. ESG 관련 법3-2. ESG 관련 기관과 "
+  H3 w=235 right=523 .text-xl font-semibold leading-[1.4] tracking-[-0.4px] text-[ "ESG 실행 및 실천"
+  UL w=235 right=523 .flex list-none flex-col gap-3 "3-1. ESG 관련 법3-2. ESG 관련 기관과 프레임워크3-3. E"
+  ... (+10 more)
+[h-overflow-clipped-deco] 10건
+  g w=31 right=1171 .[object SVGAnimatedString]
+  line w=7 right=1147 .[object SVGAnimatedString]
+  line w=7 right=1155 .[object SVGAnimatedString]
+  line w=7 right=1163 .[object SVGAnimatedString]
+  line w=7 right=1171 .[object SVGAnimatedString]
+  g w=31 right=1171 .[object SVGAnimatedString]
+  line w=7 right=1147 .[object SVGAnimatedString]
+  line w=7 right=1155 .[object SVGAnimatedString]
+  line w=7 right=1163 .[object SVGAnimatedString]
+  line w=7 right=1171 .[object SVGAnimatedString]
+
+=== tablet-768 (768×1000) @ /certification ===
+document: scrollWidth=777 clientWidth=768
+[h-overflow-clipped-content] 30건
+  DIV w=956 right=1419 .absolute flex flex-col items-center justify-end rounded-full "ESG 마인드 자격검정관행에서 실천의 자격검정(단급 과정) 안내ESG를 "
+  DIV w=590 right=1236 .flex flex-col items-center gap-12 "ESG 마인드 자격검정관행에서 실천의 자격검정(단급 과정) 안내ESG를 "
+  DIV w=590 right=1236 .flex w-full flex-col items-stretch gap-8 text-center "ESG 마인드 자격검정관행에서 실천의 자격검정(단급 과정) 안내ESG를 "
+  H1 w=590 right=1236 .whitespace-nowrap font-bold text-gray-000 "ESG 마인드 자격검정"
+  DIV w=590 right=1236 .flex w-full flex-col items-center gap-2 "관행에서 실천의 자격검정(단급 과정) 안내ESG를 실천할 수 있는 역량을"
+  P w=407 right=1145 .font-medium "관행에서 실천의 자격검정(단급 과정) 안내"
+  P w=483 right=1183 .whitespace-nowrap text-gray-000 "ESG를 실천할 수 있는 역량을 갖춘 인재를 양성하는 자격검정 프로그램"
+  DIV w=262 right=1072 .inline-flex border-solid "ESG마인드 자격검정 신청하기"
+  BUTTON w=252 right=1067 .inline-flex items-center justify-center overflow-clip bg-gra "ESG마인드 자격검정 신청하기"
+  SPAN w=188 right=1035 .whitespace-nowrap font-semibold text-brand-700 "ESG마인드 자격검정 신청하기"
+  DIV w=984 right=984 .relative mx-auto flex w-full max-w-[1920px] flex-col items-c "응시방법 및 절차 안내간편한 온라인 신청으로 ESG마인드 자격검정에 도전"
+  TABLE w=642 right=1134 .w-full border-collapse "2026년 ESG마인드 자격검정 회차별 시험 일정회차접수기간시험일발표일진"
+  THEAD w=642 right=1134 . "회차접수기간시험일발표일진행 상태"
+  TR w=642 right=1134 .bg-[#caeb69] "회차접수기간시험일발표일진행 상태"
+  TBODY w=642 right=1134 . "24회2026.03.01 - 03.152026.03.202026.04.0"
+  TR w=642 right=1134 .bg-[#014527] "24회2026.03.01 - 03.152026.03.202026.04.0"
+  TD w=130 right=884 .whitespace-nowrap px-6 py-5 text-center text-[16px] font-nor "2026.03.20"
+  TD w=130 right=1014 .whitespace-nowrap px-6 py-5 text-center text-[16px] font-nor "2026.04.03"
+  TR w=642 right=1134 .bg-[#014527] "23회2026.03.01 - 03.152026.03.202026.04.0"
+  TD w=130 right=884 .whitespace-nowrap px-6 py-5 text-center text-[16px] font-nor "2026.03.20"
+  TD w=130 right=1014 .whitespace-nowrap px-6 py-5 text-center text-[16px] font-nor "2026.04.03"
+  TR w=642 right=1134 .bg-[#014527] "22회2026.03.01 - 03.152026.03.202026.04.0"
+  TD w=130 right=884 .whitespace-nowrap px-6 py-5 text-center text-[16px] font-nor "2026.03.20"
+  TD w=130 right=1014 .whitespace-nowrap px-6 py-5 text-center text-[16px] font-nor "2026.04.03"
+  TR w=642 right=1134 .bg-[#014527] "21회2026.03.01 - 03.152026.03.202026.04.0"
+  TD w=130 right=884 .whitespace-nowrap px-6 py-5 text-center text-[16px] font-nor "2026.03.20"
+  TD w=130 right=1014 .whitespace-nowrap px-6 py-5 text-center text-[16px] font-nor "2026.04.03"
+  TR w=642 right=1134 .bg-[#014527] "20회2026.03.01 - 03.152026.03.202026.04.0"
+  TD w=130 right=884 .whitespace-nowrap px-6 py-5 text-center text-[16px] font-nor "2026.03.20"
+  TD w=130 right=1014 .whitespace-nowrap px-6 py-5 text-center text-[16px] font-nor "2026.04.03"
+[h-overflow] 5건
+  UL w=786 right=777 .flex flex-row items-center justify-center gap-4 p-0 "1,500+자격 취득자이론부터 실행체계적 과정100%온라인 응시"
+  LI w=240 right=777 .flex w-[240px] shrink-0 list-none "100%온라인 응시"
+  DL w=240 right=777 .flex w-full flex-col items-center gap-3 text-center "100%온라인 응시"
+  DT w=240 right=777 .w-full font-bold text-gray-000 "100%"
+  DD w=240 right=777 .w-full font-medium text-gray-000 "온라인 응시"
+[h-overflow-clipped-deco] 14건
+  IMG w=441 right=983 .absolute left-[70.55%] top-[44.58%] block h-[55.44%] w-[57.4
+  DIV w=89 right=797 .flex items-start gap-3 "4단계"
+  svg w=32 right=797 .[object SVGAnimatedString]
+  path w=6 right=780 .[object SVGAnimatedString]
+  path w=6 right=786 .[object SVGAnimatedString]
+  path w=6 right=792 .[object SVGAnimatedString]
+  TH w=130 right=884 .whitespace-nowrap px-6 py-5 text-center text-[16px] font-sem "시험일"
+  TH w=130 right=1014 .whitespace-nowrap px-6 py-5 text-center text-[16px] font-sem "발표일"
+  TH w=120 right=1134 .w-[140px] whitespace-nowrap px-6 py-5 text-center text-[16px "진행 상태"
+  TD w=120 right=1134 .w-[140px] whitespace-nowrap px-6 py-5 text-center text-[16px "접수 진행중"
+  TD w=120 right=1134 .w-[140px] whitespace-nowrap px-6 py-5 text-center text-[16px "접수 완료"
+  TD w=120 right=1134 .w-[140px] whitespace-nowrap px-6 py-5 text-center text-[16px "접수 완료"
+  TD w=120 right=1134 .w-[140px] whitespace-nowrap px-6 py-5 text-center text-[16px "접수 완료"
+  TD w=120 right=1134 .w-[140px] whitespace-nowrap px-6 py-5 text-center text-[16px "접수 완료"
+[text-clip-x] 9건
+  H2 clientW=1 scrollW=87 ws=nowrap .sr-only "자격검정 성과"
+  H3 clientW=0 scrollW=20 ws=normal .text-[24px] font-bold leading-[1.4] tracking-[-0.6px] "접수"
+  P clientW=0 scrollW=14 ws=normal .text-[16px] font-medium leading-[1.5] tracking-[-0.16px] "접수 및 응시료 납부"
+  H3 clientW=0 scrollW=20 ws=normal .text-[24px] font-bold leading-[1.4] tracking-[-0.6px] "시험 응시"
+  P clientW=0 scrollW=14 ws=normal .text-[16px] font-medium leading-[1.5] tracking-[-0.16px] "온라인 시험 진행"
+  H3 clientW=0 scrollW=20 ws=normal .text-[24px] font-bold leading-[1.4] tracking-[-0.6px] "결과 확인"
+  P clientW=0 scrollW=14 ws=normal .text-[16px] font-medium leading-[1.5] tracking-[-0.16px] "합격자 발표"
+  H3 clientW=0 scrollW=20 ws=normal .text-[24px] font-bold leading-[1.4] tracking-[-0.6px] "자격증 발급"
+  P clientW=0 scrollW=14 ws=normal .text-[16px] font-medium leading-[1.5] tracking-[-0.16px] "자격증 수령"
+[v-overflow-clipped-content] 2건
+  SECTION h=633 childBottom=827 excess=+194 .relative mx-auto h-[633px] w-full max-w-[1920px] overflow-hi "ESG 마인드 자격검정관행에서 실천의 자격검정(단급 과정) 안내ESG를 "
+  ASIDE h=320 childBottom=347 excess=+27 .relative flex h-[320px] w-full flex-col items-center justify "지금 바로 신청하세요ESG 실천의 첫 걸음, ESG마인드 자격검정에 도전"
+
+=== laptop-1440 (1440×1000) @ /certification ===
+document: scrollWidth=1440 clientWidth=1440
+[h-overflow-clipped-deco] 1건
+  IMG w=827 right=1843 .absolute left-[70.55%] top-[44.58%] block h-[55.44%] w-[57.4
+[text-clip-x] 1건
+  H2 clientW=1 scrollW=87 ws=nowrap .sr-only "자격검정 성과"
+[v-overflow-clipped-content] 1건
+  SECTION h=633 childBottom=827 excess=+194 .relative mx-auto h-[633px] w-full max-w-[1920px] overflow-hi "ESG 마인드 자격검정관행에서 실천의 자격검정(단급 과정) 안내ESG를 "
+[img-shrink] 7건
+  IMG rendered=24 natural=300 ratio=0.08 .block size-6
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+
+=== desktop-1920 (1920×1080) @ /certification ===
+document: scrollWidth=1920 clientWidth=1920
+[h-overflow-clipped-deco] 1건
+  IMG w=1103 right=2457 .absolute left-[70.55%] top-[44.58%] block h-[55.44%] w-[57.4
+[text-clip-x] 1건
+  H2 clientW=1 scrollW=87 ws=nowrap .sr-only "자격검정 성과"
+[v-overflow-clipped-content] 1건
+  SECTION h=633 childBottom=827 excess=+194 .relative mx-auto h-[633px] w-full max-w-[1920px] overflow-hi "ESG 마인드 자격검정관행에서 실천의 자격검정(단급 과정) 안내ESG를 "
+[img-shrink] 7건
+  IMG rendered=24 natural=300 ratio=0.08 .block size-6
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+  IMG rendered=1 natural=300 ratio=0.00 .block h-[10px] w-[1px]
+
+HINT — 패턴 매칭:
+  h-overflow (UNCLIPPED — 실제 가로스크롤 유발) → patterns.md §1
+    - 섹션 루트 w-[1920px] → max-w-[1920px] w-full mx-auto
+    - 큰 px-[252px] → px-6 md:px-12 xl:px-[252px]
+  h-overflow-clipped-content (본문 포함, clip됨) — 실제 UX 문제. 반드시 수정
+    → patterns.md §4-2 absolute decouple (relative xl:absolute)
+    → §2-4 equal-weight cards stacking (flex-col xl:flex-row)
+  h-overflow-clipped-deco (장식/blob/배경만, clip됨) — OK, 손대지 말 것
+  v-overflow-clipped-content (고정 height + overflow-hidden 섹션에서 본문 세로 잘림)
+    → patterns.md §8: `h-[Npx] overflow-hidden` → `min-h-[Npx] xl:h-[Npx] overflow-visible xl:overflow-hidden`
+  text-clip-x → whitespace-nowrap 제거 또는 xl:whitespace-nowrap
+    - 긴 제목: line-clamp-2 xl:line-clamp-none
+  img-shrink → card-resize.md §2-1 (aspect-ratio + max-w)
+    - natural 대비 30% 미만은 해상도 낭비 — 반응형 `w-full max-w-[Npx]`

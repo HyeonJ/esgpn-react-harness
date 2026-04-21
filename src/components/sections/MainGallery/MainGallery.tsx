@@ -24,7 +24,7 @@ import dividerAward from "@/assets/main-gallery/divider-award.svg";
 export function MainGallery() {
   return (
     <section
-      className="relative flex flex-col items-stretch gap-[var(--spacing-12)] w-full pt-[120px] pb-[200px] px-[252px] mx-auto"
+      className="relative flex flex-col items-stretch gap-[var(--spacing-12)] w-full max-w-[1920px] pt-[120px] pb-[200px] px-[252px] mx-auto"
       data-node-id="43:545"
     >
       <GalleryBackground />

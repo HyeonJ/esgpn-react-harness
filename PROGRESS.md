@@ -71,3 +71,34 @@
 | text_raster | 다수 | 0 | **1/38** (2.6%) | 근절 |
 
 > 측정일: 2026-04-20. CSV: `docs/redefine/structure-report.csv`. 리포트: `docs/redefine/v4-completion-report.md`
+
+---
+
+## 반응형 폴리시 — 범위 외 결정 (2026-04-21)
+
+**결론**: 375/768 뷰포트 대응은 하네스 범위 밖. 디자이너 영역.
+
+### 결정 근거
+- **Figma 원본이 1920 단일 디자인** — 375/768/1440 레이아웃에 대한 디자이너 결정 부재
+- AI가 자동 생성하는 반응형 = "디자인 결정을 AI가 대신함" = philosophy.md § 2 "디자인 의도 담기" 원칙 위반
+- v1~v3의 `responsive-polish` 스킬 + `responsive-worker`는 **과잉 자동화**였음 (detect-cutoff + auto-fit이 stacking/숨김/재배열까지 침범)
+
+### 하네스 책임 경계 (재정의)
+| 범주 | 주인 |
+|---|---|
+| 업계 표준 컨테이너 (`max-w-[1920px] w-full mx-auto`) | 개발자 재량 (이미 대부분 섹션 적용됨) |
+| 실제 overflow 버그 (max-w 누락 등) | 개발자 재량 (bug fix) |
+| **뷰포트별 레이아웃 재설계** (stacking, 요소 숨김, 폰트 비례 축소) | **디자이너 영역** |
+
+### 현재 관측된 overflow (감사 결과)
+`docs/responsive-audit/*.txt` (이번 세션 생성) — 9페이지 × 4뷰포트 detect-cutoff 출력 보존.
+
+- **1920**: 전 페이지 clean (img-shrink만 의도적)
+- **1440**: home 일부 clipped 10건 — MainNews 카드 (max-w 누락 의심)
+- **768**: certification clipped 30건 — Hero absolute + Schedule table + CtaBanner 고정 높이
+- **375**: 전 페이지 overflow — 디자이너 결정 필요
+
+### 후속 처리 (사람 영역)
+- 1440 버그: 개발자 수동 수정 (`max-w-[1920px] w-full mx-auto` 누락 섹션만)
+- 375/768 디자인: 디자이너 협의 후 별도 프로젝트로 진행
+- responsive-polish 스킬 / responsive-worker 에이전트: **deprecation 권장** (archive 또는 제거)

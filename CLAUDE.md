@@ -1,9 +1,9 @@
 # ESGPN 프로젝트 — Figma → React 하네스
 
-> **🚧 진행 중: v4 Rebuild 세션 인수인계**
-> 현재 `experiment/redefine-rebuild` 브랜치에서 v4 자율 모드 완주 진행 중.
-> **25/43 섹션 완료**. 남은 14섹션은 `docs/redefine/HANDOFF.md` 참조 후 이어서 진행.
-> 다음 섹션: **news-list** (뉴스 목록 마지막)
+> **✅ v4 Rebuild 완주 — 반응형 범위 외 확정 (2026-04-21)**
+> `experiment/redefine-rebuild` 브랜치: **38/43 섹션 구현 완료**. 구조 품질 v1~v3 대비 3.8× 개선.
+> **반응형 폴리시는 하네스 범위 밖** — 375/768은 디자이너 영역, 1440 overflow는 개발자 수동 수정.
+> 전체 현황: `PROGRESS.md` / 완주 리포트: `docs/redefine/v4-completion-report.md` / 최종 인수인계: `docs/redefine/HANDOFF-v3.md`
 
 **핵심 원칙 (v4 자율 모드): 모든 페이지를 사용자 개입 없이 끝까지 완주한다. 사용자는 완주 후 검수.**
 

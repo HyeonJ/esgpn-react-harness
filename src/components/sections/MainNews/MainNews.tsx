@@ -18,7 +18,7 @@ import bgPlantRight from "@/assets/main-news/bg-plant-right.png";
 export function MainNews() {
   return (
     <section
-      className="relative flex flex-col items-start justify-center w-full h-[1040px] px-[252px] py-[120px] overflow-hidden mx-auto"
+      className="relative flex flex-col items-start justify-center w-full max-w-[1920px] h-[1040px] px-[252px] py-[120px] overflow-hidden mx-auto"
       data-node-id="43:315"
     >
       {/* Background layers (decorative, absolute) */}

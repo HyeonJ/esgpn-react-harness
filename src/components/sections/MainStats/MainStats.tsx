@@ -15,7 +15,7 @@ import { EsgDiagram } from "./EsgDiagram";
 export function MainStats() {
   return (
     <section
-      className="flex gap-[63px] items-center bg-[var(--color-gray-000)] px-[252px] py-[200px] w-full"
+      className="flex gap-[63px] items-center bg-[var(--color-gray-000)] px-[252px] py-[200px] w-full max-w-[1920px] mx-auto"
       data-node-id="26:273"
     >
       {/* Left column: indicator dots + heading + stats */}
