@@ -67,15 +67,31 @@
 - **원인**: page-researcher가 탭 구조 없다고 판단 (MainProgramsHeader 내부에서 탭 노드 발견 못함). 실제로는 별도 노드(252:993)에 탭 존재
 - **v5 개선**: page-researcher가 "탭/슬라이더 키워드" 감지 시 하위 노드 전수 탐색. 섹션 분할 시 interactive UI 요소 체크리스트
 
+### F-008 (I, S) — Figma cropTransform 영역 불일치 (V5-3 강화 필요)
+- **섹션**: AboutMission (photoLarge, photoSmall)
+- **증상**: 이미지 자체는 정상이지만 Figma 의도된 crop 영역이 아닌 다른 부분만 보임
+- **원인**:
+  1. Pre-cropped 에셋 사용 (357×359, 145×161) — Figma 원본이 아닌 이미 잘린 파일
+  2. Figma 의도: 원본 `imgRectangle19/20`에 cropTransform `h:177%, top:-53%` 지정 → 원본의 **하단 60% 영역만** 보여주려 했음
+  3. 우리 구현: pre-cropped + `object-cover` 단독 → Figma crop 영역 정보 유실
+- **V5-3 현재 한계**: "negative-offset 금지, object-fit 우선"은 맞추고 있으나, **crop 영역 정확도는 다루지 않음**. 단순 `object-cover`로는 Figma 의도 재현 불가
+- **v5 개선 (V5-3-a 신규)**: Figma에서 cropTransform 발견 시
+  1. 원본 이미지(imgRectangleN) full-resolution 다운로드 필수
+  2. cropTransform 행렬 → `object-position` CSS로 번역 (예: `h:177% top:-53%` → `object-position: center 70%`)
+  3. Pre-cropped asset 생성·사용 금지
+- **영향**: 이 패턴은 Figma에서 image + crop 조합 거의 모든 곳에 나타남. v5 보강 후 효과 클 예정
+- **대상 파일**: `section-implementer` prompt V5-3 섹션 + `visual-regression-gates` 안티패턴 체크리스트
+
 ---
 
 ## 패턴 요약 (적재 중, 5개 이상 누적 시 분석)
 
 - **[레이아웃 해석 오류]**: F-001, F-005 — 2D 좌표를 1D flex 해석으로 번역할 때 발생
 - **[시각 해석 vs 구조]**: F-004, F-005 — "어떻게 보이나"를 "어떻게 구성하나"로 번역할 때 단계 누락
-- **[CSS 패턴 취약]**: F-002, F-003 — 1:1 수학적 번역이 CSS 렌더 현실과 안 맞음
+- **[CSS 패턴 취약]**: F-002, F-003, F-008 — 1:1 수학적 번역이 CSS 렌더 현실과 안 맞음. crop 영역 정확도까지 확장 필요
 - **[고정 크기 함정]**: F-006 — 크기 고정은 특수 목적일 때만
 - **[노드 탐색 깊이 부족]**: F-001, F-007 — parent만 보고 subnode 가능성 놓침
+- **[에셋 파이프라인]**: F-008 — pre-cropped asset 사용 시 Figma crop 의도 유실
 
 ---
 

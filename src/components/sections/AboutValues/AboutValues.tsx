@@ -1,5 +1,4 @@
 import { HatchedDivider } from "@/components/ui/HatchedDivider";
-import { ValueCard } from "./ValueCard";
 import icon1 from "@/assets/about-values/icon-1.png";
 import icon2 from "@/assets/about-values/icon-2.png";
 import icon3 from "@/assets/about-values/icon-3.png";
@@ -8,27 +7,19 @@ import icon4 from "@/assets/about-values/icon-4.png";
 /**
  * AboutValues — About 페이지 세 번째 섹션 "4가지 핵심 가치".
  *
- * v4 원칙:
- * - grid-cols-2 로 2x2 배치 (absolute 금지)
- * - 시맨틱 HTML: section + h2(sr-only) + 4 article(h3)
- * - 디자인 토큰 참조 (gray-900, spacing-*, text-base-16r-*)
- * - 아이콘 4개는 baseline crop PNG (Figma node flatten — SVG 재생성 불가)
+ * Figma source: 89:1233 (v5-1 flatten 재탐색으로 발견)
  *
- * v1~v3 만성염증 (abs 3/file, semantic 2) 타겟. v4에서 구조 회복.
- *
- * Figma source: About 페이지 52:622 내부 y=1295..2017 영역 (flatten).
- * Baseline: figma-screenshots/about-values.png (1920x722, about-full에서 crop).
+ * v5 원칙:
+ * - Figma 실제 스펙 정확 반영: 141×141 rounded-[24px] 아이콘 통일
+ * - title 20 SemiBold, body 16 Regular
+ * - 2x2 grid: outer gap-56 (행), inner gap-48 (카드), card flex-1 균등
+ * - 카드 내부: gap-20 (icon→text), gap-12 (title→body)
+ * - 시맨틱 HTML: section + h2(sr-only) + 4 article + h3
  */
-
-const ICON_FRAME_H_ROW1 = 122;
-const ICON_FRAME_H_ROW2 = 131;
 
 const VALUES = [
   {
     icon: icon1,
-    iconW: 124,
-    iconH: 122,
-    iconFrameH: ICON_FRAME_H_ROW1,
     iconAlt: "톱니바퀴 두 개가 맞물린 아이콘",
     title: "선언을 넘어선 실천의 축적",
     description: (
@@ -41,9 +32,6 @@ const VALUES = [
   },
   {
     icon: icon2,
-    iconW: 118,
-    iconH: 122,
-    iconFrameH: ICON_FRAME_H_ROW1,
     iconAlt: "캡슐 모양 도트 아이콘",
     title: "차세대 ESG 전문인력 양성",
     description: (
@@ -56,9 +44,6 @@ const VALUES = [
   },
   {
     icon: icon3,
-    iconW: 111,
-    iconH: 131,
-    iconFrameH: ICON_FRAME_H_ROW2,
     iconAlt: "화살표 묶음 아이콘",
     title: "사회의 새로운 행동기준 정립",
     description: (
@@ -71,9 +56,6 @@ const VALUES = [
   },
   {
     icon: icon4,
-    iconW: 131,
-    iconH: 131,
-    iconFrameH: ICON_FRAME_H_ROW2,
     iconAlt: "지구본 격자 아이콘",
     title: "실천적 연대 플랫폼 구축",
     description: (
@@ -92,45 +74,55 @@ export function AboutValues() {
       className="mx-auto flex w-full max-w-[1920px] flex-col bg-[var(--color-gray-000)]"
       aria-labelledby="about-values-title"
     >
-      {/* 상단 divider — mission과 공유 */}
       <HatchedDivider className="pt-[var(--spacing-0)]" />
 
-      {/* sr-only 섹션 제목 (시각적으로 숨기지만 h2 구조 유지) */}
       <h2 id="about-values-title" className="sr-only">
         ESG실천네트워크 4가지 핵심 가치
       </h2>
 
-      {/* 2x2 그리드 — 좌 centerX=714, 우 centerX=1205 (canvas center 960 대칭)
-          좌 우 카드 간 중심 거리 491px, 행 gap 66px.
-          카드 폭은 설명 ~400px 기준으로 고정(420px) — centerX 정렬에 필요. */}
-      <div className="flex flex-col items-center gap-[53px] pt-[85px] pb-[64px]">
-        {/* 2행 — 각 행은 flex-row로 2카드 배치 */}
+      {/* 2x2 grid — Figma 89:1233 구조:
+          outer flex-col gap-[56px] py-[24px] w-[936px] mx-auto */}
+      <div className="mx-auto flex w-[936px] flex-col gap-[56px] py-[24px]">
         {[0, 2].map((rowStart) => (
           <div
             key={rowStart}
-            className="flex flex-row justify-center gap-[71px]"
+            className="flex items-center gap-[48px] w-full"
           >
             {VALUES.slice(rowStart, rowStart + 2).map((v) => (
-              <div
+              <article
                 key={v.title}
-                className="flex w-[420px] justify-center"
+                className="flex flex-1 flex-col items-center justify-center gap-[20px] min-w-0"
               >
-                <ValueCard
-                  icon={v.icon}
-                  iconW={v.iconW}
-                  iconH={v.iconH}
-                  iconFrameH={v.iconFrameH}
-                  iconAlt={v.iconAlt}
-                  title={v.title}
-                  description={v.description}
-                />
-              </div>
+                {/* Icon frame: 141×141 rounded-[24px], overflow hidden */}
+                <div className="relative size-[141px] overflow-hidden rounded-[24px] shrink-0">
+                  <img
+                    src={v.icon}
+                    alt={v.iconAlt}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Text block */}
+                <div className="flex w-full flex-col items-center gap-[12px] text-center">
+                  <h3
+                    className="font-semibold leading-[1.4] tracking-[-0.4px] whitespace-nowrap text-[var(--color-gray-900)]"
+                    style={{ fontSize: 20 }}
+                  >
+                    {v.title}
+                  </h3>
+                  <p
+                    className="leading-[1.5] tracking-[-0.16px] text-[var(--color-gray-900)]"
+                    style={{ fontSize: 16 }}
+                  >
+                    {v.description}
+                  </p>
+                </div>
+              </article>
             ))}
           </div>
         ))}
       </div>
 
-      {/* 하단 divider */}
       <HatchedDivider className="pb-[var(--spacing-0)]" />
     </section>
   );
