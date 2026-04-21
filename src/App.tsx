@@ -42,10 +42,7 @@ import { RootLayout } from "@/components/layout/RootLayout";
 import { MainHero } from "@/components/sections/MainHero";
 import { MainIntro } from "@/components/sections/MainIntro";
 import { MainStats } from "@/components/sections/MainStats";
-import { MainProgramsHeader } from "@/components/sections/MainProgramsHeader";
-import { MainProgramsCard1 } from "@/components/sections/MainProgramsCard1";
-import { MainProgramsCard2 } from "@/components/sections/MainProgramsCard2";
-import { MainProgramsCard3 } from "@/components/sections/MainProgramsCard3";
+import { MainPrograms } from "@/components/sections/MainPrograms";
 import { MainNews } from "@/components/sections/MainNews";
 import { MainGallery } from "@/components/sections/MainGallery";
 import { AboutHeader } from "@/components/sections/AboutHeader";
@@ -124,7 +121,7 @@ export function App() {
 
       {/* 사용자 라우트 — RootLayout으로 Header/Footer 전역 장착 */}
       <Route element={<RootLayout />}>
-        <Route path="/" element={<><MainHero /><MainIntro /><MainStats /><MainProgramsHeader /><MainProgramsCard1 /><MainProgramsCard2 /><MainProgramsCard3 /><MainNews /><MainGallery /></>} />
+        <Route path="/" element={<><MainHero /><MainIntro /><MainStats /><MainPrograms /><MainNews /><MainGallery /></>} />
         <Route path="/about" element={<><AboutHeader /><AboutMission /><AboutValues /><AboutVision /></>} />
         <Route path="/about/organization" element={<><AboutOrganizationTabs /><AboutOrganizationLogos /><AboutOrganizationChart /><AboutOrganizationPanorama /></>} />
         <Route path="/contact" element={<div className="pt-[180px]"><ContactForm /></div>} />

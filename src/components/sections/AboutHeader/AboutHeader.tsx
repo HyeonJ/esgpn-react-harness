@@ -15,8 +15,7 @@ const ABOUT_TABS = [
 export function AboutHeader() {
   return (
     <section
-      className="mx-auto flex w-full max-w-[1920px] flex-col items-center bg-gray-000 pt-[81px]"
-      style={{ height: 454 }}
+      className="mx-auto flex w-full max-w-[1920px] flex-col items-center bg-gray-000 pt-[160px]"
     >
       {/* Tab navigation -- centered, 14px Pretendard */}
       <SectionTabs tabs={ABOUT_TABS} />

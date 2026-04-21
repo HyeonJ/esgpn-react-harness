@@ -76,10 +76,6 @@ export function MainHero() {
           {/* Heading group */}
           <div className="relative flex flex-col gap-[var(--spacing-1)] items-center w-full">
             {/* White patch behind wordmark */}
-            <div
-              aria-hidden="true"
-              className="absolute left-1/2 -translate-x-1/2 top-px w-[286px] h-[27px] bg-white"
-            />
             <p className="text-[length:var(--text-xl-20sb-size)] font-semibold leading-[1.4] tracking-[-0.4px] text-[var(--color-gray-900)] text-center whitespace-nowrap">
               세상을 아름답게 만드는 힘, ESGPN
             </p>

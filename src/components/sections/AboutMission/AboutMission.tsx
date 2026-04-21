@@ -25,37 +25,34 @@ export function AboutMission() {
       {/* 상단 divider */}
       <HatchedDivider className="pt-[var(--spacing-0)]" />
 
-      {/* 본문: 좌측 텍스트 + 우측 사진 */}
-      <div className="flex items-start justify-between px-[252px] pt-[66px] pb-[60px]">
-        {/* 좌측 텍스트 블록 */}
-        <div className="flex flex-col gap-[var(--spacing-10)] max-w-[627px]">
+      {/* 본문: 텍스트 → 대 이미지 → 소 이미지 세로 스택 (Figma 86:1163 구조) */}
+      <div className="flex flex-col px-[492px] pt-[66px] pb-[71px]">
+        {/* 텍스트 블록 (상단) */}
+        <div className="flex flex-col gap-[32px] w-[936px] mb-[-71px]">
           <h2
             id="about-mission-title"
-            className="font-bold leading-[1.18] tracking-[-0.5px]"
+            className="font-bold leading-[1.4] tracking-[-0.6px]"
             style={{
               fontFamily: "var(--font-family-pretendard)",
-              fontSize: 28,
+              fontSize: 24,
             }}
           >
             <span className="text-[var(--color-brand-500)]">
               ESG실천네트워크(ESGPN)
             </span>
             <span className="text-[var(--color-gray-900)]">
-              를{"\n"}방문해주신 여러분을 진심으로 환영합니다.
+              를
+              <br />
+              방문해주신 여러분을 진심으로 환영합니다.
             </span>
           </h2>
 
-          <div className="flex flex-col gap-[var(--spacing-8)]">
+          <div className="flex flex-col gap-[24px]">
             <p
               className="text-[var(--color-gray-900)] whitespace-pre-line"
-              style={{
-                fontSize: "var(--text-base-16r-size)",
-                fontWeight: "var(--text-base-16r-weight)" as unknown as number,
-                lineHeight: "24px",
-                letterSpacing: "var(--text-base-16r-letter-spacing)",
-              }}
+              style={{ fontSize: 16, lineHeight: "24px", letterSpacing: "-0.16px" }}
             >
-              <span className="font-semibold text-[var(--color-brand-500)]">
+              <span className="font-bold text-[var(--color-brand-500)]">
                 ESG실천네트워크
               </span>
               는 &apos;행동으로 구현하는 지속가능성&apos;이라는 가치를 중심에 두고,
@@ -66,35 +63,33 @@ export function AboutMission() {
 
             <p
               className="text-[var(--color-gray-900)] whitespace-pre-line"
-              style={{
-                fontSize: "var(--text-base-16r-size)",
-                fontWeight: "var(--text-base-16r-weight)" as unknown as number,
-                lineHeight: "24px",
-                letterSpacing: "var(--text-base-16r-letter-spacing)",
-              }}
+              style={{ fontSize: 16, lineHeight: "24px", letterSpacing: "-0.16px" }}
             >
-              <span className="font-semibold text-[var(--color-brand-500)]">
-                ESG실천네트워크
-              </span>
-              는 지속가능성이 단순한 &apos;선언&apos;에 그치지 않고 &apos;교육과 실천의 축적&apos;으로
+              ESG실천네트워크는 지속가능성이 단순한 &apos;선언&apos;에 그치지 않고 &apos;교육과 실천의 축적&apos;으로
               {"\n"}완성될 수 있도록 돕는 전문 연대 플랫폼으로서, 다음과 같은 가치를 목표로 하고 있습니다.
             </p>
           </div>
         </div>
 
-        {/* 우측 사진 콜라주 (figure 내부에서만 absolute 허용 — overlap 표현) */}
-        <figure className="relative shrink-0 w-[357px] h-[434px]">
-          <img
-            src={photoLarge}
-            alt="ESGPN 활동 현장 — 도시 전경"
-            className="w-[357px] h-[359px] rounded-[30px] object-cover"
-          />
-          <img
-            src={photoSmall}
-            alt="ESGPN 활동 현장 — 자연 속 손"
-            className="absolute left-[-183px] bottom-0 w-[145px] h-[161px] rounded-[20px] object-cover"
-          />
-        </figure>
+        {/* 이미지 그룹 (하단) — 대 우측 / 소 중앙, 소가 대의 좌측 아래 겹침 */}
+        <div className="flex flex-col pb-[87px] w-[936px]">
+          {/* 대 이미지 — 우측 정렬, 아래로 -87px overlap */}
+          <figure className="flex items-center justify-end w-full mb-[-87px]">
+            <img
+              src={photoLarge}
+              alt="ESGPN 활동 현장 — 도시 전경"
+              className="size-[360px] rounded-[32px] object-cover"
+            />
+          </figure>
+          {/* 소 이미지 — 중앙 정렬 */}
+          <figure className="flex items-center justify-center w-full">
+            <img
+              src={photoSmall}
+              alt="ESGPN 활동 현장 — 자연 속 손"
+              className="size-[162px] rounded-[32px] object-cover"
+            />
+          </figure>
+        </div>
       </div>
 
       {/* 하단 divider */}

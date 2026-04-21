@@ -33,8 +33,7 @@ export function IntroGlobeGroup() {
         <img
           alt="ESG 글로벌 네트워크를 상징하는 지구 이미지"
           src={globeImg}
-          className="absolute max-w-none"
-          style={{ left: "-22.22%", top: "-6.38%", width: "162.31%", height: "112.94%" }}
+          className="w-full h-full object-contain"
         />
       </div>
 

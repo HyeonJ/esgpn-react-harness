@@ -45,32 +45,51 @@ function ConnectorSvg() {
       <defs>
         <marker
           id="arrow-down"
-          markerWidth="8"
-          markerHeight="6"
-          refX="4"
-          refY="6"
-          orient="auto"
+          markerWidth="10"
+          markerHeight="8"
+          refX="5"
+          refY="7"
+          orient="0"
         >
-          <path d="M0,0 L4,6 L8,0" fill={CONNECTOR_STROKE} />
+          <path
+            d="M0,0 L5,7 L10,0"
+            fill="none"
+            stroke={CONNECTOR_STROKE}
+            strokeWidth={STROKE_WIDTH}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </marker>
         <marker
           id="arrow-up"
-          markerWidth="8"
-          markerHeight="6"
-          refX="4"
-          refY="0"
-          orient="auto"
+          markerWidth="10"
+          markerHeight="8"
+          refX="5"
+          refY="1"
+          orient="0"
         >
-          <path d="M0,6 L4,0 L8,6" fill={CONNECTOR_STROKE} />
+          <path
+            d="M0,7 L5,0 L10,7"
+            fill="none"
+            stroke={CONNECTOR_STROKE}
+            strokeWidth={STROKE_WIDTH}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </marker>
       </defs>
 
-      {/* --- Top 3: ESG circles -> WHY? --- */}
+      {/* --- Top 3: ESG circles -> WHY? ---
+          Elbow corners rounded with quadratic curves (R=16).
+          Path syntax: L to (R px before corner), Q (corner) (R px after corner). */}
       {/* E circle bottom center (151, 200) -> WHY? top center (338.5, 280) */}
       <path
-        d="M 151,200 V 240 H 338.5 V 280"
+        d="M 151,200 L 151,224 Q 151,240 167,240 L 322.5,240 Q 338.5,240 338.5,256 L 338.5,280"
         stroke={CONNECTOR_STROKE}
         strokeWidth={STROKE_WIDTH}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
         markerEnd="url(#arrow-down)"
       />
       {/* S circle bottom center (338.5, 200) -> WHY? top (338.5, 280) */}
@@ -81,22 +100,29 @@ function ConnectorSvg() {
         y2={280}
         stroke={CONNECTOR_STROKE}
         strokeWidth={STROKE_WIDTH}
+        strokeLinecap="round"
         markerEnd="url(#arrow-down)"
       />
       {/* G circle bottom center (527, 200) -> WHY? top center (338.5, 280) */}
       <path
-        d="M 527,200 V 240 H 338.5 V 280"
+        d="M 527,200 L 527,224 Q 527,240 511,240 L 354.5,240 Q 338.5,240 338.5,256 L 338.5,280"
         stroke={CONNECTOR_STROKE}
         strokeWidth={STROKE_WIDTH}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
         markerEnd="url(#arrow-down)"
       />
 
       {/* --- Bottom 3: WHY? -> explanation columns --- */}
       {/* WHY? bottom (338.5, 324) -> Capital market center (107.5, 404) */}
       <path
-        d="M 338.5,324 V 364 H 107.5 V 404"
+        d="M 338.5,324 L 338.5,348 Q 338.5,364 322.5,364 L 123.5,364 Q 107.5,364 107.5,380 L 107.5,404"
         stroke={CONNECTOR_STROKE}
         strokeWidth={STROKE_WIDTH}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
         markerEnd="url(#arrow-down)"
       />
       {/* WHY? bottom (338.5, 324) -> Consumer trend center (338.5, 404) */}
@@ -107,13 +133,17 @@ function ConnectorSvg() {
         y2={404}
         stroke={CONNECTOR_STROKE}
         strokeWidth={STROKE_WIDTH}
+        strokeLinecap="round"
         markerEnd="url(#arrow-down)"
       />
       {/* WHY? bottom (338.5, 324) -> Legal disclosure center (569.5, 404) */}
       <path
-        d="M 338.5,324 V 364 H 569.5 V 404"
+        d="M 338.5,324 L 338.5,348 Q 338.5,364 354.5,364 L 553.5,364 Q 569.5,364 569.5,380 L 569.5,404"
         stroke={CONNECTOR_STROKE}
         strokeWidth={STROKE_WIDTH}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
         markerEnd="url(#arrow-down)"
       />
     </svg>
@@ -183,7 +213,7 @@ export function EsgDiagram() {
       data-node-id="29:351"
     >
       {/* Cell 1: ESG 3 circles (ml=51 mt=0) */}
-      <div className="col-start-1 row-start-1 flex items-center ml-[51px] mt-0 pr-[12px]">
+      <div className="col-start-1 row-start-1 flex items-start ml-[51px] mt-0 pr-[12px]">
         <EsgCircle opacity={0.16} engLabel="Environmental" korLabel="환경" />
         <EsgCircle opacity={0.28} engLabel="Social" korLabel="사회" />
         <EsgCircle opacity={0.4} engLabel="Governance" korLabel="지배구조" />

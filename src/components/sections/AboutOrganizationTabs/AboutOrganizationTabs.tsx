@@ -16,8 +16,7 @@ export function AboutOrganizationTabs() {
   return (
     <section
       aria-label="About 조직도 섹션 탭"
-      className="mx-auto flex w-full max-w-[1920px] items-start justify-center bg-gray-000 pt-[80px]"
-      style={{ height: 102 }}
+      className="mx-auto flex w-full max-w-[1920px] items-start justify-center bg-gray-000 pt-[160px]"
     >
       <SectionTabs tabs={ABOUT_TABS} />
     </section>

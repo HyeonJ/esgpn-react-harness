@@ -67,7 +67,13 @@ export function MainStats() {
             <StatItem
               value="85"
               unit="%"
-              caption={<>ESG를 중시하는 소비자</>}
+              caption={
+                <>
+                  ESG를 중시하는
+                  <br />
+                  소비자
+                </>
+              }
             />
             <StatItem
               value="70"
