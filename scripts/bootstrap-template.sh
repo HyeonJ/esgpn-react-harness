@@ -152,6 +152,7 @@ HARNESS_SCRIPTS=(
   "detect-placeholder-text.mjs"
   "doctor.sh"
   "download-assets.sh"
+  "figma-rest-image.sh"
   "measure-quality.sh"
   "process-assets.py"
   "rembg-icon.py"
@@ -168,6 +169,7 @@ echo
 # ---------- 3. docs/ (공통 가이드만) ----------
 echo "[3/6] docs/"
 HARNESS_DOCS=(
+  "new-project-kickoff.md"
   "figma-workflow.md"
   "section-implementation.md"
   "frontend.md"
@@ -362,7 +364,7 @@ function Landing() {
       <div className="max-w-xl text-center">
         <h1 className="text-3xl font-bold mb-4">하네스 템플릿</h1>
         <p className="text-gray-700 mb-6">
-          Figma→React 변환 하네스 v5. 새 프로젝트를 시작하려면 CLAUDE.md를 읽으세요.
+          Figma→React 변환 하네스 v5. 새 프로젝트는 <code>docs/new-project-kickoff.md</code>부터 읽으세요.
         </p>
         <ul className="text-left text-sm space-y-1">
           <li><code>/__calibration</code> — 폰트 보정 확인</li>
@@ -510,6 +512,20 @@ v5 하네스 템플릿에서 부트스트랩. 새 Figma 프로젝트를 **AI 자
 
 ---
 
+## 🚀 새 프로젝트 시작
+
+> **첫 Claude Code 세션을 열면 이 문서(\`CLAUDE.md\`)와 함께 \`docs/new-project-kickoff.md\`가 자동 참조된다.**
+
+새 프로젝트 첫 세션에서 아래 1줄 프롬프트로 시작 가능:
+
+\`\`\`
+docs/new-project-kickoff.md 읽고, §4 프롬프트 템플릿으로 Phase 0 시작하자. 내 Figma URL은 {여기}.
+\`\`\`
+
+Claude가 kickoff 가이드를 따라 환경 체크 → figma-project-context.md 초기화 → PROGRESS.md 초기화 → phase1-setup-worker 스폰까지 자동 진행한다.
+
+---
+
 ## 하네스 트리거
 
 Figma URL 제공, "디자인 구현", "섹션 진행", "페이지 구현" 관련 작업 시 **\`figma-to-react\` 스킬을 반드시 사용하라.**
@@ -520,11 +536,16 @@ Figma URL 제공, "디자인 구현", "섹션 진행", "페이지 구현" 관련
 
 ## 시작 체크리스트 (Phase 0)
 
-1. \`docs/figma-project-context.md\` 열어서 Figma 파일 key, 페이지 목록, 토큰 원본 채우기
-2. \`npm install\` 후 \`npm run dev\` 로 skeleton 페이지 확인
-3. \`npm run doctor\` 로 환경 점검 (Playwright, Python, ImageMagick 등)
-4. Figma MCP 연결 확인 (Framelink MCP — docs/figma-workflow.md Phase 0 참조)
-5. Phase 1 (프로젝트 셋업) — \`phase1-setup-worker\` 에이전트 스폰
+상세 절차는 **\`docs/new-project-kickoff.md\`**. 요약:
+
+1. \`FIGMA_TOKEN\` env var 세팅 (kickoff §1.2)
+2. \`npm install && npx playwright install chromium\`
+3. \`scripts/figma-rest-image.sh <fileKey> 0:1 /tmp/test.png --scale 1\` smoke test
+4. \`npm run dev\` 로 skeleton 페이지 확인
+5. \`docs/figma-project-context.md\` 를 Figma 정보로 채우기
+6. \`figma-to-react\` 스킬 활성화 → \`phase1-setup-worker\` 에이전트 스폰
+
+**Framelink MCP 호출 금지** (F-015 영구 폐기). 모든 PNG는 \`scripts/figma-rest-image.sh\` REST API 래퍼.
 
 ---
 
@@ -760,20 +781,27 @@ cat > "$TARGET_DIR/README.md" <<EOF
 
 ESGPN v5 하네스 템플릿에서 부트스트랩한 프로젝트.
 
-## 시작
+## 빠른 시작
 
 \`\`\`bash
 npm install
+npx playwright install chromium
 npm run dev
 \`\`\`
 
 브라우저에서 \`http://localhost:5173\` 확인.
 
-## 다음 단계
+## 새 Figma 프로젝트 시작하려면
 
-1. **\`CLAUDE.md\`** 읽기 — 하네스 사용 규칙
-2. **\`docs/figma-project-context.md\`** 채우기 — Figma 파일 key, 페이지 Node ID
-3. Claude Code 세션 시작 — "Figma URL 제공하며 Phase 1 킥오프"
+**\`docs/new-project-kickoff.md\`** 를 읽으세요. 한 문서에 모든 것이 있음:
+- FIGMA_TOKEN env var 세팅
+- Smoke test 명령
+- 새 Claude Code 세션에 붙여넣을 프롬프트 템플릿
+
+첫 세션에 한 줄 프롬프트로 시작:
+\`\`\`
+docs/new-project-kickoff.md 읽고, §4 프롬프트 템플릿으로 Phase 0 시작하자. 내 Figma URL은 https://figma.com/design/...
+\`\`\`
 
 ## 하네스 도구
 
@@ -782,7 +810,7 @@ npm run doctor              # 환경 점검
 npm run lint                # G5 시맨틱 HTML 검사
 npm run check:quality       # G5~G8 umbrella
 npm run check:antipatterns  # Tailwind 음수 width 등 검출
-npm run check:baked-png     # Framelink baked-in 중첩 검출
+npm run check:baked-png     # Figma REST PNG baked-in 중첩 검출
 npm run check:spacing       # Spacing audit (F-011)
 \`\`\`
 
