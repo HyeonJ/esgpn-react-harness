@@ -116,6 +116,27 @@
   - 판별: SVG path 직접 읽어서 "원/시작점이 어디 있는지" 확인 → 시각 기대와 일치 = raw 사용
 - **실증 해결**: Vec7 `marginTop: 124 → 15`, `transform: scaleY(-1)` 제거 (SVG pre-flipped)
 
+### F-015 (P, I) — Framelink MCP 영구 폐기 + Figma REST API 전환
+- **증상**: Framelink MCP (`figma-framelink`) 가 세션 간 연결 불안정 — "PARENT STDIN ENDED" 로그로 Claude Code sub-agent cleanup 버그 확인. 반복 재시작/래퍼 시도 모두 실패
+- **파급**: Framelink는 하네스의 에셋 파이프라인(baseline PNG, leaf asset, dynamic asset 정적화)을 90%+ 담당. 이 채널이 죽으면 공식 Figma MCP(`plugin:figma:figma`)로 부담 전이 — 하지만 공식 MCP는 Starter 플랜 **월 6 tool call** 한계. 38섹션 규모 하네스 구동 불가능
+- **근본 해결**: Framelink 포기 + **Figma REST Images API 직접 호출** 채택
+  - Figma REST API는 사용자 본인 Figma PAT로 Figma 서버에 직접 호출 (MCP 미경유)
+  - Quota: 인증 사용자당 분당 수천 req — 실질 무제한
+  - 공식 MCP는 **최소 사용**으로 유지 (페이지 구조 초기 `get_metadata` 1~2회 / `get_variable_defs` 페이지당 1회 정도)
+- **커버 범위**:
+  - ✅ Baseline PNG, composed frame, leaf asset — `GET /v1/images/{fileKey}?ids=...&format=png&scale=2`
+  - ✅ 노드 tree 탐색 — `GET /v1/files/{fileKey}?ids=...&depth=N`
+  - ✅ 노드 상세 — `GET /v1/files/{fileKey}/nodes?ids=...`
+  - ⚠️ Variables (`GET /variables/local`) — **Enterprise plan 전용**. Starter는 접근 불가. Fallback: nodes 응답의 fill/stroke hex 수집 → tokens.css 수동 구성
+- **v5 규칙 (V5-14 신규)**: **Framelink 호출 금지. Baseline PNG / 에셋 추출은 `scripts/figma-rest-image.sh` 또는 동등한 REST curl 패턴 사용.** 공식 MCP는 페이지 구조 초기 탐색에만 최소 사용
+- **인프라**:
+  - `scripts/figma-rest-image.sh` 래퍼 작성 (2-step: API → S3 URL → download). `FIGMA_TOKEN` env var 자동 로드 (Windows PowerShell User scope / Unix export 모두 호환)
+  - 기존 `section-implementer.md:130` / `v5-feedback.md:193` 의 curl 패턴을 재사용 스크립트로 승격
+- **후속 과제** (F-015 파생):
+  - section-implementer.md / page-researcher.md: "Framelink 먼저 시도" 문구 전부 제거. REST API 패턴으로 업데이트
+  - `.claude/skills/figma-to-react/SKILL.md`: Framelink 등록 체크 제거
+  - `docs/figma-workflow.md` Phase 0: Framelink 등록 단계 제거
+
 ### F-012 (I, S) — Figma negative margin overlap 패턴 CSS 1:1 번역 오류 (누적 발생)
 - **섹션**: AboutMission 이미지 그룹
 - **증상**: Figma의 `pb-[87px]` + last child `mb-[-87px]` 패턴을 그대로 번역하면, CSS flex에서는 상쇄되지 않고 **87px 잔여 공간** 발생. 다음 섹션 divider의 `my-[56px]`와 **누적되어 87+56=143px의 예상 밖 공간** 생성
