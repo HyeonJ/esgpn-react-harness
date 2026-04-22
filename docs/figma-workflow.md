@@ -43,35 +43,56 @@
 
 ## Phase 0 — 도구 셋업 (사용자 개입, 1회)
 
-공식 Figma MCP(`plugin:figma:figma`)의 `get_screenshot`은 inline base64만 반환하여 `figma-screenshots/`에 자동 저장할 수 없다. G1(pixelmatch diff) baseline PNG를 자동 확보하려면 **Framelink MCP**(`figma-developer-mcp`)를 **추가로** 등록해야 한다. 공식 MCP는 `get_metadata`/`get_design_context`/`get_variable_defs` 용으로 유지하고, Framelink는 baseline PNG 저장 전용으로 병용한다.
+공식 Figma MCP(`plugin:figma:figma`)의 `get_screenshot`은 inline base64만 반환하여 파일 저장 불가. **Framelink MCP는 F-015에서 영구 폐기**(세션 간 disconnect 불안정 + Claude Code sub-agent cleanup 버그). G1 baseline PNG + 모든 에셋은 **Figma REST Images API 직접 호출**로 확보한다. 래퍼 스크립트 `scripts/figma-rest-image.sh`가 2-step 자동화(API → S3 URL → download). 공식 MCP는 `get_metadata` / `get_design_context` / `get_variable_defs` 용으로 **최소 사용** (Starter 플랜 월 6 tool call 쿼터 보호).
 
-### 0.1 Figma Personal Access Token 발급 (사용자가 수행)
+### 0.1 Figma Personal Access Token 발급 (사용자가 수행, 1회)
 1. figma.com → Settings → Security → Personal access tokens → "Generate new token"
 2. 파일 읽기 권한만 있으면 충분
 3. 발급 토큰(`figd_...`)은 재발급 시 즉시 revoke 가능하므로 본인 로컬 환경에서만 사용
 
-### 0.2 Framelink MCP 등록 (1회, user scope)
-```
-claude mcp add figma-framelink --scope user -- npx -y figma-developer-mcp --figma-api-key=figd_발급토큰 --stdio --image-dir=C:/Dev/Workspace/esgpn-react-harness
+### 0.2 환경 변수 등록 (사용자가 수행, 1회)
+
+**Windows** (PowerShell, User scope — 영속):
+```powershell
+[Environment]::SetEnvironmentVariable('FIGMA_TOKEN', 'figd_발급토큰', 'User')
 ```
 
-플래그 의미:
-- `--stdio` **필수** (MCP 클라이언트 모드)
-- `--image-dir=<프로젝트 루트>` — 다운로드 경로를 프로젝트 내부로 제한. **Windows 환경에서는 forward slash 사용** (backslash는 bash가 먹음)
-- `--scope user` — 전역 등록, 다른 프로젝트에서도 재사용 가능
+**macOS / Linux** (shell rc):
+```bash
+echo 'export FIGMA_TOKEN=figd_발급토큰' >> ~/.zshrc   # 또는 ~/.bashrc
+source ~/.zshrc
+```
 
 ### 0.3 확인
-```
-claude mcp list
-```
-출력에 `figma-framelink: ... --stdio ... - ✓ Connected` 가 보여야 성공. **Claude Code 세션 재시작 필수** — `claude --continue`로 재시작하면 대화 컨텍스트 유지하면서 MCP 스키마 로드.
+```bash
+# Windows Git Bash:
+powershell -Command "[Environment]::GetEnvironmentVariable('FIGMA_TOKEN', 'User')" | head -c 20
 
-### 0.4 사용 가능한 도구
-- `mcp__figma-framelink__get_figma_data` — 노드 메타데이터(YAML), 공식 `get_metadata`보다 레이아웃 상세
-- `mcp__figma-framelink__download_figma_images` — **baseline PNG 저장 (이 프로젝트에서 G1 게이트의 핵심 도구)**
+# Unix:
+printenv FIGMA_TOKEN | head -c 20
+```
+출력에 `figd_` 로 시작하는 토큰 앞자리가 보이면 성공. Claude Code 세션 재시작 불필요 — REST API 래퍼는 호출 시점에 env var를 읽음.
 
-### 0.5 보안 주의
-토큰은 `C:\Users\<user>\.claude.json`에 평문 저장. 개발 PC 이외 환경에 파일 공유 시 반드시 `.claude.json`에서 토큰 제거 또는 별도 환경변수 치환.
+### 0.4 래퍼 스크립트 smoke test
+```bash
+scripts/figma-rest-image.sh <fileKey> 0:1 /tmp/figma-test.png --scale 1
+```
+- `<fileKey>`: Figma URL의 `/design/<fileKey>/...`
+- 성공 시 `[figma-rest-image] OK ...` 로그 + 파일 생성
+- 실패 시 exit 2(env 미설정)/3(API error)/4(다운로드 실패) + stderr 에 원인
+
+### 0.5 사용 패턴
+| 용도 | 도구 |
+|---|---|
+| baseline PNG / composed frame / leaf asset | `scripts/figma-rest-image.sh` (REST API 래퍼) |
+| 노드 tree 탐색 | `curl GET /v1/files/{key}?ids=...&depth=N` 또는 공식 MCP `get_metadata` (페이지당 1회) |
+| 노드 상세 코드 참조 (선택) | 공식 MCP `get_design_context` (섹션당 0~1회, 쿼터 보호) |
+| 디자인 토큰 | 공식 MCP `get_variable_defs` (페이지당 1회). Variables API Enterprise 전용 제약 있음 |
+
+### 0.6 보안 주의
+- `FIGMA_TOKEN` env var는 시스템 환경변수 저장소에 있음. 다른 사용자와 공유되는 머신이면 User scope만 사용 (Machine scope 금지)
+- Git 커밋·스크립트 로그에 토큰 노출 금지. 스크립트 출력은 토큰 일부만 echo하거나 전혀 echo하지 말 것
+- 토큰 유출 의심 시 즉시 figma.com → Settings → Personal access tokens → Revoke
 
 ---
 
@@ -191,9 +212,10 @@ scripts/
 - 통합 wrapper 섹션(imports + layout div만)은 실코드 거의 없는 별도 커밋
 
 ### 3.2 페이지 전체 베이스라인 확보
-- Framelink `download_figma_images`로 페이지 전체 PNG 저장 → `figma-screenshots/{페이지명}-full.png`
-- 각 섹션별 → `figma-screenshots/{섹션명}.png` (flat 경로, `compare-section.sh` baseline 규약)
+- `scripts/figma-rest-image.sh <fileKey> <pageNodeId> figma-screenshots/{페이지명}-full.png --scale 2`
+- 각 섹션별 → `scripts/figma-rest-image.sh <fileKey> <sectionNodeId> figma-screenshots/{섹션명}.png --scale 2` (flat 경로, `compare-section.sh` baseline 규약)
 - **모든 베이스라인이 저장되기 전에는 어떤 섹션도 구현 시작 금지**
+- Framelink MCP 사용 금지 (F-015)
 
 ### 3.3 공통 컴포넌트 식별
 - 페이지 안에서 반복되는 컴포넌트(카드, 버튼, 뱃지 등)를 식별
@@ -299,11 +321,11 @@ git push
 
 ### 6.3 호출 횟수 절약 (Free 플랜 기준)
 페이지당 권장 호출 분배:
-1. `get_metadata` 1회 — 전체 구조
-2. `get_variable_defs` 1회 — 토큰 (Phase 1에서 1회로 끝)
-3. Framelink `download_figma_images` 섹션 수만큼 — 베이스라인 PNG 파일 저장
-4. `get_design_context` 섹션 수만큼 — 코드/에셋
-5. (선택) Framelink `get_figma_data` — 레이아웃 YAML 보조
+1. 공식 MCP `get_metadata` 1회 — 전체 구조
+2. 공식 MCP `get_variable_defs` 1회 — 토큰 (Phase 1에서 1회로 끝)
+3. `scripts/figma-rest-image.sh` 섹션 수만큼 — 베이스라인 PNG 파일 저장 (F-015 REST API 래퍼)
+4. 공식 MCP `get_design_context` 섹션당 **0~1회** (쿼터 보호)
+5. (대체) REST API `curl GET /v1/files/{key}/nodes?ids=...` — 노드 상세 + 쿼터 무관
 
 ### 6.4 금지사항
 - ❌ 페이지 전체를 한 번에 `get_design_context`로 가져오기

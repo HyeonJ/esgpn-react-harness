@@ -87,20 +87,17 @@ node scripts/check-spacing-audit.mjs / --json
 
 Dev server 실행 상태에서 동작. 섹션 구현 후 필수 실행 (수동 확인 가능).
 
-### Figma composed frame (F-008/F-009) — REST API 사용
-design_context에 아래 발견 시 Framelink 대신 **Figma REST Images API** 사용:
-- `cropTransform` 행렬 (h/w/top/left 퍼센트 offset)
-- 음수 width/height (`w-[-126%]` = 수평 flip)
-- 여러 이미지 overlay (multi-layer composite)
+### Figma 이미지 에셋 (F-008/F-009/F-015) — REST API 단일 채널
+모든 Figma PNG 추출은 `scripts/figma-rest-image.sh` 한 채널. cropTransform·flip·multi-layer 구분 없음 — REST API가 baked-in flat PNG로 반환.
 
 ```bash
-TOKEN=$(powershell -Command "[Environment]::GetEnvironmentVariable('FIGMA_TOKEN', 'User')")
-curl "https://api.figma.com/v1/images/{fileKey}?ids={nodeId}&format=png&scale=2" \
-  -H "X-Figma-Token: $TOKEN"
+scripts/figma-rest-image.sh <fileKey> <nodeId> <output-path> --scale 2
 ```
 
 반환 PNG는 Figma rendering (crop/flip/overlay 모두 baked, alpha에 rounded 포함).
 코드 1줄: `<img src={asset} className="size-[N]" />`
+
+Framelink MCP 호출 금지 (F-015 영구 폐기).
 
 ### Grid cell 같은 레이어에 items-center (F-004)
 - `grid` + `col-start-N row-start-N` 같은 cell에 여러 형제 요소 있을 때 `items-center`는 침범 유발
@@ -116,18 +113,7 @@ curl "https://api.figma.com/v1/images/{fileKey}?ids={nodeId}&format=png&scale=2"
 
 ## baseline PNG 확보
 
-**Framelink MCP** `mcp__figma-framelink__download_figma_images` 로 섹션 노드를 파일 저장. 공식 MCP `get_screenshot`은 inline 전용이라 사용 금지. Framelink 미등록 상태면 `docs/figma-workflow.md` Phase 0 먼저 수행.
-
-**경로 규약:**
-- 공통 컴포넌트: `figma-screenshots/{section}.png` (예: `header.png`, `footer.png`)
-- 페이지 섹션: `figma-screenshots/{page}-{section}.png` (예: `main-hero.png`)
-- 페이지 전체: `figma-screenshots/{page}-full.png`
-
-섹션명은 baseline 파일명과 동일하게 사용 (공통은 `header`, 페이지는 `main-hero` 같이 접두사 포함).
-
-## baseline PNG 확보
-
-**Framelink MCP** `mcp__figma-framelink__download_figma_images` 로 섹션 노드를 파일 저장. 공식 MCP `get_screenshot`은 inline 전용이라 사용 금지. Framelink 미등록 상태면 `docs/figma-workflow.md` Phase 0 먼저 수행.
+`scripts/figma-rest-image.sh <fileKey> <nodeId> <output-path> --scale 2` 로 섹션 노드를 파일 저장. 공식 MCP `get_screenshot`은 inline 전용이라 사용 금지. `FIGMA_TOKEN` 미설정이면 `docs/figma-workflow.md` Phase 0 먼저 수행. Framelink MCP 호출 금지 (F-015).
 
 **경로 규약:**
 - 공통 컴포넌트: `figma-screenshots/{section}.png` (예: `header.png`, `footer.png`)

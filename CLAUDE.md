@@ -75,7 +75,7 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 아래는 과거 문서 규칙이었으나 이제 스크립트/lint로 자동 검출된다. 수동 확인 불필요:
 - 음수 width/height (`w-[-...`) → `scripts/check-tailwind-antipatterns.sh`
 - 정수 회전·letter-spacing (반올림 금지) → 동 스크립트 warn
-- Framelink baked-in PNG 위에 CSS rotate/blend/bg 중첩 → `scripts/check-baked-in-png.sh`
+- Figma REST PNG 위에 CSS rotate/blend/bg 중첩 → `scripts/check-baked-in-png.sh`
 - 시맨틱 HTML 위반 → eslint jsx-a11y (G5)
 - 텍스트 baked-in raster → G6/G8
 
@@ -83,10 +83,11 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 
 ### 에셋 규칙
 - **에셋 URL 무조건 다운로드.** CSS/유니코드 대체 금지
-- **동적 에셋(GIF/비디오) 원본 사용 금지** — 부모 노드를 Framelink로 정적 PNG 추출 (`dynamic-asset-handling` 스킬)
-- **Framelink는 leaf nodeId로 호출** — 아이콘/장식 export 시 부모 카드/프레임 nodeId **금지**. 자식 leaf nodeId(아이콘/사진/blur 레이어)만 전달. 부모를 넘기면 자식 전체(텍스트 포함)가 단일 composite PNG 한 장으로 묶임 = text-bearing raster 안티패턴의 주 원인. 자식 nodeId 모르면 `get_figma_data(부모, depth=3)` 트리 탐색 선행. **예외**: 섹션 baseline PNG만 섹션 nodeId 그대로 사용 (비교 기준)
+- **Framelink MCP 절대 호출 금지** (F-015 영구 폐기). 모든 PNG 획득은 `scripts/figma-rest-image.sh` 또는 동등한 Figma REST Images API `curl`
+- **동적 에셋(GIF/비디오) 원본 사용 금지** — 부모 노드를 `figma-rest-image.sh`로 정적 PNG 추출 (`dynamic-asset-handling` 스킬)
+- **REST API는 leaf nodeId로 호출** — 아이콘/장식 export 시 부모 카드/프레임 nodeId **금지**. 자식 leaf nodeId(아이콘/사진/blur 레이어)만 전달. 부모를 넘기면 자식 전체(텍스트 포함)가 단일 composite PNG 한 장으로 묶임 = text-bearing raster 안티패턴의 주 원인. 자식 nodeId 모르면 `curl GET /v1/files/{key}?ids=<parent>&depth=3` 트리 탐색 선행. **예외**: 섹션 baseline PNG만 섹션 nodeId 그대로 사용 (비교 기준)
 - **캔버스-에셋 개수 불일치 시 사용자 보고 후 멈춤** — 임의 진행 금지
-- **baseline PNG는 Framelink MCP로만 저장**, 경로 규약:
+- **baseline PNG는 `scripts/figma-rest-image.sh`로만 저장**, 경로 규약:
   - 공통: `figma-screenshots/{section}.png`
   - 페이지 섹션: `figma-screenshots/{page}-{section}.png`
   - 페이지 전체: `figma-screenshots/{page}-full.png`
@@ -186,9 +187,10 @@ Figma 모드 발동 시 오케스트레이터가 자동으로 `docs/figma-workfl
 scripts/
 ├─ measure-quality.sh           — G5~G8 umbrella (단계 4.5)
 ├─ check-text-ratio.mjs         — G6/G8 텍스트/이미지 비율 + raster-heavy 감지
-├─ check-baked-in-png.sh        — Framelink baked-in 중첩 검출
+├─ check-baked-in-png.sh        — Figma REST PNG baked-in 중첩 검출
 ├─ check-tailwind-antipatterns.sh — 음수 width, 정수 반올림 검출
-├─ check-composite-diff.mjs     — Framelink 단독 export vs page composite 차이 (v3)
+├─ check-composite-diff.mjs     — REST 단독 export vs page composite 차이 (v3)
+├─ figma-rest-image.sh          — Figma REST Images API 래퍼 (F-015 이후 primary 채널)
 ├─ bake-baseline.mjs            — baseline alpha=0 영역 full-page crop으로 white 베이크 (v3)
 ├─ track-diff-history.mjs       — G1 회차 history + 악화 revert 힌트 (v3)
 ├─ detect-placeholder-text.mjs  — 영문 placeholder 감지 (v3)
@@ -208,3 +210,4 @@ scripts/
 | 2026-04-13 | Framelink MCP 도입 | docs/figma-workflow.md Phase 0, section-implementation.md §2.1 / §2.3 / §6.1, visual-regression-gates, section-implementer, page-researcher, figma-to-react, figma-project-context §5 | 공식 `get_screenshot` inline 제약으로 G1 baseline 수동 export 필요 → Framelink `download_figma_images`로 자동화. baseline 경로 `figma-screenshots/{섹션명}.png` flat 통일, floating 요소용 `--clip-*` 인자 추가 |
 | 2026-04-14 | 하네스 v2 — 규칙→자동가드 이식 + 8게이트 | CLAUDE.md·section-implementation·figma-workflow·visual-regression·approval-gate·section-implementer·page-researcher·figma-to-react + scripts 4개 신설 + tech-debt.md 신설 | deep-research + harness-feedback 진단 반영. 핵심 변경: (1) G5~G8 품질 게이트 신설·단계 4.5 배치로 text-bearing raster 등 구조 안티패턴 재발 차단 (2) "완화" 옵션을 선택지 말단 이동 + `[ACCEPTED_DEBT]` 태그 + tech-debt.md 트래커 (OPEN 3건 시 차단) (3) 섹션 분할 기준 강화 (이질 에셋 3+ / 반복자식 3+ / 토큰 >10K) (4) 승인 게이트 3→1 축소 (섹션 단계 1/7 자동화) (5) 문서 함정 규칙 일부를 lint/스크립트로 이식 |
 | 2026-04-15 | 하네스 v3 — 자율 모드 1세션 피드백 8항목 반영 | scripts 4개 신설 (bake-baseline, check-composite-diff, track-diff-history, detect-placeholder-text) + compare-section.sh `--bake-from-full` / diff history tracking + check-text-ratio raster-heavy 휴리스틱 + PreviewWrapper (withHeader/withFooter) + section-implementer 자율 모드 최적화 + page-researcher flatten/placeholder 경고 | experiment/autonomous-run 1세션 (38섹션) 회귀 분석에서 8가지 한계 식별: baseline alpha 베이크, Preview layout 옵션, composite 차이 가드, G6 floor bypass, 자율 design_context 사전 fetch, 회차 best revert 힌트, placeholder 감지, flatten 자동 경고 |
+| 2026-04-22 | F-015 — Framelink MCP 영구 폐기 + Figma REST API 전환 | CLAUDE.md·section-implementation·figma-workflow·visual-regression·section-implementer·page-researcher·figma-to-react·dynamic-asset + `scripts/figma-rest-image.sh` 신설 | Framelink 세션 간 disconnect 불안정 (Claude Code sub-agent cleanup 버그). Figma REST Images API 직접 호출로 단일화 — 사용자 PAT로 분당 수천 req 실질 무제한. 공식 MCP는 페이지당 최소(Starter 월 6 쿼터 보호)로 유지. `FIGMA_TOKEN` 환경변수 세팅이 Phase 0 전제 |

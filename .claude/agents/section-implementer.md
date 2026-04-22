@@ -12,25 +12,38 @@ model: opus
 ## 참조 문서 (반드시 읽고 시작)
 1. `CLAUDE.md` — 5단계 워크플로우 + Figma 모드 규칙
 2. `docs/section-implementation.md` — 7단계 강제 절차 (이 워커의 바이블)
-3. `docs/figma-workflow.md` — 전체 흐름 이해용 (특히 Phase 0: Framelink MCP 등록 여부 확인)
+3. `docs/figma-workflow.md` — 전체 흐름 이해용 (특히 Phase 0: FIGMA_TOKEN 환경 변수 확인)
 4. `docs/figma-project-context.md` — Node ID, 공통 컴포넌트 카탈로그, 리스크
 5. `docs/frontend.md`, `docs/react.md` — 코드 컨벤션
 
-## 사용 MCP
-- **공식 Figma MCP (`plugin:figma:figma`)**: `get_design_context`, `get_variable_defs`, `get_metadata` — inline 메타/코드/토큰용
-- **Framelink MCP (`figma-framelink`)**: `download_figma_images` (baseline/동적 에셋 정적화), `get_figma_data` (레이아웃 YAML 보조)
-- 공식 `get_screenshot`은 **사용 금지** (inline 전용, 파일 저장 불가). baseline은 반드시 Framelink 사용
+## Figma 채널 (F-015 이후 정책)
 
-### 서브에이전트 컨텍스트 Framelink 스키마 선로드 (필수 첫 단계)
-워커 세션에서 Framelink 도구 스키마가 deferred 상태일 수 있다. 호출 전에 반드시 `ToolSearch`로 선로드:
+하네스는 **Figma REST API 직접 호출**을 에셋/이미지 **primary 채널**로 사용한다. 공식 Figma MCP는 **읽기 쿼터 제한**이 있는 보조 채널 (Starter 플랜 월 6 tool call).
 
+| 용도 | 도구 | 쿼터 |
+|---|---|---|
+| **baseline PNG / composed frame / leaf asset 다운로드** | `scripts/figma-rest-image.sh` (REST API 래퍼) | 분당 수천 req (실질 무제한) |
+| **노드 tree 탐색 / 구조 분석** | `curl GET /v1/files/{key}?ids=...&depth=N` 또는 `get_metadata` 1회 | REST = 무제한 / MCP = Starter 월 6 |
+| 노드 상세 코드 참조 (제한적) | `get_design_context` (페이지당 1~2회만) | MCP 쿼터 |
+| 토큰 (variables) | `get_variable_defs` (페이지당 1회) | MCP 쿼터. Variables API Enterprise 전용 |
+
+### 규칙
+- **Framelink MCP 절대 호출 금지** (F-015 영구 폐기). `mcp__figma-framelink__*` 어떤 이름이든 금지
+- **모든 이미지 에셋은 `scripts/figma-rest-image.sh`로 획득** — cropTransform/flip/multi-layer 포함한 모든 composed frame까지 baked-in flat PNG 단일 창구
+- **공식 MCP read 호출은 최소화** — 섹션당 `get_design_context` 0~1회가 기본. 쿼터 소진 시 REST API `/v1/files/{key}/nodes?ids=...`로 대체 (raw 데이터 + 코드 힌트 없음)
+- **공식 `get_screenshot` 사용 금지** (inline 전용, 파일 저장 불가. 대신 `figma-rest-image.sh` 사용)
+
+### `figma-rest-image.sh` 기본 사용법
+```bash
+scripts/figma-rest-image.sh <fileKey> <nodeId> <output-path> [--scale N] [--format fmt]
+
+# 예 — 섹션 baseline PNG
+scripts/figma-rest-image.sh 7X964y4dde6h4XUoVPxk9X 0:1 figma-screenshots/{page}-{section}.png --scale 2
+# 예 — leaf asset
+scripts/figma-rest-image.sh 7X964y4dde6h4XUoVPxk9X 12:345 src/assets/{section}/hero-bg.png --scale 2
 ```
-ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma-framelink__get_figma_data", max_results: 2)
-```
-
-- `No matching deferred tools found` 반환 시 MCP 미등록 상태 → 멈추고 오케스트레이터에 `docs/figma-workflow.md` Phase 0 안내 요청
-- 로드 성공 시에만 `mcp__figma-framelink__*` 호출 가능
-- **REST API 폴백 금지** — Framelink 미작동 시 근본 원인 해결이 우선 (일관된 산출물 보장)
+- `FIGMA_TOKEN` env var 자동 로드 (Windows PowerShell User scope / Unix export 모두 지원)
+- 미설정 시 exit 2 반환 — `docs/figma-workflow.md` Phase 0 참조하여 세팅
 
 ## 입력 (오케스트레이터가 전달)
 - 페이지명 + 섹션명
@@ -61,15 +74,16 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 - 디자인 토큰(`brand-*`, `gray-*`, `var(--*)`)을 적극 참조. magic number 최소화
 
 ### 단계 1: 리서치 → `research/{섹션명}.md`
-- **baseline PNG 저장**: `mcp__figma-framelink__download_figma_images`로 섹션 노드 저장. 경로 규약 — 공통 컴포넌트는 `figma-screenshots/{section}.png`, 페이지 섹션은 `figma-screenshots/{page}-{section}.png` (flat, pngScale 1). Framelink 미등록이면 `docs/figma-workflow.md` Phase 0 수행 안내 후 멈춤
-- 공식 Figma MCP `get_design_context` (12K 이하), `get_variable_defs`(신규 토큰 있을 때), Framelink `get_figma_data`(레이아웃 YAML 보조)
+- **baseline PNG 저장**: `scripts/figma-rest-image.sh <fileKey> <nodeId> <out-path> --scale 2`로 섹션 노드 저장. 경로 규약 — 공통 컴포넌트는 `figma-screenshots/{section}.png`, 페이지 섹션은 `figma-screenshots/{page}-{section}.png` (flat). `FIGMA_TOKEN` 미설정이면 `docs/figma-workflow.md` Phase 0 수행 안내 후 멈춤
+- 공식 Figma MCP `get_design_context`는 **섹션당 최대 1회**로 제한 (쿼터 보호). 대체: REST API `curl GET /v1/files/{key}/nodes?ids=...` — raw 노드 데이터 (코드 힌트 없지만 layout/position/text 전부 포함)
+- `get_variable_defs` (신규 토큰 있을 때) — 페이지당 1회 권장
 - 공식 `get_screenshot`은 사용 금지 (inline 전용, 파일 저장 불가)
 - **에셋 목록 작성 시 "동적 여부" 칸 필수** — GIF/MP4/WebM/MOV/APNG 또는 노드 타입 `VIDEO`면 동적
 - 캔버스-에셋 개수 일치 검증 수행
-- 동적 에셋 발견 시 "정적 프레임 추출 (Framelink, 부모 노드 {ID})"로 처리 방식 명시
+- 동적 에셋 발견 시 "정적 프레임 추출 (`figma-rest-image.sh`, 부모 노드 {ID})"로 처리 방식 명시
 - floating/중앙정렬 요소인 경우 research에 **캔버스 좌표(x, y, width, height)** 를 명시 (단계 5의 clip 파라미터로 사용)
 - **transform 가진 요소(rotation/translate/scale)**: rotation·transform-origin·position을 **소수점 포함 원본값** 그대로 research에 기록. 반올림 금지 (`docs/section-implementation.md §2.4`). CSS 적용 시 Tailwind arbitrary(`rotate-[4.237deg]`)로 소수점 유지
-- **Framelink PNG는 완성된 합성 사진**: 회전·블렌드·배경이 모두 baked-in. design_context가 `rotate()` / `mix-blend-*` / bg를 명시해도 Framelink PNG에는 **재적용 금지**. native 크기 ≠ AABB이므로 `wrapper=AABB + inner=native` 패턴 (docs §2.5). 에셋 다운로드 후 `file {png}`로 native 크기 기록, Read로 열어 합성 상태 육안 확인
+- **REST API PNG는 완성된 합성 사진**: 회전·블렌드·배경이 모두 baked-in. design_context가 `rotate()` / `mix-blend-*` / bg를 명시해도 PNG 위에는 **재적용 금지**. native 크기 ≠ AABB이므로 `wrapper=AABB + inner=native` 패턴 (docs §2.5). 에셋 다운로드 후 `file {png}`로 native 크기 기록, Read로 열어 합성 상태 육안 확인
 - **baseline PNG 실측**: `file figma-screenshots/{section}.png`으로 실제 크기 확인. Figma spec과 다를 수 있음 (docs §2.6). clip 파라미터는 실제 크기 기준
 - 단계 1 통과 조건 충족 후 **멈춤** → 오케스트레이터에 리서치 완료 보고
 
@@ -79,8 +93,9 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 - 작성 후 **멈춤** → 오케스트레이터에 plan 완료 보고 (사용자 승인 게이트)
 
 ### 단계 3: 에셋 수집 → `src/assets/{섹션명}/`
-- 정적 에셋: `scripts/download-assets.sh` → `raw/` → `verify-assets.sh` → 불일치 시 rename → `process-assets.py`
-- 동적 에셋: 원본 다운로드 **금지**. 해당 노드의 부모 컨테이너 ID로 Framelink `download_figma_images` 호출하여 정적 PNG로 export → `src/assets/{섹션명}/{이름}-static.png`
+- 정적 에셋: `scripts/figma-rest-image.sh <fileKey> <nodeId> src/assets/{섹션명}/{name}.png --scale 2` (노드별 1회씩). 또는 미리 `download-assets.sh`로 URL 리스트 일괄 다운로드
+- 동적 에셋: 원본 다운로드 **금지**. 해당 노드의 부모 컨테이너 ID로 `figma-rest-image.sh` 호출하여 정적 PNG로 export → `src/assets/{섹션명}/{이름}-static.png`
+- 다운로드 후 `verify-assets.sh` → 불일치 시 rename → `process-assets.py`
 - 단계 3 통과 조건 모두 충족 (research 행 수 = 실제 파일 수)
 
 ### 단계 4: 구현 → `src/...`
@@ -96,7 +111,7 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 
 | 카테고리 | 규칙 | F-log |
 |---|---|---|
-| **A. 에셋 획득** | SI-A1 REST API vs Framelink 판별 | F-008/F-009 |
+| **A. 에셋 획득** | SI-A1 REST API 단일 채널 | F-008/F-009/F-015 |
 | | SI-A2 Image crop fallback (object-fit) | F-003 |
 | **B. 레이아웃 구조** | SI-B1 Grid cell overlay items-start | F-004 |
 | | SI-B2 고정 height 금지, min-height | F-006 |
@@ -113,27 +128,15 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 
 #### A. Asset Acquisition (에셋 획득)
 
-**SI-A1: REST API vs Framelink 판별 (F-008/F-009)**
+**SI-A1: REST API 단일 채널 (F-008/F-009/F-015)**
 
-Figma 이미지 에셋 획득 시 **반드시** 아래 판별:
+모든 Figma 이미지 에셋은 **`scripts/figma-rest-image.sh` 한 채널**로 획득. leaf raw image·composed frame·cropTransform·flip·multi-layer 구분 없음 — Figma REST Images API가 모두 baked-in flat PNG로 rendering.
 
-| 케이스 | 도구 |
-|---|---|
-| Leaf raw image (단순 1장, cropTransform·flip·multi-layer 없음) | Framelink `download_figma_images` |
-| **composed frame** (cropTransform / 음수 width/height / multi-layer overlay) | **Figma REST Images API 직접** |
-
-**composed frame 판별 기준** (design_context에서 하나라도 발견 시):
-- `cropTransform` 행렬 (`h:N% left:N% top:N%` 퍼센트 offset)
-- 음수 width/height (`w-[-126%]` = scaleX(-1) 수평 flip)
-- 부모 frame 안에 여러 이미지 overlay
-
-**REST API 사용법**:
+**사용법** (단일 명령):
 ```bash
-TOKEN=$(powershell -Command "[Environment]::GetEnvironmentVariable('FIGMA_TOKEN', 'User')" | tr -d '\r\n')
-curl "https://api.figma.com/v1/images/{fileKey}?ids={nodeId}&format=png&scale=2" \
-  -H "X-Figma-Token: $TOKEN"
-# 반환 JSON의 images.{nodeId} S3 URL에서 다운로드
-curl "$s3_url" -o src/assets/{section}/{name}.png
+scripts/figma-rest-image.sh <fileKey> <nodeId> <output-path> --scale 2
+# 내부 동작: Figma API → S3 URL → download (2-step을 래퍼가 자동)
+# 실패 시 exit 2/3/4 + stderr 에 명확한 메시지
 ```
 
 **특징**:
@@ -141,6 +144,8 @@ curl "$s3_url" -o src/assets/{section}/{name}.png
 - alpha 채널에 `rounded-[N]` 포함 → wrapper div 불필요
 - 코드 1줄: `<img src={asset} className="size-[N]" />`
 - scale=2로 retina 해상도 (frame 141 → PNG 282×282)
+
+**Framelink MCP 금지 (F-015)**: 세션 간 disconnect 불안정으로 영구 폐기. `mcp__figma-framelink__*` 호출 전면 금지.
 
 **SI-A2: Image crop fallback (F-003)** — SI-A1 불가 시 (외부 이미지 URL 등)
 Figma `cropTransform` 행렬을 CSS로 직접 번역 시:
@@ -282,14 +287,14 @@ bash scripts/measure-quality.sh {섹션명} {섹션 디렉토리}
 
 - **자동 가드 체크 동시 실행** (경고만):
   - `bash scripts/check-tailwind-antipatterns.sh {섹션 디렉토리}` — 음수 width·정수 반올림
-  - `bash scripts/check-baked-in-png.sh {섹션명}` — Framelink PNG 위에 CSS 재적용
+  - `bash scripts/check-baked-in-png.sh {섹션명}` — Figma REST PNG 위에 CSS 재적용 (rotate/blend/bg) 중복 검출
 - 실패 시 **단계 4로 반송.** plan 측정 섹션에 G5~G8 결과 기록
 - 통과 시 단계 5 진입. plan 측정 섹션에 숫자 기록
 
 ### 단계 5: 측정 (G1~G4) → plan/{섹션명}.md 하단 측정 섹션
 - 풀폭: `scripts/compare-section.sh {섹션명}`
 - floating/중앙정렬: `npx tsx tests/visual/run.ts --section {섹션명} --url ... --baseline figma-screenshots/{섹션명}.png --clip-x {x} --clip-y {y} --clip-w {w} --clip-h {h}` (clip 값은 research의 캔버스 좌표)
-- baseline은 `figma-screenshots/{섹션명}.png` (flat, Framelink 저장 경로)
+- baseline은 `figma-screenshots/{섹션명}.png` (flat, `figma-rest-image.sh` 저장 경로)
 - 4 게이트 결과를 **숫자로** 기록:
   - G1 시각 일치 (pixelmatch diff < 5%)
   - G2 치수 정확도 (font ±1px, margin/padding ±2px)

@@ -41,8 +41,8 @@ model: opus
    - **반복 자식 3+** — 카드·탭·item 등 반복 패턴 3개 이상 → 반복 자식 각각을 서브섹션으로 + 부모는 wrapper 섹션
    - **예상 토큰 >10K** — 섹션 내부 구조 복잡도로 MCP 호출 토큰 초과 예상
 4. 사전 추정 표와 대조 — 차이점 기록
-5. 각 섹션/서브섹션에 대해 **Framelink `mcp__figma-framelink__download_figma_images`** 호출 → **`figma-screenshots/{page}-{section}.png`** 저장 (flat, pngScale 1). 공통 컴포넌트는 예외로 `figma-screenshots/{section}.png` (page prefix 없음)
-6. 페이지 전체 → Framelink `download_figma_images`로 `figma-screenshots/{page}-full.png` 저장
+5. 각 섹션/서브섹션에 대해 **`scripts/figma-rest-image.sh <fileKey> <nodeId> figma-screenshots/{page}-{section}.png --scale 2`** 호출. 공통 컴포넌트는 예외로 `figma-screenshots/{section}.png` (page prefix 없음)
+6. 페이지 전체 → `scripts/figma-rest-image.sh <fileKey> <pageNodeId> figma-screenshots/{page}-full.png --scale 2` 저장
 7. 페이지 내 반복 컴포넌트 식별 (`figma-project-context.md` §5 공통 카탈로그와 대조)
 8. floating/중앙정렬 섹션은 research에 **캔버스 좌표(x, y, width, height)** 도 기록 (단계 5 clip 파라미터용)
 9. 결과를 `research/{페이지명}.md`에 기록 후 **멈춤**
@@ -66,16 +66,16 @@ MainHero (wrapper 섹션)
 - 통합 커밋은 import + layout div만 (코드 거의 없음)
 - 섹션 단위 정의는 **편의적 근사가 아닌 구조 결정** — 이질 에셋 + 반복 자식이 한 커밋에 묶이면 회차가 전체 섹션을 오염시킨다
 
-주의: 공식 `get_screenshot`은 inline 전용이라 파일 저장 불가. 반드시 Framelink 사용. Framelink 미등록 상태면 `docs/figma-workflow.md` Phase 0 수행 안내 후 멈춤.
+주의: 공식 `get_screenshot`은 inline 전용이라 파일 저장 불가. 반드시 `scripts/figma-rest-image.sh` 사용 (Figma REST Images API 래퍼). **Framelink MCP 절대 호출 금지** (F-015 영구 폐기).
 
-### Framelink 스키마 선로드 (필수 첫 단계)
-서브에이전트 컨텍스트에서 Framelink 도구 스키마가 deferred 상태일 수 있다. 첫 작업으로 `ToolSearch` 호출:
+### Phase 0 환경 확인 (첫 작업)
+Bash 툴로 `FIGMA_TOKEN` 환경 변수 세팅 여부 확인:
 
+```bash
+powershell -Command "[Environment]::GetEnvironmentVariable('FIGMA_TOKEN', 'User')" | tr -d '\r\n' | head -c 20
 ```
-ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma-framelink__get_figma_data", max_results: 2)
-```
 
-`No matching deferred tools found`면 MCP 미등록 → 멈추고 오케스트레이터에 Phase 0 안내 요청. **REST API 폴백 금지.**
+값이 없으면 멈추고 오케스트레이터에 `docs/figma-workflow.md` Phase 0 (Figma PAT 발급 + 환경 변수 세팅) 안내 요청. REST API 래퍼는 이 토큰으로 Figma 서버에 직접 호출 (MCP 경유 X, 쿼터 무관).
 
 ## research/{페이지명}.md 필수 항목
 ```markdown
@@ -94,7 +94,7 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 - figma-project-context.md §7 해당 페이지 리스크 참조
 - 이 페이지 고유 리스크: ...
 
-## 베이스라인 스크린샷 확보 (Framelink `download_figma_images`)
+## 베이스라인 스크린샷 확보 (`scripts/figma-rest-image.sh`)
 - [x] figma-screenshots/{페이지명}-full.png
 - [x] figma-screenshots/{섹션명}.png × N개 (flat 경로, 섹션마다 1개)
 ```
