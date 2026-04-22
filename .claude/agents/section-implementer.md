@@ -90,160 +90,171 @@ ToolSearch(query: "select:mcp__figma-framelink__download_figma_images,mcp__figma
 - `any`/`unknown` 금지
 - 빌드/린트/타입체크 통과 확인
 
-#### v5 CSS/레이아웃 규칙 (F-002/003/004/005/006/008/009 반영)
+#### v5 규칙 체계 (카테고리 prefix로 그룹화)
 
-**v5-0: 에셋 획득 전략 — Framelink vs REST API (F-008/F-009 핵심)**
+**빠른 참조 표** — 규칙 ID로 F-log 추적 가능:
+
+| 카테고리 | 규칙 | F-log |
+|---|---|---|
+| **A. 에셋 획득** | SI-A1 REST API vs Framelink 판별 | F-008/F-009 |
+| | SI-A2 Image crop fallback (object-fit) | F-003 |
+| **B. 레이아웃 구조** | SI-B1 Grid cell overlay items-start | F-004 |
+| | SI-B2 고정 height 금지, min-height | F-006 |
+| | SI-B3 justify-between 제한 사용 | F-005 |
+| | SI-B4 Divider top-only | F-010 |
+| **C. Spacing (간격)** | SI-C1 design_context 명시 추출 | F-011 |
+| | SI-C2 Component 자체 기본 spacing | F-011 |
+| | SI-C3 Negative margin CSS 번역 | F-012 |
+| | SI-C4 Page clearance (pt+pb 모두) | F-013 |
+| **D. SVG 함정** | SI-D1 marker orient 판단 | F-002 |
+| | SI-D2 `-scale-y-100` wrapper 무시 | F-014 |
+
+---
+
+#### A. Asset Acquisition (에셋 획득)
+
+**SI-A1: REST API vs Framelink 판별 (F-008/F-009)**
 
 Figma 이미지 에셋 획득 시 **반드시** 아래 판별:
 
 | 케이스 | 도구 |
 |---|---|
-| Leaf raw image (단순 1장 이미지, cropTransform·flip·multi-layer 없음) | Framelink `download_figma_images` |
-| **composed frame** (rounded corners + cropTransform / 음수 width/height / 여러 이미지 overlay) | **Figma REST Images API 직접 사용** |
+| Leaf raw image (단순 1장, cropTransform·flip·multi-layer 없음) | Framelink `download_figma_images` |
+| **composed frame** (cropTransform / 음수 width/height / multi-layer overlay) | **Figma REST Images API 직접** |
 
 **composed frame 판별 기준** (design_context에서 하나라도 발견 시):
-- `cropTransform` 행렬 존재 (`h:N% left:N% top:N%` 같은 퍼센트 offset)
+- `cropTransform` 행렬 (`h:N% left:N% top:N%` 퍼센트 offset)
 - 음수 width/height (`w-[-126%]` = scaleX(-1) 수평 flip)
-- 부모 frame 안에 여러 이미지 overlay (multi-layer composite)
+- 부모 frame 안에 여러 이미지 overlay
 
 **REST API 사용법**:
 ```bash
-# 1. FIGMA_TOKEN 환경변수 확보 (user scope env var)
 TOKEN=$(powershell -Command "[Environment]::GetEnvironmentVariable('FIGMA_TOKEN', 'User')" | tr -d '\r\n')
-
-# 2. frame node PNG URL 받기 (scale=2 권장)
-curl "https://api.figma.com/v1/images/{fileKey}?ids={nodeId1},{nodeId2}&format=png&scale=2" \
+curl "https://api.figma.com/v1/images/{fileKey}?ids={nodeId}&format=png&scale=2" \
   -H "X-Figma-Token: $TOKEN"
-# 반환: { "images": { "nodeId": "https://figma-alpha-api..." } }
-
-# 3. S3 URL에서 PNG 다운로드
+# 반환 JSON의 images.{nodeId} S3 URL에서 다운로드
 curl "$s3_url" -o src/assets/{section}/{name}.png
 ```
 
 **특징**:
-- Figma가 직접 rendering → cropTransform·flip·multi-layer 모두 **baked**
-- alpha 채널에 `rounded-[N]` 포함 → **wrapper div 불필요**
+- Figma가 직접 rendering → cropTransform·flip·multi-layer 모두 baked
+- alpha 채널에 `rounded-[N]` 포함 → wrapper div 불필요
 - 코드 1줄: `<img src={asset} className="size-[N]" />`
-- scale=2로 retina 해상도 확보 (frame 141 → PNG 282×282)
+- scale=2로 retina 해상도 (frame 141 → PNG 282×282)
 
-**실증 케이스**:
-- AboutValues 4 아이콘: Framelink 124×122 잘린 에셋 → REST 282×282 완성 composition
-- AboutMission 2 사진: Framelink 357×359 잘못된 crop → REST 720×720 완성 composition
-
-**v5-1: Image crop 패턴 (F-003) — 레거시 Framelink 에셋만 대상**
-위 v5-0 REST API로 해결 불가한 경우(예: 외부 이미지 URL)에만 적용.
-Figma `cropTransform` 행렬을 CSS로 직접 번역 시 우선순위:
+**SI-A2: Image crop fallback (F-003)** — SI-A1 불가 시 (외부 이미지 URL 등)
+Figma `cropTransform` 행렬을 CSS로 직접 번역 시:
 1. **1순위**: `object-fit: cover/contain` + `object-position`
 2. **2순위**: `background-image` + `background-size/position`
 3. **금지**: `position: absolute; left: -X%; width: >100%;` negative-offset 패턴
 
 예: `class="absolute left-[-22%] top-[-6%] w-[162%] h-[113%]"` ❌ → `class="w-full h-full object-cover object-[center_top]"` ✅
 
-**v5-2: Grid cell에 형제 요소 있을 때 items-start (F-004)**
-`grid` 컨테이너 + `col-start-N row-start-N` 같은 cell에 overlay 형제 있는 경우:
-- 기본: `items-start` (cell 맨 위에 붙음)
-- `items-center` 사용 시: **다른 레이어 침범 확인 필수**. 단일 레이어일 때만 사용
-- 흔한 함정: 시각적으로 중앙에 있어 보여서 items-center 선택 → 형제 레이어(화살표/장식) 영역 침범
+---
 
-**v5-3: 고정 height 금지, min-height 우선 (F-006)**
-- `<section>` root 또는 주요 wrapper에 `h-[Npx]` / `style={{ height: N }}` 금지
-- `min-h-[Npx]` 사용 ("최소 N 보장, content 늘어나면 같이 늘어남")
-- **예외**: Hero 섹션의 "풀 배경 이미지 cover" 같은 **명확한 고정 높이 의도**일 때만 허용
-- 위반 시: content 변경 시 다음 섹션 침범 발생
+#### B. Layout Structure (레이아웃 구조)
 
-**v5-4: justify-between 의도 검증 (F-005)**
-- `justify-between`은 **의도적 양 끝 배치** 전용 (header logo + nav, footer copyright + links 등)
-- 가운데 빈 공간 > 200px 예상되면 `gap-[N]` + `justify-start/center` 사용 권장
-- 흔한 오류: 좌측 텍스트 + 우측 이미지를 `justify-between`으로 처리 → 가운데 400px+ 빈 공간
+**SI-B1: Grid cell overlay items-start (F-004)**
+`grid` + `col-start-N row-start-N` 같은 cell에 형제 요소 있는 경우:
+- 기본: `items-start` (cell 맨 위)
+- `items-center` 사용 시: 다른 레이어 침범 확인 필수. 단일 레이어일 때만
+- 흔한 함정: 시각적 중앙 추정 → items-center → 화살표/장식 레이어 침범
 
-**v5-9: Figma spacing 값 명시적 추출 (F-011, 가장 자주 발생)**
+**SI-B2: 고정 height 금지, min-height 우선 (F-006)**
+- `<section>` root 또는 wrapper에 `h-[Npx]` / `style={{ height: N }}` 금지
+- `min-h-[Npx]` 사용
+- 예외: Hero 섹션 "풀 배경 이미지 cover" 같은 명확한 의도일 때만
+- 위반 시: content 변경하면 다음 섹션 침범
 
-섹션 전반의 padding/gap/margin 값은 **반드시 design_context에서 명시적 추출**. 시각 추정 금지.
+**SI-B3: justify-between 제한 (F-005)**
+- `justify-between`은 **의도적 양 끝 배치** 전용 (header logo+nav, footer links 등)
+- 가운데 빈 공간 > 200px 예상되면 `gap-[N]` 사용
+- 흔한 오류: 좌 텍스트 + 우 이미지 `justify-between` → 가운데 400px+ 공간
 
-- 단계 2 plan 작성 시 **모든 spacing 값을 numbered list로 명시**:
+**SI-B4: Divider top-only (F-010)**
+섹션 경계 divider 배치:
+- 각 섹션은 **상단 divider만** (하단 divider 금지)
+- 첫 섹션은 divider 생략 가능, 마지막도 top 유지
+- 예외: 단일 섹션 페이지, 명확한 외곽선 목적
+- 이유: 섹션 독립 구현 → 경계에 top(다음) + bottom(이전) 2개 중복 방지
+
+---
+
+#### C. Spacing (간격)
+
+**SI-C1: design_context 명시 추출 (F-011, 가장 자주 발생)**
+모든 padding/gap/margin은 **design_context에서 명시 추출**. 시각 추정 금지.
+
+- 단계 2 plan에 numbered list로 명시:
   ```
   - section padding: {top/right/bottom/left}
   - wrapper gap: {N}
   - heading to body: {N}
-  - body to CTA: {N}
   - card internal padding: {N}
   ```
-- 각 값은 Figma auto-layout object의 `padding-*` / `gap` 그대로
-- 의심 시 design_context **재fetch 후 확인**
-- 구현 완료 후 브라우저 `getComputedStyle`로 각 요소 padding 실측 → Figma spec과 ±1px 이내 일치 검증
+- 의심 시 design_context 재fetch
+- 구현 후 `getComputedStyle`로 ±1px 일치 검증
 
-**흔한 오류 패턴 (F-011)**:
-- Figma spec 56 → 코드 66 (시각 추정)
-- padding-top만 적용, padding-bottom 누락 (한쪽만)
-- 부모 padding + 자식 padding 중복 (nested 해석 오류)
-- 섹션 경계 spacing이 이전/현재 섹션에 분리 구현 → 값 불일치
+**흔한 오류**:
+- Figma 56 → 코드 66 (시각 추정)
+- pt만 적용, pb 누락 (한쪽만)
+- 부모 + 자식 padding 중복 (nested 해석)
 
-**v5-12: Figma `-scale-y-100` wrapper 번역 함정 (F-014)**
-
-Figma design_context에 `-scale-y-100 flex-none` wrapper 있는 SVG 발견 시:
-- Figma SVG export는 **pre-flipped(최종 시각 방향) 상태**로 저장됨
-- `-scale-y-100`은 design_context 코드의 메타데이터일 뿐 SVG 파일 자체는 반영 X
-- **CSS transform scaleY(-1) 추가 금지** — 이중 flip 발생
-- **SVG + Figma top/left 원본 값 그대로** 사용
-
-판별: SVG path 직접 읽어서 "시작점(circle 등)이 어디에 있는지" 확인. 시각적 기대와 일치하면 raw 사용. 불일치면 SVG 파일 자체가 raw orientation일 때만 CSS scaleY(-1) 적용.
-
-흔한 오류 패턴:
-- ❌ `top = Figma top + height` (시각적 상쇄 시도, 위치 틀림)
-- ❌ `top = Figma top + transform scaleY(-1)` (이중 flip, 방향 틀림)
-- ✅ `top = Figma top` 만, transform 없음 (SVG pre-flipped 가정)
-
-**v5-13: 페이지 content clearance는 pt + pb 모두 (F-013)**
-
-페이지 최상단 섹션의 content wrapper에 **pt와 pb 모두 명시**:
-- Header 아래 clearance: `pt-[top]` (기존 "Header fixed clearance" 규칙)
-- Footer 위 clearance: `pb-[bottom]` (**신규 — Footer clearance**)
-- 두 값 모두 Figma content wrapper (예: 134:3696) spec에서 추출
-- pt만 적용하고 pb 누락 = F-013 (ASYMMETRIC_PADDING 변형)
-
-예: `/contact` 는 `<div pt-[180px] pb-[200px]>`(Figma 134:3696). 기존엔 pt만 있어서 ContactForm과 Footer 사이 공백 0.
-
-**v5-11: Figma negative margin overlap 패턴 CSS 번역 (F-012)**
-
-Figma에서 **parent `pb-[N]` + last child `mb-[-N]`** 조합 발견 시 주의:
-- Figma 추상 모델: 서로 **상쇄** (overlap 의도)
-- CSS flex 실제: parent padding은 실재, child negative margin은 영향 X → **N px 잔여 공간**
-- 결과: 인접 섹션 spacing과 누적 (예: 87 + 56 divider = 143px 의도 외 공간)
-
-**번역 규칙**:
-- `pb-[N]` **제거** 권장 (생략), `mb-[-N]`만 유지하여 overlap 효과 보존
-- 또는 `pb-[N]` 유지하고 `mb-[-N]` 제거 (단순 padding 효과)
-- **절대 둘 다 옮기지 말 것**
-
-**자동 검출 도구 (F-011 차단 게이트)**:
-단계 5 구현 완료 후 **반드시** 실행:
+**자동 검출 도구** — 단계 5 후 필수 실행:
 ```bash
 npm run check:spacing /{라우트}
 ```
-검출: NON_STANDARD (4배수 외), ASYMMETRIC_PADDING (한쪽만), LR_MISMATCH (좌우 불균형).
-FAIL 시 단계 4로 반송. 각 flag를 Figma design_context 값과 대조 후 수정.
+검출: NON_STANDARD (4배수 외), ASYMMETRIC_PADDING, LR_MISMATCH.
+FAIL 시 단계 4 반송. Figma 값과 대조 후 수정.
 
-**v5-10: Component 기본 spacing (F-011 연장)**
-
-반복 등장하는 UI element (divider, heading, card 등)는 **component 자체가 기본 spacing 보유**:
+**SI-C2: Component 자체 기본 spacing (F-011 연장)**
+반복 UI element (divider, heading, card 등)는 **component가 기본 spacing 보유**:
 - 예: `<HatchedDivider />` 기본 `my-[56px]`
-- 호출 측에서 `className` override 가능
-- 이유: 섹션별로 spacing 외부 주입 시 값 불일치 → component 기본으로 통일
+- 호출 측 `className` override 가능
+- 이유: 외부 주입 시 값 불일치 → component 기본으로 통일
 
-**v5-8: Divider top-only 규칙 (F-010)**
-섹션 경계 divider (HatchedDivider 등) 배치 시:
-- 각 섹션은 **상단 divider만** 가짐 (하단 divider 금지)
-- 첫 섹션(페이지 header 직후)은 divider 생략 가능
-- 마지막 섹션도 top 유지
-- 예외: 단일 섹션 페이지 또는 명확한 외곽선 목적
+**SI-C3: Negative margin overlap CSS 번역 (F-012)**
+Figma에서 **parent `pb-[N]` + last child `mb-[-N]`** 발견 시:
+- Figma 추상 모델: 상쇄
+- CSS flex 실제: parent padding 실재, child negative margin 영향 X → **N px 잔여**
+- 결과: 인접 섹션 spacing 누적 (예: 87 + 56 = 143px)
 
-이유: 섹션 독립 구현 + 페이지 통합 시 인접 섹션 경계에 top(다음) + bottom(이전) 2개 divider 중복됨. top-only 규칙으로 경계당 1개 보장.
+**번역 규칙**:
+- `pb-[N]` **제거** 권장, `mb-[-N]`만 유지 (overlap 효과 보존)
+- 또는 `pb-[N]` 유지하고 `mb-[-N]` 제거 (단순 padding)
+- **절대 둘 다 옮기지 말 것**
 
-**v5-5: SVG marker orient (F-002)**
-`<marker>` 요소 사용 시:
-- 수직/수평 고정 방향 선 (대부분 connector diagram) → `orient="0"` (회전 없음)
-- 사선/곡선 (path 방향 따라 회전 필요) → `orient="auto"` + path는 "오른쪽 향함" 기준으로 그림
-- 기본값 `auto`가 세로선에 적용되면 marker가 90° 회전해 `<` 모양 됨
+**SI-C4: Page content clearance — pt + pb 모두 (F-013)**
+페이지 최상단 섹션 content wrapper에 **pt와 pb 모두 명시**:
+- Header 아래 clearance: `pt-[top]` (기존 "Header fixed clearance")
+- Footer 위 clearance: `pb-[bottom]` (**신규 — Footer clearance**)
+- 두 값 모두 Figma content wrapper spec에서 추출
+
+예: `/contact` → `<div pt-[180px] pb-[200px]>` (Figma 134:3696)
+
+---
+
+#### D. SVG Quirks (SVG 함정)
+
+**SI-D1: marker orient 판단 (F-002)**
+`<marker>` 사용 시:
+- 수직/수평 고정 방향 선 (connector diagram) → `orient="0"` (회전 없음)
+- 사선/곡선 (path 방향 따라) → `orient="auto"` + path를 "오른쪽 향함"으로 그림
+- `auto`가 세로선에 적용되면 marker가 90° 회전해 `<` 모양 됨
+
+**SI-D2: `-scale-y-100` wrapper 무시 (F-014)**
+Figma design_context에 `-scale-y-100 flex-none` wrapper 있는 SVG 발견 시:
+- Figma SVG export는 **pre-flipped(최종 시각 방향) 상태**로 저장
+- `-scale-y-100`은 design_context 메타데이터일 뿐 SVG 파일엔 반영 X
+- **CSS transform scaleY(-1) 추가 금지** — 이중 flip
+- **SVG + Figma top/left 원본 값 그대로** 사용
+
+판별: SVG path 직접 읽어 "시작점(circle 등)이 어디 있는지" 확인. 시각 기대와 일치 = raw 사용. 불일치 = raw orientation일 때만 CSS scaleY(-1).
+
+**흔한 오류 패턴**:
+- ❌ `top = Figma top + height` (시각 상쇄 시도, 위치 틀림)
+- ❌ `top = Figma top + CSS scaleY(-1)` (이중 flip, 방향 틀림)
+- ✅ `top = Figma top`, transform 없음 (SVG pre-flipped 가정)
 
 ### 단계 4.5: 품질 게이트 (G5~G8) — 단계 5 진입 전 필수
 구조가 망가진 코드는 픽셀 측정에 도달하지 말 것. 다음 3개 명령을 순차 실행:
