@@ -124,7 +124,7 @@ export function App() {
         <Route path="/" element={<><MainHero /><MainIntro /><MainStats /><MainPrograms /><MainNews /><MainGallery /></>} />
         <Route path="/about" element={<><AboutHeader /><AboutMission /><AboutValues /><AboutVision /></>} />
         <Route path="/about/organization" element={<><AboutOrganizationTabs /><AboutOrganizationLogos /><AboutOrganizationChart /><AboutOrganizationPanorama /></>} />
-        <Route path="/contact" element={<div className="pt-[180px]"><ContactForm /></div>} />
+        <Route path="/contact" element={<div className="pt-[180px] pb-[200px]"><ContactForm /></div>} />
         <Route path="/contest" element={<><ContestHero /><ContestAbout /><ContestBenefits /></>} />
         <Route path="/gallery" element={<div className="pt-[180px]"><GalleryTitle /><GalleryAgreements /><GalleryActivities /></div>} />
         <Route path="/certification" element={<><CertificationHero /><CertificationIntro /><CertificationStats /><CertificationSubjects /><CertificationBenefits /><CertificationFlattenBottom /></>} />

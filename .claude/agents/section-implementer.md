@@ -178,6 +178,31 @@ Figma `cropTransform` 행렬을 CSS로 직접 번역 시 우선순위:
 - 부모 padding + 자식 padding 중복 (nested 해석 오류)
 - 섹션 경계 spacing이 이전/현재 섹션에 분리 구현 → 값 불일치
 
+**v5-12: Figma `-scale-y-100` wrapper 번역 함정 (F-014)**
+
+Figma design_context에 `-scale-y-100 flex-none` wrapper 있는 SVG 발견 시:
+- Figma SVG export는 **pre-flipped(최종 시각 방향) 상태**로 저장됨
+- `-scale-y-100`은 design_context 코드의 메타데이터일 뿐 SVG 파일 자체는 반영 X
+- **CSS transform scaleY(-1) 추가 금지** — 이중 flip 발생
+- **SVG + Figma top/left 원본 값 그대로** 사용
+
+판별: SVG path 직접 읽어서 "시작점(circle 등)이 어디에 있는지" 확인. 시각적 기대와 일치하면 raw 사용. 불일치면 SVG 파일 자체가 raw orientation일 때만 CSS scaleY(-1) 적용.
+
+흔한 오류 패턴:
+- ❌ `top = Figma top + height` (시각적 상쇄 시도, 위치 틀림)
+- ❌ `top = Figma top + transform scaleY(-1)` (이중 flip, 방향 틀림)
+- ✅ `top = Figma top` 만, transform 없음 (SVG pre-flipped 가정)
+
+**v5-13: 페이지 content clearance는 pt + pb 모두 (F-013)**
+
+페이지 최상단 섹션의 content wrapper에 **pt와 pb 모두 명시**:
+- Header 아래 clearance: `pt-[top]` (기존 "Header fixed clearance" 규칙)
+- Footer 위 clearance: `pb-[bottom]` (**신규 — Footer clearance**)
+- 두 값 모두 Figma content wrapper (예: 134:3696) spec에서 추출
+- pt만 적용하고 pb 누락 = F-013 (ASYMMETRIC_PADDING 변형)
+
+예: `/contact` 는 `<div pt-[180px] pb-[200px]>`(Figma 134:3696). 기존엔 pt만 있어서 ContactForm과 Footer 사이 공백 0.
+
 **v5-11: Figma negative margin overlap 패턴 CSS 번역 (F-012)**
 
 Figma에서 **parent `pb-[N]` + last child `mb-[-N]`** 조합 발견 시 주의:

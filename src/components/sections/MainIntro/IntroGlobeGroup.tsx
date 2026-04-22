@@ -69,19 +69,21 @@ export function IntroGlobeGroup() {
         />
       </div>
 
-      {/* Connector: Vec7 -> 교육 (top-right curve) */}
+      {/* Connector: Vec7 -> 교육 — Figma 26:269 top=15.
+          SVG 파일 자체가 이미 post-flip(최종 시각 방향, 원이 좌상단)이라 CSS flip 불필요.
+          Figma의 -scale-y-100 wrapper = Figma 내부에서 SVG export 시 이미 적용된 상태. */}
       <div
         className={gridChild}
-        style={{ marginLeft: 278.3, marginTop: 124, width: 199.94, height: 109 }}
+        style={{ marginLeft: 278.3, marginTop: 15, width: 199.94, height: 109 }}
       >
         <img alt="" className="block max-w-none" src={connectorVec7}
           style={{ width: "calc(100% + 3.17%)", height: "calc(100% + 5.81%)", margin: "-0.92% 0 0 -2.67%" }} />
       </div>
 
-      {/* Connector: Vec6 -> 자격 (left curve) */}
+      {/* Connector: Vec6 -> 자격 — Figma 26:268 top=199. SVG pre-flipped. */}
       <div
         className={gridChild}
-        style={{ marginLeft: 197.93, marginTop: 236, width: 74.35, height: 37 }}
+        style={{ marginLeft: 197.93, marginTop: 199, width: 74.35, height: 37 }}
       >
         <img alt="" className="block max-w-none" src={connectorVec6}
           style={{ width: "calc(100% + 8.52%)", height: "calc(100% + 17.11%)", margin: "-2.7% 0 0 -7.17%" }} />

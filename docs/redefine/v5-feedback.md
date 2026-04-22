@@ -91,6 +91,31 @@
 - **실증 해결 1**: AboutMission/Values/Vision HatchedDivider를 `my-[56px]`로 통일 + 섹션 content의 `pt-[66px] pb-[71px]` 제거 (spacing 책임을 divider에 위임)
 - **실증 해결 2 (권장)**: section-implementer prompt에 "단계 2 plan 작성 시 모든 spacing 값을 design_context에서 추출한 numbered list로 명시" 추가
 
+### F-013 (I, S) — 페이지 content-Footer 사이 pb 누락
+- **섹션**: /contact route wrapper (다른 페이지도 가능성 높음)
+- **증상**: ContactForm 섹션 끝과 Footer 시작 사이 공백 없음. Figma는 200px
+- **원인**:
+  1. CLAUDE.md "Header fixed clearance" 가이드는 `pt-top` 값만 명시 (pt-180 /contact, pt-140 /news 등)
+  2. **Footer clearance 가이드 부재** — `pb-bottom` 관련 규칙 없음
+  3. Worker가 guideline 없는 부분은 **시각 추정 + 생략** 경향
+  4. 결과: pt만 구현, pb 누락 (F-011 ASYMMETRIC_PADDING 변형)
+- **v5 규칙 (V5-13 신규)**: 페이지 content wrapper의 **pt + pb 모두** 명시 강제
+  - CLAUDE.md "Header clearance"를 "**Page content clearance**"로 확장
+  - `pt-[top]` / `pb-[bottom]` 값을 Figma spec(134:3696 같은 content wrapper)에서 추출
+  - Footer 직전 섹션 항상 pb 확인 의무화
+- **실증 해결**: /contact route의 `<div pt-[180px]>` → `<div pt-[180px] pb-[200px]>` (Figma 134:3696 = pt-[180px] pb-[200px])
+- **예상 재발**: 다른 페이지(home/about/contest/certification/news/gallery)도 pb 누락 가능성. 전수 확인 필요
+
+### F-014 (I, S) — Figma `-scale-y-100` wrapper 번역 함정
+- **섹션**: MainIntro IntroGlobeGroup Vec7/Vec6 connector
+- **증상**: Figma의 `-scale-y-100 flex-none` wrapper 패턴을 번역할 때 위치/방향 오류. v4 worker는 top에 height 더하는 방식(top+h)으로 시각적 상쇄 시도 → 위치 틀림. CSS `scaleY(-1)` 추가 시 이중 flip → 방향 틀림
+- **원인**: Figma SVG export는 **최종 시각 결과를 pre-flipped 상태로 저장**. `-scale-y-100`은 design_context 코드에만 남고 SVG 파일에는 반영 X
+- **v5 규칙 (V5-12 신규)**: Figma `-scale-y-100` wrapper 발견 시
+  - SVG 파일이 이미 post-flip 상태일 가능성 높음 → **wrapper transform 무시**
+  - SVG 파일 + Figma top/left 값 **그대로** 사용. CSS transform 추가 금지
+  - 판별: SVG path 직접 읽어서 "원/시작점이 어디 있는지" 확인 → 시각 기대와 일치 = raw 사용
+- **실증 해결**: Vec7 `marginTop: 124 → 15`, `transform: scaleY(-1)` 제거 (SVG pre-flipped)
+
 ### F-012 (I, S) — Figma negative margin overlap 패턴 CSS 1:1 번역 오류 (누적 발생)
 - **섹션**: AboutMission 이미지 그룹
 - **증상**: Figma의 `pb-[87px]` + last child `mb-[-87px]` 패턴을 그대로 번역하면, CSS flex에서는 상쇄되지 않고 **87px 잔여 공간** 발생. 다음 섹션 divider의 `my-[56px]`와 **누적되어 87+56=143px의 예상 밖 공간** 생성
