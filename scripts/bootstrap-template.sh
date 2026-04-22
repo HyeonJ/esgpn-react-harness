@@ -98,15 +98,18 @@ echo
 # ---------- 유틸 ----------
 copy_dir() {
   # copy_dir <relative-src-dir> <relative-dst-dir>
-  # src-dir 전체 재귀 복사. dst 부모 디렉토리 자동 생성.
+  # src-dir 전체 재귀 복사. dst가 이미 존재해도 중첩 없이 내용 덮어쓰기.
   local src="$SRC_ROOT/$1"
   local dst="$TARGET_DIR/$2"
   if [ ! -e "$src" ]; then
     echo "  [skip] $1 (없음)"
     return
   fi
-  mkdir -p "$(dirname "$dst")"
-  cp -R "$src" "$dst"
+  mkdir -p "$dst"
+  # `src/.` 패턴: src의 내용을 dst에 복사 (dst 안에 src 이름 중첩 X).
+  # --force 재실행 시 dst가 존재해도 `cp -R src dst` 식으로 중첩 디렉토리가
+  # 생성되던 버그 회피.
+  cp -R "$src"/. "$dst"/
   echo "  [copy] $1 -> $2"
 }
 
