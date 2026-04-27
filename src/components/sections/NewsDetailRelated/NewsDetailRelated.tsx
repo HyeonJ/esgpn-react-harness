@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import dotSvg from "@/assets/news-featured/dot.svg";
 import { RELATED_NEWS, type RelatedNewsItem } from "./data";
 
@@ -67,6 +68,10 @@ interface RelatedItemProps {
 
 function RelatedItem({ item }: RelatedItemProps) {
   return (
+    <Link
+      to={`/news/${encodeURIComponent(item.id)}`}
+      className="block w-full text-inherit no-underline"
+    >
     <article
       className="flex w-full items-center gap-5 border-b py-6"
       style={{ borderColor: "var(--color-gray-300)" }}
@@ -142,5 +147,6 @@ function RelatedItem({ item }: RelatedItemProps) {
         />
       </div>
     </article>
+    </Link>
   );
 }

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import type { FeaturedNewsItem } from "./data";
 import dotSvg from "@/assets/news-featured/dot.svg";
 
@@ -18,6 +19,10 @@ interface NewsFeaturedCardProps {
  */
 export function NewsFeaturedCard({ item }: NewsFeaturedCardProps) {
   return (
+    <Link
+      to={`/news/${encodeURIComponent(item.id)}`}
+      className="block text-inherit no-underline"
+    >
     <article className="flex flex-col gap-6" data-node-id={item.id}>
       <div className="aspect-[456/280] overflow-hidden rounded-2xl">
         <img
@@ -85,5 +90,6 @@ export function NewsFeaturedCard({ item }: NewsFeaturedCardProps) {
         </div>
       </div>
     </article>
+    </Link>
   );
 }

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import type { NewsItem } from "./data";
 import dotSvg from "@/assets/main-news/dot.svg";
 
@@ -11,6 +12,10 @@ interface NewsCardProps {
  */
 export function NewsCard({ item }: NewsCardProps) {
   return (
+    <Link
+      to={`/news/${encodeURIComponent(item.id)}`}
+      className="block w-full text-inherit no-underline"
+    >
     <article
       className="flex gap-[var(--spacing-5)] items-center py-[var(--spacing-6)] border-b border-[var(--color-gray-300)] w-full"
       data-node-id={item.id}
@@ -56,5 +61,6 @@ export function NewsCard({ item }: NewsCardProps) {
         />
       </div>
     </article>
+    </Link>
   );
 }
