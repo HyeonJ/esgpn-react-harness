@@ -24,28 +24,5 @@ vite.config.d.ts
 .env.local
 .env.*.local
 
-# Playwright
-playwright-report/
-test-results/
-tests/visual/captures/
-tests/visual/diffs/
-
-# 섹션 육안 검증용 임시 캡처 (디버깅 전용, 커밋 제외)
-dev-captures/
-
-# Harness runtime artifacts — 산출물은 커밋 (research/font-calibration 스크린샷 포함)
-# figma-screenshots/ 는 Phase 2/3 베이스라인, 커밋함
-
-# v3: G1 회차 history (로컬 측정 기록)
-tests/visual/history/
-
-# v4: 워커 1회성 임시 산출물
-.tmp/
+# Claude
 .claude/settings.local.json
-src/assets/*/raw/
-tests/visual/capture-only/
-tests/visual/capture-*.mjs
-tests/visual/measure-*.mjs
-tests/visual/measure-*.ts
-tests/visual/quality/
-mcp-error.log

@@ -49,16 +49,7 @@ export default [
     ignores: [
       "dist/**",
       "node_modules/**",
-      "playwright-report/**",
-      "tests/visual/captures/**",
-      "tests/visual/diffs/**",
-      "tests/visual/self-test/**",
-      "tests/visual/quality/**",
-      "research/**",
-      "figma-screenshots/**",
       "public/**",
-      "vite.config.js",
-      "scripts/**",
     ],
   },
 ];
